@@ -15,9 +15,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from eventmakerapp import views
+from django.urls import include
 
 urlpatterns = [
-    path('', views.index, name-"index"),
-    path('eventmaker/',include('eventmaker.urls')),
+    path('', views.index, name="index"),
+    path('eventmaker/',include('eventmakerapp.urls')),
     path('admin/', admin.site.urls),
 ]
