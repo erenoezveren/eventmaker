@@ -17,5 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 urlpatterns = [
+    path('', views.index, name-"index"),
+    path('eventmaker/',include('eventmaker.urls')),
     path('admin/', admin.site.urls),
 ]
