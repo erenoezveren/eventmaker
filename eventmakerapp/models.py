@@ -1,18 +1,27 @@
 from django.db import models
 
-class Business(models.Model):
+class Account(AbstractUser):
+    is_business = models.BooleanField()
     name = models.CharField(max_length=64, null=False)
-    #Password:
     email = models.EmailField(max_length=64)
     description = models.TextField()
     picture = models.ImageField()
+
+    def __str__(self):
+        return self.name
+
+class Business(models.Model):
+    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
     website = models.URLField(max_length=64)
 
     class Meta:
         verbose_name_plural = 'Businesses'
 
-    def __str__(self):
-        return self.name
+class User(models.Model):
+    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
+    likes = models.ManyToManyField(Event, related_name="likes")
+    joins = models.ManyToManyField(Event, related_name="joins")
+    comments = models.ManyToManyField(Event, related_name="comments", through='Comment')
 
 class Event(models.Model):
     title = models.CharField(max_length=32, null=False)
@@ -27,20 +36,6 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class User(models.Model):
-    username = models.CharField(max_length=64, null=False)
-    # Password:
-    email = models.EmailField(max_length=64)
-    bio = models.TextField()
-    picture = models.ImageField()
-    likes = models.ManyToManyField(Event, related_name="likes")
-    joins = models.ManyToManyField(Event, related_name="joins")
-    comments = models.ManyToManyField(Event, related_name="comments", through='Comment')
-
-    def __str__(self):
-        return self.name
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
