@@ -32,9 +32,9 @@ class User(models.Model):
     email = models.EmailField(max_length=64)
     bio = models.TextField()
     picture = models.ImageField()
-    likes = models.ManyToManyField(Event)
-    joins = models.ManyToManyField(Event)
-    comments = models.ManyToManyField(Event, through='Comment')
+    likes = models.ManyToManyField(Event, related_name="likes")
+    joins = models.ManyToManyField(Event, related_name="joins")
+    comments = models.ManyToManyField(Event, related_name="comments", through='Comment')
 
     def __str__(self):
         return self.name
