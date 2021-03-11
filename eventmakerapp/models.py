@@ -8,6 +8,9 @@ class Business(models.Model):
     picture = models.ImageField()
     website = models.URLField(max_length=64)
 
+    class Meta:
+        verbose_name_plural = 'Businesses'
+
     def __str__(self):
         return self.name
 
