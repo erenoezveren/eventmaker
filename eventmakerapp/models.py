@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-class Account(AbstractUser):
+class Account(models.Model):
     is_business = models.BooleanField()
     name = models.CharField(max_length=64, null=False)
     email = models.EmailField(max_length=64)
@@ -12,7 +12,7 @@ class Account(AbstractUser):
         return self.name
 
 class Business(models.Model):
-    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
+    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True, default="")
     website = models.URLField(max_length=64)
 
     class Meta:
@@ -34,7 +34,7 @@ class Event(models.Model):
         return self.title
 
 class User(models.Model):
-    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
+    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True, default="")
     likes = models.ManyToManyField(Event, related_name="likes")
     joins = models.ManyToManyField(Event, related_name="joins")
     comments = models.ManyToManyField(Event, related_name="comments", through='Comment')
