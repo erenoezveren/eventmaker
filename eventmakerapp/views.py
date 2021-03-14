@@ -14,3 +14,7 @@ def about(request):
     
     response = HttpResponse("Test About Page") 
     return response
+    
+def register(request):
+
+    return

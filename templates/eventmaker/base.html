@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+
+<html>
+	<head lang = "en">
+		<meta charset="UTF-8" />
+	</head>
+	
+			<a href="{% url 'eventmakerapp:index' %}">Eventmaker</a>
+			
+			<input type="text" placeholder="Search..">
+			<a href="{% url 'eventmakerapp:about' %}">Log Out</a>
+			<a href="{% url 'eventmakerapp:about' %}">Account</a>
+		<hr />
+		
+	
+	<body>
+		<div>
+		{% block body_block %}
+		
+		{% endblock %}
+			
+		</div>
+	
+	</body>
+		<hr />
+		<div>							
+				<a href="{% url 'eventmakerapp:about' %}">About</a>
+				<a href="{% url 'eventmakerapp:about' %}">Contact Us</a>
+				<a href="{% url 'eventmakerapp:about' %}">FAQ</a>				
+		</div>
+		
+</html>

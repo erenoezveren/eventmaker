@@ -18,11 +18,6 @@ class Business(models.Model):
     class Meta:
         verbose_name_plural = 'Businesses'
 
-class User(models.Model):
-    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
-    likes = models.ManyToManyField(Event, related_name="likes")
-    joins = models.ManyToManyField(Event, related_name="joins")
-    comments = models.ManyToManyField(Event, related_name="comments", through='Comment')
 
 class Event(models.Model):
     title = models.CharField(max_length=32, null=False)
@@ -37,6 +32,14 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
+
+class User(models.Model):
+    account = models.OneToOneField(Account, on_delete=models.CASCADE, primary_key=True)
+    likes = models.ManyToManyField(Event, related_name="likes")
+    joins = models.ManyToManyField(Event, related_name="joins")
+    comments = models.ManyToManyField(Event, related_name="comments", through='Comment')
+
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
