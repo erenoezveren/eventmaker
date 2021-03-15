@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+{% extends "eventmaker/base.html" %}
+{% load staticfiles %} 
+
+	{% block body_block %}
+		{% if event %}
+			<h2>{{ event.title }}</h2>
+			<p>{{ event.location }} - {{ event.time }} - £{{ event.price }} </p>
+			<h4>About the Event -</h4>
+			<p> Descrtion from database</p>
+		{% else %}
+			<strong>Event Does not exist</strong>
+		{% endif %}
+		
+		{% if comments %}
+			{% for comment in comments %}
+				<p>{{ comment.data }}</p>
+			{% endfor %}
+			
+		{% else %}
+			<strong>No Comments</strong>
+		
+		{% endif %}
+	
+	
+	{% endblock %}
