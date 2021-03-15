@@ -138,5 +138,3 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'eventmaker:index'
 LOGIN_URL = 'auth_login'
 
-
-AUTH_USER_MODEL = "eventmakerapp.User"

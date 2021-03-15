@@ -15,7 +15,7 @@ from eventmakerapp.forms import EventForm
 def index(request):
     #Home page
     
-    Popular_Events = Event.objects.order_by("-likes")[:5]
+    Popular_Events = Event.objects.order_by("-amount_likes")[:5]
     More_Events = Event.objects.order_by("-title")[:5] #can be changed to other form of sorting 
     Nearby_Events = Event.objects.extra(where=["location='Glasgow'"])[:5] #Need to get users location 
     
@@ -61,40 +61,14 @@ def user_profile_view(request):
   if request.method == 'POST':
 		
     user_form = UserForm(request.POST, prefix='UF')
-    profile_form = UserProfileForm(request.POST, prefix='PF')
 		
-    if user_form.is_valid() and profile_form.is_valid():
+    if user_form.is_valid():
 		    user = user_form.save(commit=False)
 		    user.save()
-		    user.user_profile.save()
     else:
 	    user_form = UserForm(prefix='UF')
-	    profile_form = UserProfileForm(prefix='PF')
 		
     return render(request, 'eventmaker/user_profile.html',{
 			'user_form': user_form,
-			'profile_form': profile_form,
 		})
         
-def business_profile_view(request):
-	
-  if request.method == 'POST':
-		
-    user_form = UserForm(request.POST, prefix='UF')
-    profile_form = BusinessProfileForm(request.POST, prefix='PF')
-		
-    if user_form.is_valid() and profile_form.is_valid():
-        user = user_form.save(commit=False)
-        user.save()
-                
-        user.business_profile.website = profile_form.cleaned_data.get('website')
-        user.business_profile.save()
-        
-    else:
-        user_form = UserForm(prefix='UF')
-        profile_form = BusinessProfileForm(prefix='PF')
-    
-    return render(request, 'eventmaker/business_profile.html',{
-        'user_form': user_form,
-        'profile_form': profile_form,
-		})
