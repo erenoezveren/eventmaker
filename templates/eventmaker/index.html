@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+
+{% extends "eventmaker/base.html" %}
+{% load staticfiles %} 
+
+	{% block body_block %}
+		<h3>Popular Events</h3>
+		{% if popular %}
+			{% for event in popular %}
+				{{ event.title }}
+			{% endfor %}
+		{% else %}
+			<strong>There are no liked events</strong>
+		{% endif %}
+		
+	{% endblock %}
+
+ 

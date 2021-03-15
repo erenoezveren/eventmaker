@@ -20,6 +20,7 @@ class Business(models.Model):
 
 
 class Event(models.Model):
+
     title = models.CharField(max_length=32, null=False)
     location = models.CharField(max_length=128, null=False)
     picture = models.ImageField()
