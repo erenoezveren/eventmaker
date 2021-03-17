@@ -1,15 +1,10 @@
-
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib.auth import logout
-
 from eventmakerapp.models import Event
 from eventmakerapp.models import Comment
-from eventmakerapp.forms import EventForm
 
 # Create your views here.
 def index(request):
@@ -52,23 +47,4 @@ def show_event(request, event_name):
     
     return render(request, 'eventmaker/event.html', context=context_dict)
 
-def register(request):
-
-    return
-    
-def user_profile_view(request):
-	
-  if request.method == 'POST':
-		
-    user_form = UserForm(request.POST, prefix='UF')
-		
-    if user_form.is_valid():
-		    user = user_form.save(commit=False)
-		    user.save()
-    else:
-	    user_form = UserForm(prefix='UF')
-		
-    return render(request, 'eventmaker/user_profile.html',{
-			'user_form': user_form,
-		})
         

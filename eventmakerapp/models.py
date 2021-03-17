@@ -1,7 +1,5 @@
 from django.db import models
 
-
-
 class User(models.Model):
     is_business = models.BooleanField(default=False)
     username = models.CharField(max_length=64)
@@ -12,7 +10,6 @@ class User(models.Model):
 
     def __str__(self):
         return self.name
-
 
 class Event(models.Model):
     title = models.CharField(max_length=32)
@@ -31,25 +28,6 @@ class Event(models.Model):
 
     def __str__(self):
         return self.title
-
-
-    
-    
-#TODO update registration
-#def create_user_profile(sender, instance, created, **kwargs):
-#    print('****', created)
-#    if instance.is_business:
-#        BusinessProfile.objects.get_or_create(user = instance)
-#    else:
-#       UserProfile.objects.get_or_create(user = instance)
-        
-#def save_user_profile(sender, instance, **kwargs):
-#	print('_-----')	
-#	if instance.is_business:
-#		instance.business_profile.save()
-#	else:
-#		UserProfile.objects.get_or_create(user = instance)
-
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

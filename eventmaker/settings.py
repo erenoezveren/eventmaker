@@ -135,6 +135,6 @@ STATIC_URL = '/static/'
 
 REGISTRATION_OPEN = True
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = 'eventmaker:index'
+LOGIN_REDIRECT_URL = 'eventmakerapp:index'
 LOGIN_URL = 'auth_login'
 
