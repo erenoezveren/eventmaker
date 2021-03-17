@@ -1,5 +1,4 @@
 from django.db import models
-from location_field.models.plain import PlainLocationField
 
 class User(models.Model):
     is_business = models.BooleanField(default=False)
@@ -10,7 +9,7 @@ class User(models.Model):
     website = models.URLField(max_length=64, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.username
 
 class Event(models.Model):
     title = models.CharField(max_length=32)
@@ -37,7 +36,3 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.data
-
-class Place(models.Model):
-    entry = models.CharField(max_length=255)
-    location = PlainLocationField(based_fields=['entry'], default='55.8719,-4.2883')

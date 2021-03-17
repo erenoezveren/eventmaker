@@ -9,16 +9,16 @@ from eventmakerapp.models import Comment
 # Create your views here.
 def index(request):
     #Home page
-    
-    Popular_Events = Event.objects.order_by("-amount_likes")[:5]
-    More_Events = Event.objects.order_by("-title")[:5] #can be changed to other form of sorting 
-    Nearby_Events = Event.objects.extra(where=["location='Glasgow'"])[:5] #Need to get users location 
-    
     context_dict = {}
+     
+    Popular_Events = Event.objects.order_by("-amount_likes")[:5]  
+    Nearby_Events = Event.objects.extra(where=["location='Glasgow'"])[:5] #Need to get users location 
+    More_Events = Event.objects.order_by("-title")[:5] #can be changed to other form of sorting 
+   
     context_dict["popular"] = Popular_Events
-    context_dict["more"] = More_Events
     context_dict["near"] = Nearby_Events
-    
+    context_dict["more"] = More_Events
+     
     response = render(request, 'eventmaker/index.html',context=context_dict)
     return response
     
@@ -46,5 +46,33 @@ def show_event(request, event_name):
         context_dict["comments"] = None
     
     return render(request, 'eventmaker/event.html', context=context_dict)
+    
+def eventsearch(request):
+
+    context_dict = {}
+    #get value of search box from the request and seach box name
+    query = request.GET.get('searchEvent')
+    
+    try:
+        #genral search in database for similar titles
+        eventObj = Event.objects.filter(title__contains = query)
+        context_dict["searches"] = eventObj
+        context_dict["SearchValue"] = query
+        
+    except Event.DoesNotExist:
+        context_dict["searches"] = None
+        context_dict["SearchValue"] = None
+
+    return render(request, 'eventmaker/eventsearch.html', context=context_dict)
+    
+
+
+
+
+
+
+
+
+
 
         
