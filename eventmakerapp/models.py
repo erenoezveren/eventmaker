@@ -9,7 +9,7 @@ class User(models.Model):
     website = models.URLField(max_length=64, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.username
 
 class Event(models.Model):
     title = models.CharField(max_length=32)

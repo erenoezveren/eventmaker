@@ -14,8 +14,9 @@
 		{% endif %}
 		
 		{% if comments %}
+			<h4>Comments -</h4>
 			{% for comment in comments %}
-				<p>{{ comment.data }}</p>
+				<p>{{ comment.user }} - {{ comment.data }}</p><! -- link to users profile  -->
 			{% endfor %}
 			
 		{% else %}

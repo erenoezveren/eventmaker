@@ -18,7 +18,7 @@
 		<h3>Nearby Events</h3>
 		{% if near %}
 			{% for event in near %}
-				{{ event.title }}
+				<a href="{% url 'eventmakerapp:show_event' event.title %}">{{ event.title }}</a>
 			{% endfor %}
 		{% else %}
 			<strong>There are no near events</strong>
@@ -28,7 +28,7 @@
 		<h3>More Events</h3>
 		{% if more %}
 			{% for event in more %}
-				{{ event.title }}
+				<a href="{% url 'eventmakerapp:show_event' event.title %}">{{ event.title }}</a>
 			{% endfor %}
 		{% else %}
 			<strong>There are no more events</strong>
