@@ -5,8 +5,15 @@
 
 	{% block body_block %}
 		
-		<form method="get" action="{% url 'eventmakerapp:show_event' '{{ event.title }}'  %}">					
-			<input type="text" placeholder="Search.." name="searchEvent">
+		<a href="{% url 'eventmakerapp:show_event' event.title %}">Return to - {{ event.title }}</a>
+		<form method="post">	
+			{% csrf_token %}
+				{%for field in form.visible_fields %}
+					{{ field.errors }}
+					{{ feild.help_text }}
+					{{ field }}
+				{% endfor %}
+			<input type="submit" value="OK">
 		</form>	
 	
 	{% endblock %}
