@@ -13,15 +13,25 @@
 			<strong>Event Does not exist</strong>
 		{% endif %}
 		
-		{% if comments %}
-			<h4>Comments -</h4>
+		<h4>Comments -</h4>
+		
+		<a href="{% url 'eventmakerapp:makecomment' event.title %}">Leave Comment</a>
+		
+		{% if comments %}	
 			{% for comment in comments %}
-				<p>{{ comment.user }} - {{ comment.data }}</p><! -- link to users profile  -->
+				<p> - {{ comment.data }}</p><! -- link to users profile  -->
 			{% endfor %}
 			
 		{% else %}
 			<strong>No Comments</strong>
+		{% endif %}
 		
+		{% if TEST %}
+			{% for t in TEST %}
+			
+				t
+				
+			{% endfor %}
 		{% endif %}
 	
 	

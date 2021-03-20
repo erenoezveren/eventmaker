@@ -30,8 +30,8 @@ class Event(models.Model):
         return self.title
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.TextField()
 
     def __str__(self):

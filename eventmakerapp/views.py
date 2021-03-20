@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import logout
+
 from eventmakerapp.models import Event
 from eventmakerapp.models import Comment
+
+from eventmakerapp.forms import CommentForm
 
 # Create your views here.
 def index(request):
@@ -33,7 +36,8 @@ def about(request):
     
 def show_event(request, event_name):    
     context_dict = {}
-    
+     
+    #get comments
     try:
         eventObj = Event.objects.get(title=event_name)
         commentsObj = Comment.objects.filter(event = eventObj)
@@ -44,7 +48,7 @@ def show_event(request, event_name):
     except Event.DoesNotExist:
         context_dict["title"] = None 
         context_dict["comments"] = None
-    
+      
     return render(request, 'eventmaker/event.html', context=context_dict)
     
 def eventsearch(request):
@@ -65,8 +69,21 @@ def eventsearch(request):
 
     return render(request, 'eventmaker/eventsearch.html', context=context_dict)
     
-
-
+def makecomment(request, event_name):
+    context_dict = {}
+    
+    try:
+        eventObj = Event.objects.get(title=event_name)
+        commentsObj = Comment.objects.filter(event = eventObj)
+        
+        context_dict["event"] = eventObj 
+        context_dict["comments"] = commentsObj
+        
+    except Event.DoesNotExist:
+        context_dict["title"] = None 
+        context_dict["comments"] = None
+    
+    return render(request, 'eventmaker/makecomment.html', context=context_dict)
 
 
 
