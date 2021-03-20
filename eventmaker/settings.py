@@ -17,6 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+LOCATION_FIELD_DIR = os.path.join(BASE_DIR, 'location_field')
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'eventmakerapp',
     'registration',
+    'location_field.apps.DefaultConfig',
 ]
 
 MIDDLEWARE = [
@@ -141,3 +143,12 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'eventmakerapp:index'
 LOGIN_URL = 'auth_login'
 
+# Locations
+
+
+
+LOCATION_FIELD = {
+    'map.provider': 'openstreetmap',
+    'search.provider': 'nominatim',
+    'provider.openstreetmap.max_zoom': 18,
+}
