@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'eventmakerapp',
     'registration',
+    'location_field.apps.DefaultConfig',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,13 @@ REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = 'eventmakerapp:index'
 LOGIN_URL = 'auth_login'
 
+# Locations
+
+LOCATION_FIELD = {
+    'map.provider': 'google',
+    'search.provider': 'google',
+    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
+    'provider.google.api_key': '',
+    'provider.google.api_libraries': '',
+    'provider.google.map.type': 'ROADMAP',
+}
