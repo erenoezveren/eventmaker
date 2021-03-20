@@ -5,38 +5,68 @@
 <html>
 	<head lang = "en">
 		<meta charset="UTF-8" />	
-			<div>
-				<a href="{% url 'eventmakerapp:index' %}">Eventmaker</a>
-
-				<form method="get" action="{% url 'eventmakerapp:eventsearch'  %}">					
-					<input type="text" placeholder="Search.." name="searchEvent">
-				</form>	
-				
-				{% if user.is_authenticated %}
-					<a href="{% url 'auth_logout' %}?next={%  url 'eventmakerapp:index' %}">Log Out</a>
-					<a href="{% url 'eventmakerapp:about' %}">Create Event</a>   <! -- Replace with Create Event url -->
-					<a href="{% url 'eventmakerapp:about' %}">Account</a>
-				{% else %}
-					<a href="{% url 'registration_register' %}">Sign Up</a>
-					<a href="{% url 'auth_login' %}">Login</a>
-				{% endif %}
-			</div>
+		<title>Eventmaker - Join and Create Events</title>
+        <link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/base.css' %}">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
     </head>
-	<hr />
 		
 	<body>
+		<nav>
+			<ul>
+				<li class="logo"><a href="{% url 'eventmakerapp:index' %}">eventmaker</a></li>
+				<div class="items">
+					{% if user.is_authenticated %}
+					<li>
+						<a href="{% url 'auth_logout' %}?next={%  url 'eventmakerapp:index' %}">Log Out</a>
+					</li>
+
+					<li>
+						<a href='#'>Create Event</a>
+					</li>
+
+					<li>
+						<a href='#'>Account</a>
+					</li>
+					{% else %}
+					<li>
+						<a href="{% url 'registration_register' %}">Sign Up</a>
+					</li>
+
+					<li>
+						<a href="{% url 'auth_login' %}">Login</a>
+					</li>
+					{% endif %}						
+				</div>
+				<li class="search-icon">
+					<form method="get" action="{% url 'eventmakerapp:eventsearch'  %}">					
+						<input type="text" placeholder="Search for events..." name="searchEvent">
+					</form>	
+					<label class="icon">
+						<span class="fas fa-search"></span>
+					</label>
+				</li>
+			</ul>
+		</nav>
+    <hr />
+
 		<div>
 		{% block body_block %}
 		{% endblock %}
 		</div>
-		<hr />
-		<div>							
-				<a href="{% url 'eventmakerapp:about' %}">About</a>
-				<a href="{% url 'eventmakerapp:about' %}">Contact Us</a>
-				<a href="{% url 'eventmakerapp:about' %}">FAQ</a>		
-				
-		</div>
-		
-
+	
+		<footer>
+				<ul>
+						<li>
+							<a href="{% url 'eventmakerapp:about' %}">About</a>
+						</li>
+						<li>
+							<a href="{% url 'eventmakerapp:about' %}">Contact Us</a>
+						</li>
+						<li>
+							<a href="{% url 'eventmakerapp:about' %}">FAQ</a>		
+						</li>
+				</ul>
+		</footer>
 	</body>
 </html>
