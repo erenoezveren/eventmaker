@@ -3,9 +3,11 @@ from django.http import HttpResponse
 from django.urls import reverse
 from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 
 from eventmakerapp.models import Event
 from eventmakerapp.models import Comment
+from eventmakerapp.models import User
 
 from eventmakerapp.forms import CommentForm
 
@@ -69,19 +71,45 @@ def eventsearch(request):
 
     return render(request, 'eventmaker/eventsearch.html', context=context_dict)
     
+@login_required 
 def makecomment(request, event_name):
     context_dict = {}
+    
+    print(request.user)
     
     try:
         eventObj = Event.objects.get(title=event_name)
         commentsObj = Comment.objects.filter(event = eventObj)
+        userobj = User.objects.get(id=request.user.id) #User account is not in the database 
+                                                        #so cant get the correct one
         
         context_dict["event"] = eventObj 
         context_dict["comments"] = commentsObj
         
     except Event.DoesNotExist:
-        context_dict["title"] = None 
+        context_dict["event"] = None 
         context_dict["comments"] = None
+        
+     
+    comment_form = CommentForm()
+    newComment = None
+    
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        
+        if comment_form.is_valid():
+            newComment = comment_form.save(commit=False)
+            newComment.event = eventObj
+            newComment.user = userobj
+            newComment.save()
+            
+            
+            return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))
+            
+        else:
+            print(comment_form.is_valid())
+    
+    context_dict['form'] = comment_form
     
     return render(request, 'eventmaker/makecomment.html', context=context_dict)
 

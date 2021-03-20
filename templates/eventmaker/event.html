@@ -19,7 +19,7 @@
 		
 		{% if comments %}	
 			{% for comment in comments %}
-				<p> - {{ comment.data }}</p><! -- link to users profile  -->
+				<p>{{ comment.user.username }} - {{ comment.data }}</p><! -- link to users profile  -->
 			{% endfor %}
 			
 		{% else %}
