@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+
+{% extends "eventmaker/base.html" %}
+{% load staticfiles %} 
+
+	{% block body_block %}
+		
+		<form method="get" action="{% url 'eventmakerapp:show_event' '{{ event.title }}'  %}">					
+			<input type="text" placeholder="Search.." name="searchEvent">
+		</form>	
+	
+	{% endblock %}

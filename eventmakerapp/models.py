@@ -10,7 +10,7 @@ class User(models.Model):
     website = models.URLField(max_length=64, blank=True)
 
     def __str__(self):
-        return self.name
+        return self.username
 
 class Event(models.Model):
     title = models.CharField(max_length=32)
@@ -31,12 +31,12 @@ class Event(models.Model):
         return self.title
 
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     data = models.TextField()
 
     def __str__(self):
-        return self.data
+      return self.data
 
 class Place(models.Model):
     entry = models.CharField(max_length=255)

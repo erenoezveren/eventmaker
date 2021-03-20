@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+
+{% extends "eventmaker/base.html" %}
+{% load staticfiles %} 
+
+	{% block body_block %}
+		{% if searches %}
+			{% for search in searches %}
+				<a href="{% url 'eventmakerapp:show_event' search.title %}">{{ search.title }}</a>
+			{% endfor %}
+		{% else %}
+			<p>There are no results for your search - {{ SearchValue }}</p>
+		{% endif %}
+	
+
+	{% endblock %}
+
+
+ 
