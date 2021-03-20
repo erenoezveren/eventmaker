@@ -17,6 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 MEDIA_DIR = os.path.join(BASE_DIR, 'media')
+LOCATION_FIELD_DIR = os.path.join(BASE_DIR, 'location_field')
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
@@ -141,11 +142,10 @@ LOGIN_URL = 'auth_login'
 
 # Locations
 
+
+
 LOCATION_FIELD = {
-    'map.provider': 'google',
-    'search.provider': 'google',
-    'provider.google.api': '//maps.google.com/maps/api/js?sensor=false',
-    'provider.google.api_key': '',
-    'provider.google.api_libraries': '',
-    'provider.google.map.type': 'ROADMAP',
+    'map.provider': 'openstreetmap',
+    'search.provider': 'nominatim',
+    'provider.openstreetmap.max_zoom': 18,
 }

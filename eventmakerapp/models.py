@@ -39,5 +39,5 @@ class Comment(models.Model):
         return self.data
 
 class Place(models.Model):
-    city = models.CharField(max_length=255)
-    location = PlainLocationField(based_fields=['city'], zoom=7)
+    entry = models.CharField(max_length=255)
+    location = PlainLocationField(based_fields=['entry'], default='55.8719,-4.2883')
