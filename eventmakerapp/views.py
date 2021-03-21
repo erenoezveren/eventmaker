@@ -146,16 +146,18 @@ def checkLocation(request):
             coordinates = form.cleaned_data.get('location')
             x,y = coordinates.split(",")
             #still working on
-            distances = {}
+            distances = []
             for event in Event.objects.all():
                 coordinatesEvent = event.location
-                print(coordinatesEvent)
-                xE,yE = coordinates.split(",")
-                distances[event] = math.sqrt(((x - xE) ** 2) + (y - yE) ** 2)
+
+                xE,yE = coordinatesEvent.split(",")
+                distances.append((event, math.sqrt(((float(x) - float(xE)) ** 2) + (float(y) - float(yE)) ** 2)))
+
+            distances.sort(key=lambda elem: elem[1])
 
 
             Popular_Events = Event.objects.order_by("-amount_likes")[:5]
-            Nearby_Events = Event.objects.extra(where=["location='Glasgow'"])[:5]  # Need to get users location
+            Nearby_Events = [elem[0] for elem in distances][:5]
             More_Events = Event.objects.order_by("-title")[:5]  # can be changed to other form of sorting
 
             context_dict["popular"] = Popular_Events
