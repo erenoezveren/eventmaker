@@ -3,5 +3,33 @@
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
 
+{% block title_block %}
+	About Eventmaker
+{% endblock %}
 
+{% block body_block %}
+	<h1>About Eventmaker</h1>
+	<div>
+		Eventmaker is a web application that detects events near you and allows you to join, like and comment on them. <br />
+	</div>
+	<h2>Contact Us</h2>
+		<div>
+			Alex Tonca,<br>
+			Eren Oezveren,<br>
+			Callum Ormond,<br>
+			Areeb Khan,<br>
+			University of Glasgow`
+
+	</div>
+	<h2>FAQ</h2>
+	<div>
+		<b>How do I register for an account?</b></br>
+		Click the sign up button and enter a username, email and password following the instructions provided</br>
+		<b>How do I join an event?</b></br>
+		Sign up for an account and navigate to the event page. Then press the join button.</br>
+	</div>
+
+		<img src="{{ MEDIA_URL }}party.jpeg" width="800" height="550" alt="Picture of one of the events listed." /> 
+	</div>
+{% endblock %}
  
