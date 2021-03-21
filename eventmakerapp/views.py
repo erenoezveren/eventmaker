@@ -115,10 +115,21 @@ def makecomment(request, event_name):
 
 
 @login_required
-def user(request, user_name):
+def pickLocation(request, user_name):
+    form = Address()
+
+    if request.method == 'POST':
+        form = Address(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+            return redirect('/eventmaker/')
+        else:
+            print(form.errors)
     context_dict = {}
-    context_dict["form"] = Address
-    return render(request, 'eventmaker/user.html', context=context_dict)
+    context_dict["form"] = form
+    context_dict["user_name"] = user_name
+    return render(request, 'eventmaker/pickLocation.html', context=context_dict)
 
 
 
