@@ -3,6 +3,11 @@
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
 
+{% block head_block %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{form.media}}
+{% endblock %}
+
 	{% block body_block %}
 	
 		<h3>Popular Events</h3>
@@ -16,6 +21,15 @@
 		
 		
 		<h3>Nearby Events</h3>
+        <form id="pickLocation" method="post" action="/eventmaker/checkLocation">
+            {% csrf_token %}
+            {% for field in form.visible_fields %}
+                {{ field.errors }}
+                {{ field.help_text }}
+                {{ field }}
+            {% endfor %}
+            <input type="submit" name="submit" value="Pick Location"  />
+        </form>
 		{% if near %}
 			{% for event in near %}
 				<a href="{% url 'eventmakerapp:show_event' event.title %}">{{ event.title }}</a>

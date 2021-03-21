@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block body_block %}
-    <form id="pickLocation" method="post" action="/eventmaker/user/{{ user_name }}/pickLocation">
+    <form id="pickLocation" method="post" action="/eventmaker/user/{{ user_name }}/pickLocation/">
         {% csrf_token %}
         {% for field in form.visible_fields %}
             {{ field.errors }}
