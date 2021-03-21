@@ -40,4 +40,4 @@ class Comment(models.Model):
 
 class Place(models.Model):
     entry = models.CharField(max_length=255)
-    location = PlainLocationField(based_fields=['entry'], default='55.8719,-4.2883')
+    location = PlainLocationField(based_fields=['entry'], zoom=7)

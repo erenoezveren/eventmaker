@@ -1,5 +1,6 @@
 from django import forms
 from eventmakerapp.models import Comment
+from location_field.forms.plain import PlainLocationField
 
 
 class CommentForm(forms.ModelForm):
@@ -10,3 +11,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         exclude = ('user', 'event')
 
+class Address(forms.Form):
+    entry = forms.CharField
+    location = PlainLocationField(based_fields=['entry'],
+                                  initial='55.8719,-4.2883')

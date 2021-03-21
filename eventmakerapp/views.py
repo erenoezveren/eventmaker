@@ -9,13 +9,13 @@ from eventmakerapp.models import Event
 from eventmakerapp.models import Comment
 from eventmakerapp.models import User
 
-from eventmakerapp.forms import CommentForm
+from eventmakerapp.forms import CommentForm, Address
 
 # Create your views here.
 def index(request):
     #Home page
     context_dict = {}
-     
+
     Popular_Events = Event.objects.order_by("-amount_likes")[:5]  
     Nearby_Events = Event.objects.extra(where=["location='Glasgow'"])[:5] #Need to get users location 
     More_Events = Event.objects.order_by("-title")[:5] #can be changed to other form of sorting 
@@ -114,8 +114,11 @@ def makecomment(request, event_name):
     return render(request, 'eventmaker/makecomment.html', context=context_dict)
 
 
-
-
+@login_required
+def user(request, user_name):
+    context_dict = {}
+    context_dict["form"] = Address
+    return render(request, 'eventmaker/user.html', context=context_dict)
 
 
 
