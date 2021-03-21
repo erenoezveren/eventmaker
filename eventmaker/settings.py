@@ -46,7 +46,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'eventmakerapp',
-    'registration',
     'location_field.apps.DefaultConfig',
 ]
 
@@ -137,13 +136,6 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, "static"),
 ]
-
-# Registration
-
-REGISTRATION_OPEN = True
-REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = 'eventmakerapp:index'
-LOGIN_URL = 'auth_login'
 
 # Locations
 

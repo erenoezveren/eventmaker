@@ -20,7 +20,7 @@
 				<div class="items">
 					{% if user.is_authenticated %}
 					<li>
-						<a href="{% url 'auth_logout' %}?next={%  url 'eventmakerapp:index' %}">Log Out</a>
+						<a href="{% url 'eventmakerapp:logout' %}?next={%  url 'eventmakerapp:index' %}">Log Out</a>
 					</li>
 
 					<li>
@@ -32,11 +32,11 @@
 					</li>
 					{% else %}
 					<li>
-						<a href="{% url 'registration_register' %}">Sign Up</a>
+						<a href="{% url 'eventmakerapp:register' %}">Sign Up</a>
 					</li>
 
 					<li>
-						<a href="{% url 'auth_login' %}">Login</a>
+						<a href="{% url 'eventmakerapp:login' %}">Login</a>
 					</li>
 					{% endif %}						
 				</div>

@@ -1,7 +1,7 @@
 from django import forms
-from eventmakerapp.models import Comment, Place
+from eventmakerapp.models import Comment, Place, UserProfile
 from location_field.forms.plain import PlainLocationField
-
+from django.contrib.auth.models import User
 
 class CommentForm(forms.ModelForm):
     
@@ -17,3 +17,14 @@ class Address(forms.Form):
                                   initial='55.8719,-4.2883')
     entry = forms.CharField(initial='University of Glasgow')
 
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password',)
+
+class UserProfileForm(forms.ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('website', 'picture', 'description', 'is_business')
