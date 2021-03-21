@@ -11,6 +11,8 @@ from eventmakerapp.models import Event
 from eventmakerapp.models import Comment
 from eventmakerapp.models import UserProfile
 
+from django.contrib.auth.models import User
+
 from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm
 
 # Create your views here.
