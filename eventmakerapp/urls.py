@@ -11,5 +11,8 @@ urlpatterns = [
     path('event/<event_name>/makecomment', views.makecomment, name='makecomment'),
     #path('user/<user_name>/', views.user, name='user')
     path('user/<user_name>/pickLocation', views.pickLocation, name='pickLocation'),
-    path('checkLocation', views.checkLocation, name='checkLocation')
+    path('checkLocation', views.checkLocation, name='checkLocation'),
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+     path('logout/', views.user_logout, name='logout'),
 ]

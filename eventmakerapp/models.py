@@ -1,16 +1,16 @@
 from django.db import models
 from location_field.models.plain import PlainLocationField
+from django.contrib.auth.models import User
 
-class User(models.Model):
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     is_business = models.BooleanField(default=False)
-    username = models.CharField(max_length=64)
-    email = models.EmailField(max_length=64, blank=True)
     description = models.TextField(blank=True)
     picture = models.ImageField(blank=True)
     website = models.URLField(max_length=64, blank=True)
 
     def __str__(self):
-        return self.username
+        return self.user.username
 
 class Event(models.Model):
     title = models.CharField(max_length=32)
