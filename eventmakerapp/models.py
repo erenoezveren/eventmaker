@@ -1,4 +1,5 @@
 from django.db import models
+from location_field.models.plain import PlainLocationField
 
 class User(models.Model):
     is_business = models.BooleanField(default=False)
@@ -35,4 +36,8 @@ class Comment(models.Model):
     data = models.TextField()
 
     def __str__(self):
-        return self.data
+      return self.data
+
+class Place(models.Model):
+    entry = models.CharField(max_length=255)
+    location = PlainLocationField(based_fields=['entry'], zoom=7)
