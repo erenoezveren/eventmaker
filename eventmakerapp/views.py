@@ -16,6 +16,8 @@ def index(request):
     #Home page
     context_dict = {}
 
+    form = Address()
+
     Popular_Events = Event.objects.order_by("-amount_likes")[:5]  
     Nearby_Events = Event.objects.extra(where=["location='Glasgow'"])[:5] #Need to get users location 
     More_Events = Event.objects.order_by("-title")[:5] #can be changed to other form of sorting 
@@ -23,6 +25,7 @@ def index(request):
     context_dict["popular"] = Popular_Events
     context_dict["near"] = Nearby_Events
     context_dict["more"] = More_Events
+    context_dict["form"] = form
      
     response = render(request, 'eventmaker/index.html',context=context_dict)
     return response
@@ -131,7 +134,27 @@ def pickLocation(request, user_name):
     context_dict["user_name"] = user_name
     return render(request, 'eventmaker/pickLocation.html', context=context_dict)
 
+def checkLocation(request):
+    if request.method == 'POST':
+        form = Address(request.POST)
+
+        if form.is_valid():
+            context_dict = {}
+
+            coordinates = form.cleaned_data.get('location')
+            x,y = coordinates.split(",")
 
 
+            Popular_Events = Event.objects.order_by("-amount_likes")[:5]
+            Nearby_Events = Event.objects.extra(where=["location='Glasgow'"])[:5]  # Need to get users location
+            More_Events = Event.objects.order_by("-title")[:5]  # can be changed to other form of sorting
 
-        
+            context_dict["popular"] = Popular_Events
+            context_dict["near"] = Nearby_Events
+            context_dict["more"] = More_Events
+            context_dict["form"] = form
+
+            response = render(request, 'eventmaker/index.html', context=context_dict)
+            return response
+
+    redirect(index(request))

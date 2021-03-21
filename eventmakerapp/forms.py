@@ -11,12 +11,9 @@ class CommentForm(forms.ModelForm):
         model = Comment
         exclude = ('user', 'event')
 
-class Address(forms.ModelForm):
+class Address(forms.Form):
 
     location = PlainLocationField(based_fields=['entry'],
                                   initial='55.8719,-4.2883')
     entry = forms.CharField(initial='University of Glasgow')
 
-    class Meta:
-        model = Place
-        fields = ('location', 'entry')
