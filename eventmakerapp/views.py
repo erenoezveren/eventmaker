@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.urls import reverse
@@ -143,6 +145,13 @@ def checkLocation(request):
 
             coordinates = form.cleaned_data.get('location')
             x,y = coordinates.split(",")
+            #still working on
+            distances = {}
+            for event in Event.objects.all():
+                coordinatesEvent = event.location
+                print(coordinatesEvent)
+                xE,yE = coordinates.split(",")
+                distances[event] = math.sqrt(((x - xE) ** 2) + (y - yE) ** 2)
 
 
             Popular_Events = Event.objects.order_by("-amount_likes")[:5]
