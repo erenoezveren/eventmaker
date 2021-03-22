@@ -2,14 +2,46 @@
 
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
-
+	
+	
+	
+	
+	{% block head_block %}
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/eventpage.css' %}">		
+	{% endblock %}
+	
 	{% block body_block %}
+	
 		{% if searches %}
-			{% for search in searches %}
-				<a href="{% url 'eventmakerapp:show_event' search.title %}">{{ search.title }}</a>
-			{% endfor %}
+		<div class="w3-container">
+		
+			<ul class="w3-ul w3-card-4">
+				{% for search in searches %}
+				
+					<a href="{% url 'eventmakerapp:show_event' search.title %}">
+					<li class="w3-bar">
+						<img src="{{ search.picture.url }}" class="w3-bar-item imageSizeSmall" >
+						
+						<div class="w3-bar-item">
+							<a class="w3-text-purple" href="{% url 'eventmakerapp:show_event' search.title %}">
+							<b>{{ search.title }}</b><br></a>
+							<p class="description">(( search.location }}</p>
+							<p>(( search.description }}</p>
+						</div>
+						
+					</li>
+					</a>
+					
+				{% endfor %}
+			</ul>
+			
+		</div>
+		
 		{% else %}
 			<p>There are no results for your search - {{ SearchValue }}</p>
+			<a href="{% url 'eventmakerapp:index' %}">Home</a>
 		{% endif %}
 	
 

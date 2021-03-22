@@ -1,0 +1,42 @@
+
+
+.imageSize {
+border-radius: 8px;
+width:500px;
+height:300px;
+object-fit:cover;
+
+}
+
+.info{				
+
+font-size:18px;
+margin:10px;
+}
+
+.details{
+text-decoration:underline;
+}
+
+.title{
+text-color:purple;
+fort-size:30px
+}
+
+.imageSizeSmall {
+border-radius:8px;
+max-width:200px;
+max-height:120px;
+min-width:200px;
+min-height:120px;
+object-fit:cover;
+}
+
+.description {
+text-overflow: ellipsis;
+overflow: hidden;
+max-width: 200px;
+}
+
+				
+		
