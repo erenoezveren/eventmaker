@@ -223,3 +223,7 @@ def user_login(request):
 def user_logout(request):
     logout(request)
     return redirect(reverse('eventmakerapp:index'))
+
+
+def userProfile(request, user_name):
+    return render(request, 'eventmaker/user_profile.html')
