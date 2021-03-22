@@ -12,10 +12,12 @@
 	{% block body_block %}
 			
 		{% if event %}
-			
+
+            {% if event.picture %}
 			<div class="w3-container  w3-cell" >
 			<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Event Image"></p>
 			</div>
+            {% endif %}
 			  
 			<div class="w3-container w3-cell info w3-text-black">
 				<p><h2>{{ event.title }}</h2></p>
