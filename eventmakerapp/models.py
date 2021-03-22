@@ -17,7 +17,7 @@ class UserProfile(models.Model):
 class Event(models.Model):
     title = models.CharField(max_length=32)
     entry = models.CharField(max_length=255, blank=True)
-    location = PlainLocationField(based_fields=['entry'], zoom=7, blank=True)#discription  
+    location = PlainLocationField(based_fields=['entry'], zoom=7, blank=True)
     picture = models.ImageField(blank=True)
     time = models.DateTimeField(blank=True, null=True)
     price = models.IntegerField(blank=True, null=True)

@@ -10,7 +10,6 @@ urlpatterns = [
     path('eventsearch/', views.eventsearch, name='eventsearch'),
     path('event/<event_name>/makecomment', views.makecomment, name='makecomment'),
     path('user/<user_name>/', views.userProfile, name='userProfile'),
-    path('user/<user_name>/pickLocation', views.pickLocation, name='pickLocation'),
     path('checkLocation', views.checkLocation, name='checkLocation'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),

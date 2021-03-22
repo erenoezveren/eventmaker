@@ -121,23 +121,6 @@ def makecomment(request, event_name):
     return render(request, 'eventmaker/makecomment.html', context=context_dict)
 
 
-@login_required
-def pickLocation(request, user_name):
-    form = Address()
-
-    if request.method == 'POST':
-        form = Address(request.POST)
-
-        if form.is_valid():
-            form.save(commit=True)
-            return redirect('/eventmaker/')
-        else:
-            print(form.errors)
-    context_dict = {}
-    context_dict["form"] = form
-    context_dict["user_name"] = user_name
-    return render(request, 'eventmaker/pickLocation.html', context=context_dict)
-
 def checkLocation(request):
     if request.method == 'POST':
         form = Address(request.POST)
@@ -226,4 +209,21 @@ def user_logout(request):
 
 
 def userProfile(request, user_name):
-    return render(request, 'eventmaker/user_profile.html')
+    context_dict = {}
+
+    try:
+        userobj = User.objects.get(username=user_name)
+        userProfileobj = UserProfile.objects.get(user__username__exact=user_name)
+        events = list(userobj.event_set.all())
+        print(events)
+
+        context_dict["userProfile"] = userProfileobj
+        context_dict["user"] = userobj
+        context_dict["events"] = events
+
+
+    except User.DoesNotExist:
+        context_dict["user"] = None
+        context_dict["userProfile"] = None
+        context_dict["events"] = events
+    return render(request, 'eventmaker/user_profile.html', context_dict)
