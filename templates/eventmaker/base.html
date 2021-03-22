@@ -8,7 +8,7 @@
 		<title>Eventmaker - Join and Create Events</title>
         <link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/base.css' %}">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">	
-		<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         {%  block head_block %}
         {% endblock %}
     </head>
@@ -43,10 +43,11 @@
 				<li class="search-icon">
 					<form method="get" action="{% url 'eventmakerapp:eventsearch'  %}">					
 						<input type="text" placeholder="Search for events..." name="searchEvent">
+						<label class="icon">
+							<button class="fas fa-search"></button>
+						</label>
 					</form>	
-					<label class="icon">
-						<span class="fas fa-search"></span>
-					</label>
+
 				</li>
 			</ul>
 		</nav>
@@ -58,17 +59,7 @@
 		</div>
 	
 		<footer>
-				<ul>
-						<li>
-							<a href="{% url 'eventmakerapp:about' %}">About</a>
-						</li>
-						<li>
-							<a href="{% url 'eventmakerapp:about' %}">Contact Us</a>
-						</li>
-						<li>
-							<a href="{% url 'eventmakerapp:about' %}">FAQ</a>		
-						</li>
-				</ul>
+			<a href="{% url 'eventmakerapp:about' %}">About</a>
 		</footer>
 	</body>
 </html>
