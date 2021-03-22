@@ -16,11 +16,12 @@ class UserProfile(models.Model):
 
 class Event(models.Model):
     title = models.CharField(max_length=32)
+    description = models.TextField()
     entry = models.CharField(max_length=255, blank=True)
     location = PlainLocationField(based_fields=['entry'], zoom=7, blank=True)#discription  
     picture = models.ImageField(blank=True)
-    time = models.DateTimeField(blank=True, null=True)
-    price = models.IntegerField(blank=True, null=True)
+    time = models.DateTimeField(null=True)
+    price = models.IntegerField(null=True)
     likes = models.ManyToManyField(User, related_name="liked", blank=True)
     amount_likes = models.IntegerField(default=0, null=False)
     joins = models.ManyToManyField(User, related_name="joined", blank=True)
