@@ -7,6 +7,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 	<link href="{% static 'eventmakerapp/bootstrap.min.css' %}" rel="stylesheet">
+	<link href="{% static 'eventmakerapp/index.css' %}" rel="stylesheet">
 
 	<style>
 		.bd-placeholder-img {
@@ -37,14 +38,14 @@
 					<div class="col">
 					  <div class="card shadow-sm">
 						{% if event.picture %}
-						<img src={{  event.picture.url }} alt="Picture of Event" width="420" height="250"/>
+						<img src={{  event.picture.url }} alt="Picture of Event"/>
 						{% else %}
-						<img src={% static 'images/default.png' %} alt="Picture of Event" width="420" height="250"/>
+						<img src={% static 'images/default.png' %} alt="Picture of Event"/>
 						{% endif %}
 						<div class="card-body">
 						  <strong><p class="event-title">{{ event.title }}</p></strong>
 						  <p class ="event-time"><strong>Date: </strong>{{ event.time }}</p>
-						  <p class="card-text">{{ event.entry }}</p>
+						  <p class="card-text">{{ event.description }}</p>
 						  <div class="d-flex justify-content-between align-items-center">
 							<div class="btn-group">
 							  <a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
@@ -83,14 +84,14 @@
 			<div class="col">
 				<div class="card shadow-sm">
 				  {% if event.picture %}
-				  <img src={{  event.picture.url }} alt="Picture of Event" width="420" height="250"/>
+				  <img src={{  event.picture.url }} alt="Picture of Event"/>
 				  {% else %}
-				  <img src={% static 'images/default.png' %} alt="Picture of Event" width="420" height="250"/>
+				  <img src={% static 'images/default.png' %} alt="Picture of Event"/>
 				  {% endif %}
 				  <div class="card-body">
 					<strong><p class="event-title">{{ event.title }}</p></strong>
 					<p class ="event-time"><strong>Date: </strong>{{ event.time }}</p>
-					<p class="card-text">{{ event.entry }}</p>
+					<p class="card-text">{{ event.description }}</p>
 					<div class="d-flex justify-content-between align-items-center">
 					  <div class="btn-group">
 						<a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
@@ -118,14 +119,14 @@
 			<div class="col">
 				<div class="card shadow-sm">
 				  {% if event.picture %}
-				  <img src={{  event.picture.url }} alt="Picture of Event" width="420" height="250"/>
+				  <img src={{  event.picture.url }} alt="Picture of Event"/>
 				  {% else %}
-				  <img src={% static 'images/default.png' %} alt="Picture of Event" width="420" height="250"/>
+				  <img src={% static 'images/default.png' %} alt="Picture of Event"/>
 				  {% endif %}
 				  <div class="card-body">
 					<strong><p class="event-title">{{ event.title }}</p></strong>
 					<p class ="event-time"><strong>Date: </strong>{{ event.time }}</p>
-					<p class="card-text">{{ event.entry }}</p>
+					<p class="card-text">{{ event.description }}</p>
 					<div class="d-flex justify-content-between align-items-center">
 					  <div class="btn-group">
 						<a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>

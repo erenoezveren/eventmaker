@@ -20,6 +20,7 @@ a:link{
 nav {
     background: #FFF9FC;
     padding: 10px 40px 10px 70px;
+    border-bottom: 1px solid black;
 }
 
 nav ul {

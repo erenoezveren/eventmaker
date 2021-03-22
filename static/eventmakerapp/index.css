@@ -1,0 +1,9 @@
+h3 {
+    text-align: center;
+    color: purple;
+    font-weight: 850;
+    padding-bottom: 25px;
+    border-bottom: 2px solid rgba(54, 1, 38, 0.551);
+    line-height: 0;
+ }
+
