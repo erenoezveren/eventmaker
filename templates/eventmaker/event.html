@@ -12,8 +12,8 @@
 	{% block body_block %}
 			
 		{% if event %}
-		
-			<div class="w3-container  w3-cell">
+			
+			<div class="w3-container  w3-cell" >
 			<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Event Image"></p>
 			</div>
 			  
@@ -25,11 +25,14 @@
 				<p class="info">Location - {{ event.location }}</p>
 				<p class="info">Posted By - {{ event.host }} (Link to host page)</p>
 			</div>
-			<hr>
 			
-			<div class="w3-padding-8 w3-container">				
-				  <h2 class="w3-text-purple">About the Event</h2>
-				  <p>{{ event.description ))</p>										 
+			<hr>
+			<div class="w3-padding-8 w3-container" style="background-color:rgb(225, 225, 225)">	
+				<br>
+				<h2 class="w3-text-purple">About the Event</h2>
+				<p>{{ event.description ))</p>
+				<br>
+				<br>
 			</div>
 			<hr>
 			
