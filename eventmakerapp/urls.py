@@ -9,10 +9,9 @@ urlpatterns = [
     path('event/<event_name>', views.show_event, name='show_event'),
     path('eventsearch/', views.eventsearch, name='eventsearch'),
     path('event/<event_name>/makecomment', views.makecomment, name='makecomment'),
-    #path('user/<user_name>/', views.user, name='user')
-    path('user/<user_name>/pickLocation', views.pickLocation, name='pickLocation'),
+    path('user/<user_name>/', views.userProfile, name='userProfile'),
     path('checkLocation', views.checkLocation, name='checkLocation'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
-     path('logout/', views.user_logout, name='logout'),
+    path('logout/', views.user_logout, name='logout'),
 ]

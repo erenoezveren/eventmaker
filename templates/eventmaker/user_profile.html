@@ -1,5 +1,35 @@
-<form method="post">
-  {% csrf_token %}
-  {{ user_form.as_p }}
-  <button type="submit">Save changes</button>
-</form>
+<!DOCTYPE html>
+
+{% extends "eventmaker/base.html" %}
+{% load staticfiles %}
+
+{% block body_block %}
+    {% if user %}
+        {% if userProfile.picture %}
+                <div class="w3-container  w3-cell" >
+                <p><img src="{{ userProfile.picture.url }}" alt="Profile Picture" style="width:100%;max-width:200px"></p>
+                </div>
+        {% endif %}
+        {% if userProfile.is_business %}
+            Business {{ user.username }}<br>
+            {% if userProfile.description %}
+                Description: {{ userProfile.description }}
+            {% endif %}
+        {% else %}
+            User {{ user.username }}<br>
+                {% if userProfile.description %}
+                    Bio: {{ userProfile.description }}
+                {% endif %}
+        {% endif %}
+        {% if userProfile.website %}
+            <br><a href="{{ userProfile.website }}">Website</a>
+        {% endif %}
+
+        {% for event in events %}
+            <a href="{% url 'eventmakerapp:show_event' event.title %}">{{ event.title }}</a>
+        {% endfor %}
+
+    {% else %}
+        User does not exist.
+    {% endif %}
+{% endblock %}
