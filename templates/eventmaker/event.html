@@ -25,7 +25,7 @@
 				<p class="info">Time - {{ event.time }}</p>
 				<p class="info">Price - £{{ event.price }}</p>
 				<p class="info">Location - {{ event.location }}</p>
-				<p class="info">Posted By - {{ event.host }} (Link to host page)</p>
+				<p class="info">Posted By - ><a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
 			</div>
 			
 			<hr>
@@ -58,7 +58,7 @@
 						<li class="w3-bar">
 						<img src="{{ comment.user.picture }}" class="w3-bar-item w3-circle w3-hide-small" style="width:45px">
 							<div class="w3-bar-item">
-								<p> {{ comment.user.username }}(link to user profile)<br>
+								<p> <a href="{% url 'eventmakerapp:userProfile' comment.user %}">{{ comment.user.username }}</a><br>
 								{{ comment.data }}</p>	
 							</div>
 						</li>						
