@@ -215,7 +215,7 @@ def userProfile(request, user_name):
         userobj = User.objects.get(username=user_name)
         userProfileobj = UserProfile.objects.get(user__username__exact=user_name)
         events = list(userobj.event_set.all())
-        print(events)
+
 
         context_dict["userProfile"] = userProfileobj
         context_dict["user"] = userobj
@@ -225,5 +225,10 @@ def userProfile(request, user_name):
     except User.DoesNotExist:
         context_dict["user"] = None
         context_dict["userProfile"] = None
-        context_dict["events"] = events
+        context_dict["events"] = None
+
+    except UserProfile.DoesNotExist:
+        context_dict["user"] = None
+        context_dict["userProfile"] = None
+        context_dict["events"] = None
     return render(request, 'eventmaker/user_profile.html', context_dict)
