@@ -9,7 +9,6 @@ class UserProfile(models.Model):
     is_business = models.BooleanField("Are you a business?", default=False)
     description = models.TextField("About you", blank=True)
     picture = models.ImageField("Profile picture", blank=True)
-    website = models.URLField(max_length=64, blank=True)
 
     def __str__(self):
         return self.user.username

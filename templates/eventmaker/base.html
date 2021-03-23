@@ -5,7 +5,9 @@
 <html>
 	<head lang = "en">
 		<meta charset="UTF-8" />	
-		<title>Eventmaker - Join and Create Events</title>
+		<title>
+		{% block title %} Eventmaker - Join and Create Events {% endblock %}
+		</title>
 		<link href="{% static 'eventmakerapp/bootstrap.min.css' %}" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/base.css' %}">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">	
@@ -45,11 +47,7 @@
 				<li class="search-icon">
 					<form method="get" action="{% url 'eventmakerapp:eventsearch'  %}">					
 						<input type="text" placeholder="Search for events..." name="searchEvent">
-						<label class="icon">
-							<button type="submit" class="fas fa-search"></button>
-						</label>
 					</form>	
-
 				</li>
 			</ul>
 		</nav>

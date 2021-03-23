@@ -1,22 +1,61 @@
 {% extends 'eventmaker/base.html' %}
 {% load staticfiles %}
 
+<title>
+    {% block title %} Eventmaker - Register {% endblock %}
+</title>
 {% block head_block %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 	<link href="{% static 'eventmakerapp/register.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body_block %}
+
 {% if registered %}
 <strong>Thank you for registering!</strong>
-<a href="{% url 'eventmakerapp:index' %}">Return to the homepage.</a><br />
-{% else %}
-<h1>Register</h1>
-<form id="user_form" method="post" action="{% url 'eventmakerapp:register' %}" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+<p></p>
+<p><a href="{% url 'eventmakerapp:index' %}">Return to the homepage.</a></p>
+<p><a href="{% url 'eventmakerapp:login' %}">Log in here.</a></p>
 
-    <input type="submit" name="submit" value="Register" />
-</form>
+{% else %}
+
+<div class="signup-form">
+    <form id="user_form" method="post" action="{% url 'eventmakerapp:register' %}" enctype="multipart/form-data">
+		<h2>Register</h2>
+        {% csrf_token %}
+        <div class="form-group">
+			<div class="row">
+				<div class="col-xs-6"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
+				<div class="col-xs-6"><input type="text" class="form-control" name="last_name" placeholder="Last Name" required="required"></div>
+			</div>        	
+        </div>
+        <div class="form-group">
+        	<input id="id_email" type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+		<div class="form-group">
+            <input id="id_username" type="text" class="form-control" name="username" placeholder="username" required="required">
+        </div>
+		<div class="form-group">
+            <input id="id_password" type="password" class="form-control" name="password" placeholder="password" required="required">
+        </div>      
+        <div class="form-group">
+            <label for="id_picture">Profile picture:</label>
+            <input id="id_picture" type="file" class="form-control" name="picture" accept="image/*">
+        </div>   
+        <div class="form-group">
+            <textarea id="id_description" class="form-control" name="description" cols="40" rows="10" placeholder="About you"></textarea>
+        </div>   
+        <div class="form-group">
+            <label for="id_is_business">Are you a business?</label>
+            <input id="id_is_business" type="checkbox" name="is_business">
+        </div>   
+		<div class="form-group">
+            <button type="submit" class="btn btn-success btn-lg btn-block">Register Now</button>
+        </div>
+    </form>
+    
 {% endif %}
 {% endblock %}
