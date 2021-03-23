@@ -9,6 +9,15 @@ body {
     display: flex;
     flex-direction: column;
     height:100vh;
+    background-color: #f5f5f5;
+
+    /* Avoid scrollbar from repositioning pages when switching between scrollable
+    and non-scrollable pages */
+    width: calc(100vw - 34px);
+}
+
+.bg-light {
+    background-color: #f5f5f5;
 }
 
 a:link{
@@ -18,7 +27,7 @@ a:link{
 /* Navigation Bar */ 
   
 nav {
-    background: #FFF9FC;
+    background: #d6d9db;
     padding: 10px 40px 10px 70px;
     border-bottom: 1px solid black;
 }
@@ -48,7 +57,7 @@ nav ul div.items {
 
 nav ul div.items a{
     padding: 0 12px;
-    font-weight: bold;
+    font-weight: 1000;
     font-size: 18px;
     color: #000000;
 }
@@ -118,7 +127,7 @@ nav ul.search-icon .icon button{
 
 footer {
     min-height: 50px;
-    background: #fadcea;
+    background: #d6d9db;
     border-top: 1px solid black;
     padding: 10px 40px 10px 70px;   
     margin-top:auto;  

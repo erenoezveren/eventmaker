@@ -1,16 +1,16 @@
 {% extends 'eventmaker/base.html' %}
 {% load staticfiles %}
 
-{% block title_block %}
-    Register
+{% block head_block %}
+	<link href="{% static 'eventmakerapp/register.css' %}" rel="stylesheet">
 {% endblock %}
 
 {% block body_block %}
-<h1>Register</h1>
 {% if registered %}
 <strong>Thank you for registering!</strong>
 <a href="{% url 'eventmakerapp:index' %}">Return to the homepage.</a><br />
 {% else %}
+<h1>Register</h1>
 <form id="user_form" method="post" action="{% url 'eventmakerapp:register' %}" enctype="multipart/form-data">
     {% csrf_token %}
     {{ user_form.as_p }}

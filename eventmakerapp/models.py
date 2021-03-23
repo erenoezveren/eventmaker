@@ -6,9 +6,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=32, blank=False, default="")
     last_name = models.CharField(max_length=20, blank=False, default="")
-    is_business = models.BooleanField(default=False)
-    description = models.TextField(blank=True)
-    picture = models.ImageField(blank=True)
+    is_business = models.BooleanField("Are you a business?", default=False)
+    description = models.TextField("About you", blank=True)
+    picture = models.ImageField("Profile picture", blank=True)
     website = models.URLField(max_length=64, blank=True)
 
     def __str__(self):

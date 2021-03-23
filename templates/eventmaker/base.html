@@ -6,8 +6,10 @@
 	<head lang = "en">
 		<meta charset="UTF-8" />	
 		<title>Eventmaker - Join and Create Events</title>
+		<link href="{% static 'eventmakerapp/bootstrap.min.css' %}" rel="stylesheet">
         <link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/base.css' %}">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
         {%  block head_block %}
         {% endblock %}
@@ -51,7 +53,6 @@
 				</li>
 			</ul>
 		</nav>
-    <hr />
 
 		<div>
 		{% block body_block %}
