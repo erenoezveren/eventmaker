@@ -32,7 +32,7 @@ def populate():
         user.save()
         
         #call funtion to make the Userprofile in custom model
-        UserProfile = add_User(user,
+        add_User(user,
         Users["first_name"][i],
         Users["last_name"][i],
         Users["is_business"][i],
@@ -52,13 +52,27 @@ def populate():
             datetime.datetime(2021, 3, 29, 15, 0, 0, 0,tzinfo=pytz.UTC),
             datetime.datetime(2021, 12, 23, 13, 0, 0, 0,tzinfo=pytz.UTC),
             ]
-                
-    description = ["","","","","","","","","","", ] 
+            
+            
+            
+    #add       
+    description = ["Situated in the heart of the West End, Glasgow University Union is a unique venue rich in history. With its grand architecture and original period features, the building boasts a versatility that can see it transformed from a corporate setting into a spectacular and magnificent wedding venue. With the capacity to hold large dinner events, conferences and weddings, at the Glasgow University Union we possess a wealth of knowledge in hosting academic, corporate and private functions. "
+    ,"MCFLY at The Hydro. The SSE Hydro is a multi-purpose indoor arena located within the Scottish Event Campus in Glasgow, Scotland. The arena was initially named The Hydro after its main sponsor Scottish Hydro Electric. The arena was officially opened on 30 September 2013, with a concert by Rod Stewart."
+    ,"NICK CAVE AND THE BAD SEEDS at the hydro. The SSE Hydro is a multi-purpose indoor arena located within the Scottish Event Campus in Glasgow, Scotland. The arena was initially named The Hydro after its main sponsor Scottish Hydro Electric. The arena was officially opened on 30 September 2013, with a concert by Rod Stewart."
+    ,"Some bands playing at our weekly music show"
+    ,"Come and give it a go. karaoke night at the Bar"
+    ,"All drinks 30% off come down with your friends and have a laugh"
+    ,"Amature Chess tournemnt, just have fun"
+    ,"Good laugh for everyone, don't need to know any dances just come along"
+    ,"Raise Money for charity and get sponsored to do a 5k run!"
+    ,"Cleen up the park with us!"
+    , ] 
 
     
     hosts = ["John","Cara","Bill","John","Cara","Bill","John","Cara","Bill","John",]
     Eventhosts = [] 
     for i in range(10):
+        #get userobj hosting from username to be the host 
         user = User.objects.get(username=hosts[i])
         Eventhosts.append(user)
         
@@ -73,7 +87,7 @@ def populate():
                 "amount_likes":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],              
                 "host":Eventhosts}
     
-        
+    #call add event
     for i in range(10):
         add_event(  Events["title"][i],
                     Events["description"][i],
@@ -86,8 +100,36 @@ def populate():
                     Events["host"][i],
                     )
 
+            
+    #All comments None represent no comments left 
+    UserComments = {"John" : ["Looks Great!", None, "I am Going next week!", None, "love it!", None, "anyone else going", None, "is this one again next week", None, ]
+                    ,"Cara" : [None, "WOW", None, "cant wait", None, "love it", None, "looks amazing!", "Lets go", None, ]
+                    ,"Bill" : [None, "Loved this place been before", None, "Never Been but looks good", None, "coming next week", None, "i am bringing everyone", None, ":)", ]
+                    ,"Matthew" : ["coming tomorrow", None, "can you bring a bag", None, "whats the phone number for this place", None, "anyone want to come with me?", None, "add me on snap if your going sc_fakeuser", None, ]
+                    ,"Kira" : ["is there a locker", None, None, None, None, None, None, None, None, None, ]
+                    ,"Charlie" : [None, "is this anygood", "expensive!?", "is there food", None, "can you bring in food", None, "Look so good", None, "great to see this", ]
+                    ,"Euan" : ["might come along", None, "I want to do this for my birthday", "can you come early", None, "awesome", None, "Never coming again", None, "WOW", ]
+                    ,"Emma" : ["Loved it", None, "Cant wait to do this again", None, "I cant drive", None, "How do you play", None, "Woop", None, ]
+                    ,"Ben" : ["Crazy", None, "was not bad", None, "who else is coming", None, "anyone want to come with me", None, "look good", None, ]
+                    ,"Jamie": ["Best Night ever", None, "Nice", None, "CANT WAIT", None, "I DONT LIKE CHESS", None, None, "THIS IS SO GOOD, FINALLY IT WILL BE CLEAN", ]
+                   }
+    
+       
+    #Populate Comments
+    for name in UserComments:  
+        for i in range(10):     
+            if UserComments[name][i] != None:  
+                #call add comment with user, event and comment message 
+                E = Event.objects.get(title=Events["title"][i])
+                U = User.objects.get(username=name)
+                add_comment(E, U, UserComments[name][i])    
+                
+    
+
+    
 #create user in database
 def add_User(user,first_name,last_name,is_business,description,picture=None):
+
     U = UserProfile.objects.get_or_create(
     user=user,
     first_name=first_name,
@@ -96,7 +138,7 @@ def add_User(user,first_name,last_name,is_business,description,picture=None):
     
     
 def add_event(title,description,entry,location,picture,time,price,amount_likes,host): 
-
+    
     E = Event.objects.get_or_create(   
     title=title,
     description=description,
@@ -110,8 +152,12 @@ def add_event(title,description,entry,location,picture,time,price,amount_likes,h
     
    
    
-def add_comment():
-    pass
+def add_comment(event, user, data):
+
+    C = Comment.objects.get_or_create(
+    event=event,
+    user=user,
+    data=data)
 
 
 if __name__ == '__main__':  

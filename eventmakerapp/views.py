@@ -141,9 +141,9 @@ def checkLocation(request):
             distances.sort(key=lambda elem: elem[1])
 
 
-            Popular_Events = Event.objects.order_by("-amount_likes")[:5]
-            Nearby_Events = [elem[0] for elem in distances][:5]
-            More_Events = Event.objects.order_by("-title")[:5]  # can be changed to other form of sorting
+            Popular_Events = Event.objects.order_by("-amount_likes")[:6]
+            Nearby_Events = [elem[0] for elem in distances][:6]
+            More_Events = Event.objects.order_by("-title")[:6]  # can be changed to other form of sorting
 
             context_dict["popular"] = Popular_Events
             context_dict["near"] = Nearby_Events

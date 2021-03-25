@@ -20,12 +20,12 @@
             {% endif %}
 			  
 			<div class="w3-container w3-cell info w3-text-black">
-				<p><h2>{{ event.title }}</h2></p>
+				<p><h2 class="w3-text-purple">{{ event.title }}</h2></p>
 				<p class="details">Details<p>
 				<p class="info">Time - {{ event.time }}</p>
 				<p class="info">Price - £{{ event.price }}</p>
 				<p class="info">Location - {{ event.location }}</p>
-				<p class="info">Posted By - ><a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
+				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
 			</div>
 			
 			<hr>
