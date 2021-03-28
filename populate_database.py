@@ -14,15 +14,19 @@ from eventmakerapp.models import UserProfile, Event, Comment
 from django.contrib.auth.models import User         
 
 
-def populate():
+def populate():   
     
     #Populate Users 
     Users = {"first_name":["John","Cara","Bill","Matthew","Kira","Charlie","Euan","Emma","Ben","Jamie"],
              "last_name" :["Smith","johnson","Williams","Brown","Jones","Miller","Davis","Hunter","Rodriguez","Martinez"],
              "is_business":[True,True,True,False,False,False,False,False,False,False],
              "description":["","","","","","","","","","",],
-             "picture":[None,None,None,None,None,None,None,None,None,None],}
+             "picture":["images/default.png",None,None,None,None,None,None,None,None,None],}
             
+    for i in range(10):
+        Users["description"][i] = "Hi my name is " + Users["first_name"][i] + " and this is my discription"
+        
+        
     for i in range(10):
         
         #create or get User built into django
@@ -36,12 +40,11 @@ def populate():
         Users["first_name"][i],
         Users["last_name"][i],
         Users["is_business"][i],
-        Users["description"][i],
-        Users["picture"][i])
+        Users["description"][i])
         
         
     #Populate Events 
-    Date = [datetime.datetime(2021, 7, 2, 18, 0, 0, 0,tzinfo=pytz.UTC),
+    Date = [datetime.datetime(2021, 7, 1, 18, 0, 0, 0,tzinfo=pytz.UTC),
             datetime.datetime(2021, 4, 29, 19, 0, 0, 0,tzinfo=pytz.UTC),
             datetime.datetime(2021, 5, 1, 20, 0, 0, 0,tzinfo=pytz.UTC),
             datetime.datetime(2021, 7, 29, 19, 0, 0, 0,tzinfo=pytz.UTC),
@@ -52,6 +55,9 @@ def populate():
             datetime.datetime(2021, 3, 29, 15, 0, 0, 0,tzinfo=pytz.UTC),
             datetime.datetime(2021, 12, 23, 13, 0, 0, 0,tzinfo=pytz.UTC),
             ]
+            
+            
+    Pictures = []
             
             
             
@@ -80,8 +86,7 @@ def populate():
     Events = {  "title":["Hive Thursday", "MCFLY", "NICK CAVE AND THE BAD SEEDS", "Music Show", "Open Mic Night", "Happy Hour", "Chess Tournement", "Highland Ceilidh", "Fun Run" , "Liiter Picking in Kelvingrove Park"],
                 "description": description,
                 "entry":["", "", "", "", "", "", "", "", "", "", ],
-                "location":["55.872530, -4.284912", "55.860044, -4.285217", "55.860044, -4.285217", "55.860044, -4.285217", "55.874865, -4.292925", "55.874865, -4.292925", "55.871796, -4.288292", "55.871483, -4.288543", "55.858129, -4.254747", "55.867991, -4.283774",],
-                "picture":[None, None, None, None, None, None, None, None, None, None, ],
+                "location":["55.872530, -4.284912", "55.860044, -4.285217", "55.860044, -4.285217", "55.860044, -4.285217", "55.874865, -4.292925", "55.874865, -4.292925", "55.871796, -4.288292", "55.871483, -4.288543", "55.858129, -4.254747", "55.867991, -4.283774",],                
                 "time": Date,
                 "price":[4, 25, 40, 3, 0, 0, 6, 5, 5, 0],                
                 "amount_likes":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],              
@@ -92,8 +97,7 @@ def populate():
         add_event(  Events["title"][i],
                     Events["description"][i],
                     Events["entry"][i],
-                    Events["location"][i],
-                    Events["picture"][i],
+                    Events["location"][i],              
                     Events["time"][i],
                     Events["price"][i],               
                     Events["amount_likes"][i],           
@@ -137,14 +141,13 @@ def add_User(user,first_name,last_name,is_business,description,picture=None):
     is_business=is_business)
     
     
-def add_event(title,description,entry,location,picture,time,price,amount_likes,host): 
+def add_event(title,description,entry,location,time,price,amount_likes,host): 
     
     E = Event.objects.get_or_create(   
     title=title,
     description=description,
     entry=entry,
     location=location,
-    picture=picture,
     time=time,
     price=price,   
     amount_likes=amount_likes,

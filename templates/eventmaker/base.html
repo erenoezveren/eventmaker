@@ -3,6 +3,7 @@
 
 
 <html>
+	<!-- Page header with imports-->
 	<head lang = "en">
 		<meta charset="UTF-8" />	
 		<title>
@@ -17,31 +18,32 @@
         {% endblock %}
     </head>
 		
+	<!-- Top nav Bar-->	
 	<body>
 		<nav>
 			<ul>
 				<li class="logo"><a href="{% url 'eventmakerapp:index' %}">eventmaker</a></li>
 				<div class="items">
 					{% if user.is_authenticated %}
-					<li>
-						<a href="{% url 'eventmakerapp:logout' %}?next={%  url 'eventmakerapp:index' %}">Log Out</a>
-					</li>
+						<li>
+							<a href="{% url 'eventmakerapp:logout' %}?next={%  url 'eventmakerapp:index' %}">Log Out</a>
+						</li>
 
-					<li>
-						<a href='#'>Create Event</a>
-					</li>
+						<li>
+							<a href='#'>Create Event</a>
+						</li>
 
-					<li>
-						<a href='#'>Account</a>
-					</li>
+						<li>
+							<a href="{% url 'eventmakerapp:userProfile' user.username %}">Account</a>
+						</li>
 					{% else %}
-					<li>
-						<a href="{% url 'eventmakerapp:register' %}">Sign Up</a>
-					</li>
+						<li>
+							<a href="{% url 'eventmakerapp:register' %}">Sign Up</a>
+						</li>
 
-					<li>
-						<a href="{% url 'eventmakerapp:login' %}">Login</a>
-					</li>
+						<li>
+							<a href="{% url 'eventmakerapp:login' %}">Login</a>
+						</li>
 					{% endif %}						
 				</div>
 				<li class="search-icon">
@@ -53,10 +55,12 @@
 		</nav>
 
 		<div>
+		<!--Page conetent-->
 		{% block body_block %}
 		{% endblock %}
 		</div>
 	
+		<!--Footer About bar-->
 		<footer>
 			<a href="{% url 'eventmakerapp:about' %}">About</a>
 		</footer>

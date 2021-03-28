@@ -2,21 +2,28 @@
 
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
-
+	<!-- Page header with imports-->
 	{% block head_block %}	
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 				<link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/eventpage.css' %}">
 	{% endblock %}
 			
+	<!-- Page Content -->
 	{% block body_block %}
-			
+	
 		{% if event %}
-
+			<!-- Event Picture and details -->
+			<br>
             {% if event.picture %}
 			<div class="w3-container  w3-cell" >
-			<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Event Image"></p>
+			<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Picture of Event"></p>
 			</div>
+			{% else %}
+			<div class="w3-container  w3-cell" >
+			<p><img src={% static 'images/default.png' %} class="w3-round imageSize" alt="Picture of Event"/></p>
+			</div>
+			
             {% endif %}
 			  
 			<div class="w3-container w3-cell info w3-text-black">
@@ -28,6 +35,7 @@
 				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
 			</div>
 			
+			<!-- Event description -->
 			<hr>
 			<div class="w3-padding-8 w3-container" style="background-color:rgb(225, 225, 225)">	
 				<br>
@@ -38,6 +46,7 @@
 			</div>
 			<hr>
 			
+			<!-- Event Comments -->
 			<div class="w3-container w3-padding-8">
 				<h2 class="w3-text-purple">Comments</h2>
 			</div>
@@ -50,6 +59,7 @@
 			{% endif %}
 			</div>
 			
+			<!-- List of Comments -->
 			<div class="w3-container">
 			{% if comments %}
 				<ul class="w3-ul ">

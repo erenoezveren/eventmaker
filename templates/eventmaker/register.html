@@ -4,6 +4,7 @@
 <title>
     {% block title %} Eventmaker - Register {% endblock %}
 </title>
+<!-- Page header with imports-->
 {% block head_block %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
@@ -11,9 +12,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
 	<link href="{% static 'eventmakerapp/register.css' %}" rel="stylesheet">
 {% endblock %}
-
+<!-- Page Content -->
 {% block body_block %}
 
+<!-- can only register if not loged in -->
 {% if registered %}
 <strong>Thank you for registering!</strong>
 <p></p>

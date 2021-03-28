@@ -3,6 +3,7 @@
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %}
 
+<!-- Page Content-->
 {% block body_block %}
     {% if user %}
         {% if userProfile.picture %}
@@ -10,11 +11,14 @@
                 <p><img src="{{ userProfile.picture.url }}" alt="Profile Picture" style="width:100%;max-width:200px"></p>
                 </div>
         {% endif %}
+		<!-- if business-->
         {% if userProfile.is_business %}
             Business {{ user.username }}<br>
             {% if userProfile.description %}
                 Description: {{ userProfile.description }}
             {% endif %}
+			
+		<!-- if regular user-->
         {% else %}
             User {{ user.username }}<br>
                 {% if userProfile.description %}

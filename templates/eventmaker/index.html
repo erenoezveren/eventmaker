@@ -3,15 +3,17 @@
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
 
+<!-- Page header with imports-->
 {% block head_block %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 	<link href="{% static 'eventmakerapp/index.css' %}" rel="stylesheet">
 
-    {{form.media}}
+    {{ form.media }}
 {% endblock %}
-
+	<!--Page Content-->
 	{% block body_block %}
+		<!--Popular Events-->
 		<h3>Popular Events</h3>
 		{% if popular %}
 		<div class="album py-5 bg-light">
@@ -49,7 +51,7 @@
 			<strong>There are no popular events</strong>
 		{% endif %}
 		
-		
+		<!--Nearby Events-->
 		<h3>Nearby Events</h3>
         <form id="pickLocation" method="post" action="/eventmaker/checkLocation">
             {% csrf_token %}
@@ -95,10 +97,10 @@
 	</div>
 </div>
 		{% else %}
-			<strong>There are no near events</strong>
+			<strong>Select a location on the map or enter a place to search for neearby events</strong>
 		{% endif %}
 		
-		
+		<!--More Events-->
 		<h3>More Events</h3>
 		{% if more %}
 		<div class="album py-5 bg-light">

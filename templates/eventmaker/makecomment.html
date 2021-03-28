@@ -3,17 +3,28 @@
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
 
-	{% block body_block %}
-		
-		<a href="{% url 'eventmakerapp:show_event' event.title %}">Return to - {{ event.title }}</a>
-		<form method="post">	
-			{% csrf_token %}
-				{%for field in form.visible_fields %}
-					{{ field.errors }}
-					{{ feild.help_text }}
-					{{ field }}
-				{% endfor %}
-			<input type="submit" value="OK">
-		</form>	
+	<!-- Page header with imports-->
+	{% block head_block %}		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+		<link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/eventpage.css' %}">		
+	{% endblock %}
 	
+	<!-- Page Content -->
+	{% block body_block %}
+		<br>
+		
+		<div class="w3-container">
+			<p style="font-size:15px;" > Leave Comment or <a href="{% url 'eventmakerapp:show_event' event.title %}">Return to - {{ event.title }}</a></p>
+		</div>
+		
+		<div class="w3-container">
+			<form method="post">	
+				{% csrf_token %}
+					{%for field in form.visible_fields %}
+						{{ field }}
+					{% endfor %}
+				<input type="submit" value="OK">
+			</form>	
+		</div>
 	{% endblock %}
