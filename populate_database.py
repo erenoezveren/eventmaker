@@ -57,7 +57,16 @@ def populate():
             ]
             
             
-    Pictures = []
+    Pictures = ["Hive.jpg",
+                "mcfly.jpg",
+                "nick-cave-bad-seeds.jpg",
+                "MusicShow.jpeg",
+                "karaoke.jpg",
+                "Happy-hour.jpg",
+                "chess.jpg",
+                "Ceilidh.jpg",
+                "funrun.jpg",
+                "kelvingrove.jpg"]
             
             
             
@@ -87,6 +96,7 @@ def populate():
                 "description": description,
                 "entry":["", "", "", "", "", "", "", "", "", "", ],
                 "location":["55.872530, -4.284912", "55.860044, -4.285217", "55.860044, -4.285217", "55.860044, -4.285217", "55.874865, -4.292925", "55.874865, -4.292925", "55.871796, -4.288292", "55.871483, -4.288543", "55.858129, -4.254747", "55.867991, -4.283774",],                
+                "picture": Pictures,
                 "time": Date,
                 "price":[4, 25, 40, 3, 0, 0, 6, 5, 5, 0],                
                 "amount_likes":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],              
@@ -97,7 +107,8 @@ def populate():
         add_event(  Events["title"][i],
                     Events["description"][i],
                     Events["entry"][i],
-                    Events["location"][i],              
+                    Events["location"][i],
+                    Events["picture"][i],        
                     Events["time"][i],
                     Events["price"][i],               
                     Events["amount_likes"][i],           
@@ -141,13 +152,14 @@ def add_User(user,first_name,last_name,is_business,description,picture=None):
     is_business=is_business)
     
     
-def add_event(title,description,entry,location,time,price,amount_likes,host): 
+def add_event(title,description,entry,location,picture,time,price,amount_likes,host): 
     
     E = Event.objects.get_or_create(   
     title=title,
     description=description,
     entry=entry,
     location=location,
+    picture=picture,
     time=time,
     price=price,   
     amount_likes=amount_likes,
