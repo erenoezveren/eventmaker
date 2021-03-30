@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 
 from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm
 
+from django.http import HttpResponseRedirect
 # Create your views here.
 def index(request):
     #Home page
@@ -243,3 +244,10 @@ def userProfile(request, user_name):
         context_dict["userProfile"] = None
         context_dict["events"] = None
     return render(request, 'eventmaker/user_profile.html', context_dict)
+
+#like view
+@login_required
+def like_event(request, event_name):
+    post = get_object_or_404(Event, id = request.POST.get('like_button'))
+    post.likes.add(request.user)
+    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))

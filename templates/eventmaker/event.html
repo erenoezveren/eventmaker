@@ -66,7 +66,7 @@
 				{% for comment in comments %}
 					
 						<li class="w3-bar">
-						<img src="{{ comment.user.picture }}" class="w3-bar-item w3-circle w3-hide-small" style="width:45px">
+								<img src="{{ comment.user.picture }}" class="w3-bar-item w3-circle w3-hide-small" style="width:45px">
 							<div class="w3-bar-item">
 								<p> <a href="{% url 'eventmakerapp:userProfile' comment.user %}">{{ comment.user.username }}</a><br>
 								{{ comment.data }}</p>	
@@ -82,5 +82,11 @@
 		{% else %}
 			<strong>Event Does not exist - <a href="{% url 'eventmakerapp:index' %}">back</a></strong>
 		{% endif %}
+
+		<!-- Event Likes-->
+		<form action = "{% url 'eventmakerapp:event' event.title}" method = "POST">
+			{% csrf_token %}
+			<button type = "submit", name = "like_button", value = "{{event.id}}", class = "btn btn-primary btn-sm">Like</button>
+		</form>
 		
 	{% endblock %}
