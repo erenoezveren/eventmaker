@@ -142,7 +142,7 @@ def checkLocation(request):
 
             coordinates = form.cleaned_data.get('location')
             x,y = coordinates.split(",")
-            #still working on
+
             distances = []
             for event in Event.objects.all():
                 coordinatesEvent = event.location
@@ -152,10 +152,18 @@ def checkLocation(request):
 
             distances.sort(key=lambda elem: elem[1])
 
-
-            Popular_Events = Event.objects.order_by("-amount_likes")[:6]
             Nearby_Events = [elem[0] for elem in distances][:6]
-            More_Events = Event.objects.order_by("-title")[:6]  # can be changed to other form of sorting
+            Popular_Events = Event.objects.order_by("-amount_likes")[:6]
+            More_Events = Event.objects.all()
+
+            # remove already displayed events
+            DeleteList = []
+            for E in More_Events:
+                for popE in Popular_Events:
+                    if E.title == popE.title:
+                        DeleteList.append(E.id)
+
+            More_Events = More_Events.filter().exclude(id__in=DeleteList)
 
             context_dict["popular"] = Popular_Events
             context_dict["near"] = Nearby_Events

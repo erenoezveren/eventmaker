@@ -30,7 +30,13 @@ class UserProfileForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'picture', 'description', 'is_business')
 
 class EventForm(forms.ModelForm):
+    title = forms.CharField()
+    description = forms.CharField()
+    location = PlainLocationField(based_fields=['entry'],
+                                  initial='0,0')
+    entry = forms.CharField(help_text='Enter Location', required=False)
+
 
     class Meta:
         model = Event
-        fields = ('title', 'description', 'location', 'picture', 'time', 'price')
+        fields = ('title', 'description', 'location', 'entry', 'picture', 'time', 'price')

@@ -3,6 +3,12 @@
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %}
 
+{% block head_block %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{ form.media }}
+
+{% endblock %}
+
 {% block body_block %}
     <h1>Add Event</h1>
     <div>
