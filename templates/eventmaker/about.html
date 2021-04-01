@@ -3,33 +3,54 @@
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
 
+<!-- Page header with imports-->
+{% block head_block %}	
+				<meta name="viewport" content="width=device-width, initial-scale=1">
+				<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+{% endblock %}
+
+
 {% block title_block %}
 	About Eventmaker
 {% endblock %}
 
+<!-- Page content -->
 {% block body_block %}
-	<h1>About Eventmaker</h1>
-	<div>
-		Eventmaker is a web application that detects events near you and allows you to join, like and comment on them. <br />
+	<h1 class="w3-text-purple w3-container">About Eventmaker</h1>
+	<div class="w3-container">
+		<p>Eventmaker is a web application that detects events near you and allows you to join, like and comment on them.</p>
 	</div>
-	<h2>Contact Us</h2>
-		<div>
-			Alex Tonca,<br>
-			Eren Oezveren,<br>
-			Callum Ormond,<br>
-			Areeb Khan,<br>
-			University of Glasgow`
-
-	</div>
-	<h2>FAQ</h2>
-	<div>
-		<b>How do I register for an account?</b></br>
-		Click the sign up button and enter a username, email and password following the instructions provided</br>
+	
+	<hr>
+	<h2 class="w3-text-purple w3-container">Contact Us</h2>
+		<div class="w3-container">
+			<p>
+				Alex Tonca,<br>
+				Eren Oezveren,<br>
+				Callum Ormond,<br>
+				Areeb Khan,<br>
+				University of Glasgow
+			</p>
+		</div>
+	
+	<hr>
+	<h2 class="w3-text-purple w3-container" >FAQ</h2>
+	<div class="w3-container">
+		<p><b>How do I register for an account?</b></br>
+		- Click the sign up button and enter a username, email and password following the instructions provided</br>
 		<b>How do I join an event?</b></br>
-		Sign up for an account and navigate to the event page. Then press the join button.</br>
+		- Sign up for an account and navigate to the event page. Then press the join button.</p>
 	</div>
-
-		<img src="{{ MEDIA_URL }}party.jpeg" width="800" height="550" alt="Picture of one of the events listed." /> 
+	
+	<div class="w3-container">
+		{% if popular %}
+			{% for event in popular %}		
+				{% if event.picture %}
+					<img src="{{ event.picture }}" width="800" height="550" alt="Picture of one of the events listed." /> 
+				{% endif %}
+			{% endfor %}
+		{% endif %}
+	
 	</div>
 {% endblock %}
  

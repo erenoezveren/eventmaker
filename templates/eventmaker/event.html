@@ -2,32 +2,40 @@
 
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
-
+	<!-- Page header with imports-->
 	{% block head_block %}	
 				<meta name="viewport" content="width=device-width, initial-scale=1">
 				<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 				<link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/eventpage.css' %}">
 	{% endblock %}
 			
+	<!-- Page Content -->
 	{% block body_block %}
-			
+	
 		{% if event %}
-
+			<!-- Event Picture and details -->
+			<br>
             {% if event.picture %}
 			<div class="w3-container  w3-cell" >
-			<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Event Image"></p>
+			<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Picture of Event"></p>
 			</div>
+			{% else %}
+			<div class="w3-container  w3-cell" >
+			<p><img src={% static 'images/default.png' %} class="w3-round imageSize" alt="Picture of Event"/></p>
+			</div>
+			
             {% endif %}
 			  
 			<div class="w3-container w3-cell info w3-text-black">
-				<p><h2>{{ event.title }}</h2></p>
+				<p><h2 class="w3-text-purple">{{ event.title }}</h2></p>
 				<p class="details">Details<p>
 				<p class="info">Time - {{ event.time }}</p>
 				<p class="info">Price - £{{ event.price }}</p>
 				<p class="info">Location - {{ event.location }}</p>
-				<p class="info">Posted By - ><a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
+				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
 			</div>
 			
+			<!-- Event description -->
 			<hr>
 			<div class="w3-padding-8 w3-container" style="background-color:rgb(225, 225, 225)">	
 				<br>
@@ -38,6 +46,7 @@
 			</div>
 			<hr>
 			
+			<!-- Event Comments -->
 			<div class="w3-container w3-padding-8">
 				<h2 class="w3-text-purple">Comments</h2>
 			</div>
@@ -50,13 +59,14 @@
 			{% endif %}
 			</div>
 			
+			<!-- List of Comments -->
 			<div class="w3-container">
 			{% if comments %}
 				<ul class="w3-ul ">
 				{% for comment in comments %}
 					
 						<li class="w3-bar">
-						<img src="{{ comment.user.picture }}" class="w3-bar-item w3-circle w3-hide-small" style="width:45px">
+								<img src="{{ comment.user.picture }}" class="w3-bar-item w3-circle w3-hide-small" style="width:45px">
 							<div class="w3-bar-item">
 								<p> <a href="{% url 'eventmakerapp:userProfile' comment.user %}">{{ comment.user.username }}</a><br>
 								{{ comment.data }}</p>	
@@ -72,5 +82,11 @@
 		{% else %}
 			<strong>Event Does not exist - <a href="{% url 'eventmakerapp:index' %}">back</a></strong>
 		{% endif %}
+
+		<!-- Event Likes-->
+		<form action = "{% url 'eventmakerapp:event' event.title}" method = "POST">
+			{% csrf_token %}
+			<button type = "submit", name = "like_button", value = "{{event.id}}", class = "btn btn-primary btn-sm">Like</button>
+		</form>
 		
 	{% endblock %}

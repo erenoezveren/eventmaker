@@ -32,10 +32,10 @@ min-height:120px;
 object-fit:cover;
 }
 
-.description {
-text-overflow: ellipsis;
-overflow: hidden;
-max-width: 200px;
+.link {
+font-size: 25px;
+	
+	
 }
 
 				

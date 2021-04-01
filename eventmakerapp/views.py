@@ -15,6 +15,7 @@ from django.contrib.auth.models import User
 
 from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm
 
+from django.http import HttpResponseRedirect
 # Create your views here.
 def index(request):
     #Home page
@@ -22,12 +23,21 @@ def index(request):
 
     form = Address()
 
-    Popular_Events = Event.objects.order_by("-amount_likes")[:5]  
-    Nearby_Events = Event.objects.extra(where=["location='Glasgow'"])[:5] #Need to get users location 
-    More_Events = Event.objects.order_by("-title")[:5] #can be changed to other form of sorting 
+    Popular_Events = Event.objects.order_by("-amount_likes")[:6]  
+    More_Events = Event.objects.all()
+    
+    #remove already displayed events 
+    DeleteList = []
+    for E in More_Events:
+        for popE in Popular_Events:
+            if E.title == popE.title:
+                DeleteList.append(E.id)
+                
+     
+    More_Events = More_Events.filter().exclude(id__in=DeleteList)
+   
    
     context_dict["popular"] = Popular_Events
-    context_dict["near"] = Nearby_Events
     context_dict["more"] = More_Events
     context_dict["form"] = form
      
@@ -38,6 +48,8 @@ def about(request):
     #about page view
     
     context_dict = {}
+    Popular_Events = Event.objects.order_by("-amount_likes")[:1]  
+    context_dict["popular"] = Popular_Events
     
     response = render(request, 'eventmaker/about.html',context=context_dict) 
     return response
@@ -141,9 +153,9 @@ def checkLocation(request):
             distances.sort(key=lambda elem: elem[1])
 
 
-            Popular_Events = Event.objects.order_by("-amount_likes")[:5]
-            Nearby_Events = [elem[0] for elem in distances][:5]
-            More_Events = Event.objects.order_by("-title")[:5]  # can be changed to other form of sorting
+            Popular_Events = Event.objects.order_by("-amount_likes")[:6]
+            Nearby_Events = [elem[0] for elem in distances][:6]
+            More_Events = Event.objects.order_by("-title")[:6]  # can be changed to other form of sorting
 
             context_dict["popular"] = Popular_Events
             context_dict["near"] = Nearby_Events
@@ -232,3 +244,10 @@ def userProfile(request, user_name):
         context_dict["userProfile"] = None
         context_dict["events"] = None
     return render(request, 'eventmaker/user_profile.html', context_dict)
+
+#like view
+@login_required
+def like_event(request, event_name):
+    post = get_object_or_404(Event, id = request.POST.get('like_button'))
+    post.likes.add(request.user)
+    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))

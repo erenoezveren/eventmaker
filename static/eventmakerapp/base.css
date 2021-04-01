@@ -30,6 +30,7 @@ nav {
     background: #d6d9db;
     padding: 10px 40px 10px 70px;
     border-bottom: 1px solid black;
+    line-height: 0;
 }
 
 nav ul {
@@ -70,15 +71,13 @@ nav ul div.items a:hover {
 
 nav ul .search-icon{
     height: 40px;
-    width: 240px;
     display: flex;
-    background: #f2f2f2;
 }
 
 nav ul .search-icon input {
     height: 100%;
     width: 200px;
-    border: solid rgba(0, 0, 0, 0.387);
+    border: solid rgb(0, 0, 0);
     outline: none;
     padding: 0 10px;
     color: #000;
@@ -86,16 +85,6 @@ nav ul .search-icon input {
     border-radius: 5px 0 0 5px;
 }
 
-nav ul .search-icon .icon {
-    /* Get rid of inheritance from bootstrap which changes icon's position */
-    all: revert;
-    
-    height: 100%;
-    width: 40px;
-    line-height: 40px;
-    text-align: center;
-    cursor: pointer;
-}
 
 nav ul .search-icon .icon:hover{
     background: #e6e6e6;

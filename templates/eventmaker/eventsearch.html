@@ -2,49 +2,61 @@
 
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
-	
-	
-	
-	
-	{% block head_block %}
+
+	<!-- Page header with imports-->
+	{% block head_block %}		
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 		<link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/eventpage.css' %}">		
 	{% endblock %}
-	
+	<!--Page Conetent-->
 	{% block body_block %}
-	
+		
 		{% if searches %}
 		<div class="w3-container">
-		
 			<ul class="w3-ul w3-card-4">
+			
 				{% for search in searches %}
-				
-					<a href="{% url 'eventmakerapp:show_event' search.title %}">
+					
 					<li class="w3-bar">
+						<a href="{% url 'eventmakerapp:show_event' search.title %}">
+						{% if search.picture %}
 						<img src="{{ search.picture.url }}" class="w3-bar-item imageSizeSmall" >
+						{% else %}
+						<img src={% static 'images/default.png' %} class="w3-bar-item imageSizeSmall" >					
+						{% endif %}
+						</a>	
 						
 						<div class="w3-bar-item">
 							<a class="w3-text-purple" href="{% url 'eventmakerapp:show_event' search.title %}">
 							<b>{{ search.title }}</b><br></a>
-							<p class="description">(( search.location }}</p>
-							<p>(( search.description }}</p>
+							<p>{{ search.location }}</p>				
+							<p id="des">{{ search.description }}</p>
 						</div>
-						
-					</li>
-					</a>
-					
+					</li>	
 				{% endfor %}
-			</ul>
-			
+			</ul>			
 		</div>
 		
 		{% else %}
 			<p>There are no results for your search - {{ SearchValue }}</p>
 			<a href="{% url 'eventmakerapp:index' %}">Home</a>
 		{% endif %}
-	
 
+	<!-- JavaScript to limit length of description -->
+	<script>
+		function truncateText(selector, maxLength) {
+			var element = document.getElementById(selector),
+				truncated = element.innerText;
+
+			if (truncated.length > maxLength) {
+				truncated = truncated.substr(0,maxLength) + '...';
+			}
+			return truncated;
+		}
+		//You can then call the function with something like what i have below.
+		document.getElementById('des').innerText = truncateText('des', 200);
+		</script>
 	{% endblock %}
 
 
