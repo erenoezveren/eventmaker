@@ -1,5 +1,5 @@
 from django import forms
-from eventmakerapp.models import Comment, UserProfile
+from eventmakerapp.models import Comment, UserProfile, Event
 from location_field.forms.plain import PlainLocationField
 from django.contrib.auth.models import User
 
@@ -28,3 +28,9 @@ class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
         fields = ('first_name', 'last_name', 'picture', 'description', 'is_business')
+
+class EventForm(forms.ModelForm):
+
+    class Meta:
+        model = Event
+        fields = ('title', 'description', 'location', 'picture', 'time', 'price')

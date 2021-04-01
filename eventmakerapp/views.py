@@ -13,7 +13,7 @@ from eventmakerapp.models import UserProfile
 
 from django.contrib.auth.models import User
 
-from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm
+from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm, EventForm
 
 from django.http import HttpResponseRedirect
 # Create your views here.
@@ -251,3 +251,21 @@ def like_event(request, event_name):
     post = get_object_or_404(Event, id = request.POST.get('like_button'))
     post.likes.add(request.user)
     return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))
+
+
+@login_required
+def addEvent(request):
+    form = EventForm()
+
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+
+        if form.is_valid():
+            form.save(commit=True)
+
+            return redirect('/eventmaker/')
+
+        else:
+            print(form.errors)
+
+    return render(request, 'eventmaker/addEvent.html', {'form': form})

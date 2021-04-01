@@ -29,9 +29,11 @@
 							<a href="{% url 'eventmakerapp:logout' %}?next={%  url 'eventmakerapp:index' %}">Log Out</a>
 						</li>
 
+                        {% if user.is_authenticated %}
 						<li>
-							<a href='#'>Create Event</a>
+							<a href="{% url 'eventmakerapp:addEvent' %}">Add Event</a>
 						</li>
+                        {% endif %}
 
 						<li>
 							<a href="{% url 'eventmakerapp:userProfile' user.username %}">Account</a>
