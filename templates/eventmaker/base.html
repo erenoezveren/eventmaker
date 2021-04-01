@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 {% load staticfiles %}
 
-
 <html>
 	<!-- Page header with imports-->
 	<head lang = "en">
@@ -25,15 +24,19 @@
 				<li class="logo"><a href="{% url 'eventmakerapp:index' %}">eventmaker</a></li>
 				<div class="items">
 					{% if user.is_authenticated %}
+						{% for userProfile in user_profiles %}
+							{% ifequal userProfile.user.username user.username %}								
+								{% if userProfile.is_business %}
+									<li>
+										<a href="{% url 'eventmakerapp:addEvent' %}">Add Event</a>
+									</li>							
+								{% endif %}
+							{% endifequal %}
+						{% endfor %}
+
 						<li>
 							<a href="{% url 'eventmakerapp:logout' %}?next={%  url 'eventmakerapp:index' %}">Log Out</a>
 						</li>
-
-                        {% if user.is_authenticated %}
-						<li>
-							<a href="{% url 'eventmakerapp:addEvent' %}">Add Event</a>
-						</li>
-                        {% endif %}
 
 						<li>
 							<a href="{% url 'eventmakerapp:userProfile' user.username %}">Account</a>

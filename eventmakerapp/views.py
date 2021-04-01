@@ -35,15 +35,16 @@ def index(request):
                 
      
     More_Events = More_Events.filter().exclude(id__in=DeleteList)
-   
+    User_Profiles = UserProfile.objects.all()
    
     context_dict["popular"] = Popular_Events
     context_dict["more"] = More_Events
     context_dict["form"] = form
-     
+    context_dict["user_profiles"] = User_Profiles
+
     response = render(request, 'eventmaker/index.html',context=context_dict)
     return response
-    
+
 def about(request):
     #about page view
     
@@ -99,8 +100,8 @@ def makecomment(request, event_name):
     try:
         eventObj = Event.objects.get(title=event_name)
         commentsObj = Comment.objects.filter(event = eventObj)
-        userobj = User.objects.get(id=request.user.id) #User account is not in the database 
-                                                        #so cant get the correct one
+        userobj = User.objects.get(id=request.user.id)
+                                                        
         
         context_dict["event"] = eventObj 
         context_dict["comments"] = commentsObj
