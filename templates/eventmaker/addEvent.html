@@ -5,13 +5,15 @@
 
 {% block head_block %}
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    {{ form.media }}
+    <link href="{% static 'eventmakerapp/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'eventmakerapp/addEvent.css' %}" rel="stylesheet">
 
+    {{ form.media }}
 {% endblock %}
 
 {% block body_block %}
     <h1>Add Event</h1>
-    <div>
+    <div class="d-flex justify-content-center">
         <form id="event_form" method="post" action="/eventmaker/addEvent/">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
