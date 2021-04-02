@@ -31,8 +31,6 @@ def populate():
                             "",
                             "J.Martinez, reporting on deck!",],
              "picture":["images/default.png",None,None,None,None,None,None,None,None,None],}
-
-        
         
     for i in range(10):
         

@@ -34,15 +34,15 @@ class UserProfileForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'picture', 'description', 'is_business')
 
 class EventForm(forms.ModelForm):
-    title = forms.CharField(help_text="Event title")
-    description = forms.CharField(help_text="description")
+    title = forms.CharField(help_text="Enter an event title")
+    description = forms.CharField(help_text="Enter a description")
     location = PlainLocationField(based_fields=['entry'],
                                   initial='0,0')
     entry = forms.CharField(help_text="Enter or pick a location", required=False)
     host = forms.HiddenInput()
-    picture = forms.ImageField(help_text="Upload Picture", required=False)
-    time = forms.DateTimeField(help_text="Enter a time", input_formats=['%d/%m/%Y %H:%M'])
-    price = forms.CharField(help_text="Price")
+    picture = forms.ImageField(help_text="Upload a picture", required=False)
+    time = forms.DateTimeField(help_text="Pick a time", input_formats=['%d/%m/%Y %H:%M'])
+    price = forms.CharField(help_text="Enter a price")
 
     class Meta:
         model = Event
