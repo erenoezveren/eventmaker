@@ -52,15 +52,16 @@
 		{% endif %}
 		
 		<!--Nearby Events-->
-		<h3>Nearby Events</h3>
-        <form id="pickLocation" method="post" action="/eventmaker/checkLocation">
-            {% csrf_token %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Pick Location"  />
+		<h3 id="location">Nearby Events</h3>
+        <form id="pickLocation" method="post" action="/eventmaker/checkLocation#location">
+
+                {% csrf_token %}
+                {% for field in form.visible_fields %}
+                    {{ field.errors }}
+                    {{ field.help_text }}
+                    {{ field }}
+                {% endfor %}
+                <input type="submit" name="submit" value="Pick Location"  />
         </form>
 		{% if near %}
 
@@ -97,7 +98,7 @@
 	</div>
 </div>
 		{% else %}
-			<strong>Select a location on the map or enter a place to search for neearby events</strong>
+			<strong>Select a location on the map or enter a place to search for nearby events</strong>
 		{% endif %}
 		
 		<!--More Events-->

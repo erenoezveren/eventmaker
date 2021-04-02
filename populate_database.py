@@ -92,7 +92,7 @@ def populate():
         Eventhosts.append(user)
         
     
-    Events = {  "title":["Hive Thursday", "MCFLY", "NICK CAVE AND THE BAD SEEDS", "Music Show", "Open Mic Night", "Happy Hour", "Chess Tournement", "Highland Ceilidh", "Fun Run" , "Liiter Picking in Kelvingrove Park"],
+    Events = {  "title":["Hive Thursday", "MCFLY", "NICK CAVE AND THE BAD SEEDS", "Music Show", "Open Mic Night", "Happy Hour", "Chess Tournement", "Highland Ceilidh", "Fun Run" , "Litter Picking in Kelvingrove Park"],
                 "description": description,
                 "entry":["", "", "", "", "", "", "", "", "", "", ],
                 "location":["55.872530, -4.284912", "55.860044, -4.285217", "55.860044, -4.285217", "55.860044, -4.285217", "55.874865, -4.292925", "55.874865, -4.292925", "55.871796, -4.288292", "55.871483, -4.288543", "55.858129, -4.254747", "55.867991, -4.283774",],                
