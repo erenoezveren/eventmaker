@@ -70,7 +70,7 @@ def show_event(request, event_name):
     except Event.DoesNotExist:
         context_dict["title"] = None 
         context_dict["comments"] = None
-      
+
     return render(request, 'eventmaker/event.html', context=context_dict)
     
 def eventsearch(request):
@@ -259,9 +259,15 @@ def userProfile(request, user_name):
 def like_event(request, event_name):
     post = get_object_or_404(Event, id = request.POST.get('like_button'))
     post.likes.add(request.user)
-    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))
+    
+    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))  
 
-
+@login_required
+def join_event(request, event_name):
+    post = get_object_or_404(Event, id = request.POST.get('join_button'))
+    
+    
+    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))  
 @login_required
 def addEvent(request):
     form = EventForm()

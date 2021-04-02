@@ -88,5 +88,11 @@
 			{% csrf_token %}
 			<button type = "submit", name = "like_button", value = "{{event.id}}", class = "btn btn-primary btn-sm">Like</button>
 		</form>
+
+		<!-- Event Join-->
+		<form action = "{% url 'eventmakerapp:show_event' event.title %}" method = "POST">
+			{% csrf_token %}
+			<button type = "submit", name = "join_button", value = "{{event.id}}", class = "btn btn-primary btn-sm">Join</button>
+		</form>
 		
 	{% endblock %}
