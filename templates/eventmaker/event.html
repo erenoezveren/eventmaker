@@ -84,7 +84,7 @@
 		{% endif %}
 
 		<!-- Event Likes-->
-		<form action = "{% url 'eventmakerapp:event' event.title}" method = "POST">
+		<form action = "{% url 'eventmakerapp:show_event' event.title %}" method = "POST">
 			{% csrf_token %}
 			<button type = "submit", name = "like_button", value = "{{event.id}}", class = "btn btn-primary btn-sm">Like</button>
 		</form>
