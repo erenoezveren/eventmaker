@@ -57,11 +57,18 @@
 
                 {% csrf_token %}
                 {% for field in form.visible_fields %}
-                    {{ field.errors }}
-                    {{ field.help_text }}
-                    {{ field }}
+                    <div class="d-flex justify-content-center">
+                        {{ field.errors }}
+                        {{ field.help_text }}
+                        {{ field }}
+                    </div>
                 {% endfor %}
-                <input type="submit" name="submit" value="Pick Location"  />
+                <div class="d-flex justify-content-center">
+                    <input type="submit" name="submit" value="Pick Location"  />
+                </div>
+                <div class="d-flex justify-content-center">
+                    <strong>Select a location on the map or enter a place to search for nearby events</strong>
+                </div>
         </form>
 		{% if near %}
 
@@ -97,8 +104,7 @@
 		</div>
 	</div>
 </div>
-		{% else %}
-			<strong>Select a location on the map or enter a place to search for nearby events</strong>
+
 		{% endif %}
 		
 		<!--More Events-->

@@ -6,7 +6,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=32, blank=False, default="")
     last_name = models.CharField(max_length=20, blank=False, default="")
-    is_business = models.BooleanField("Are you a business?", default=False)
+    is_business = models.BooleanField("Do you represent a business?", default=False)
     description = models.TextField("About you", blank=True)
     picture = models.ImageField("Profile picture", default='defaultProfilePic.jpg')
 
@@ -20,7 +20,7 @@ class Event(models.Model):
     location = PlainLocationField(based_fields=['entry'], zoom=7, blank=True)
     picture = models.ImageField(default='NoEventImage.png')
     time = models.DateTimeField(null=True)
-    price = models.IntegerField(null=True)
+    price = models.FloatField(null=True)
     likes = models.ManyToManyField(User, related_name="liked", blank=True, through="Like")
     amount_likes = models.IntegerField(default=0, null=False)
     joins = models.ManyToManyField(User, related_name="joined", blank=True, through="Join")
