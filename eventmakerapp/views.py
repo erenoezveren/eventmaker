@@ -13,7 +13,7 @@ from eventmakerapp.models import UserProfile
 
 from django.contrib.auth.models import User
 
-from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm, EventForm
+from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm, EventForm, AddressEvent
 
 from django.http import HttpResponseRedirect
 # Create your views here.
@@ -41,8 +41,7 @@ def index(request):
     context_dict["more"] = More_Events
     context_dict["form"] = form
 
-
-    response = render(request, 'eventmaker/index.html',context=context_dict)
+    response = render(request, 'eventmaker/index.html', context=context_dict)
     return response
 
 def about(request):
@@ -54,12 +53,14 @@ def about(request):
     User_Profiles = UserProfile.objects.all()
     context_dict["user_profiles"] = User_Profiles
     
-    response = render(request, 'eventmaker/about.html',context=context_dict) 
+    response = render(request, 'eventmaker/about.html', context=context_dict)
     return response
     
     
 def show_event(request, event_name):    
     context_dict = {}
+
+
 
     User_Profiles = UserProfile.objects.all()
     context_dict["user_profiles"] = User_Profiles
@@ -70,6 +71,9 @@ def show_event(request, event_name):
         
         context_dict["event"] = eventObj 
         context_dict["comments"] = commentsObj
+
+        form = Address(initial={"location": eventObj.location})
+        context_dict["form"] = form
         
     except Event.DoesNotExist:
         context_dict["title"] = None 

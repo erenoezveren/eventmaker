@@ -3,10 +3,12 @@
 {% extends "eventmaker/base.html" %}
 {% load staticfiles %} 
 	<!-- Page header with imports-->
-	{% block head_block %}	
-				<meta name="viewport" content="width=device-width, initial-scale=1">
-				<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-				<link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/eventpage.css' %}">
+	{% block head_block %}
+        <script src="{% static 'jquery/jquery.js' %}"></script>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link type="text/css" rel="stylesheet" href="{% static 'eventmakerapp/eventpage.css' %}">
+        {{ form.media }}
 	{% endblock %}
 			
 	<!-- Page Content -->
@@ -31,7 +33,16 @@
 				<p class="details">Details<p>
 				<p class="info">Time - {{ event.time }}</p>
 				<p class="info">Price - £{{ event.price }}</p>
-				<p class="info">Location - {{ event.location }}</p>
+				<p class="info">Location -
+                {% csrf_token %}
+                {% for field in form.visible_fields %}
+                    {% ifequal field.name "location" %}
+                        {{ field.errors }}
+                        {{ field.help_text }}
+                        {{ field }}
+                    {% endifequal %}
+                {% endfor %}
+                </p>
 				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
 			</div>
 			

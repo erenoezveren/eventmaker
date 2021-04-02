@@ -17,6 +17,10 @@ class Address(forms.Form):
                                   initial='55.8719,-4.2883')
     entry = forms.CharField(required=False)
 
+class AddressEvent(forms.Form):
+
+    location = PlainLocationField(based_fields=None)
+
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
 
