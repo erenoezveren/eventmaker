@@ -32,15 +32,15 @@ def index(request):
         for popE in Popular_Events:
             if E.title == popE.title:
                 DeleteList.append(E.id)
-                
-     
+
     More_Events = More_Events.filter().exclude(id__in=DeleteList)
     User_Profiles = UserProfile.objects.all()
+    context_dict["user_profiles"] = User_Profiles
    
     context_dict["popular"] = Popular_Events
     context_dict["more"] = More_Events
     context_dict["form"] = form
-    context_dict["user_profiles"] = User_Profiles
+
 
     response = render(request, 'eventmaker/index.html',context=context_dict)
     return response
@@ -51,6 +51,8 @@ def about(request):
     context_dict = {}
     Popular_Events = Event.objects.order_by("-amount_likes")[:1]  
     context_dict["popular"] = Popular_Events
+    User_Profiles = UserProfile.objects.all()
+    context_dict["user_profiles"] = User_Profiles
     
     response = render(request, 'eventmaker/about.html',context=context_dict) 
     return response
@@ -58,7 +60,9 @@ def about(request):
     
 def show_event(request, event_name):    
     context_dict = {}
-     
+
+    User_Profiles = UserProfile.objects.all()
+    context_dict["user_profiles"] = User_Profiles
     #get comments
     try:
         eventObj = Event.objects.get(title=event_name)
@@ -78,7 +82,8 @@ def eventsearch(request):
     context_dict = {}
     #get value of search box from the request and seach box name
     query = request.GET.get('searchEvent')
-    
+    User_Profiles = UserProfile.objects.all()
+    context_dict["user_profiles"] = User_Profiles
     try:
         #genral search in database for similar titles
         eventObj = Event.objects.filter(title__contains = query)
@@ -94,8 +99,8 @@ def eventsearch(request):
 @login_required 
 def makecomment(request, event_name):
     context_dict = {}
-    
-    print(request.user)
+    User_Profiles = UserProfile.objects.all()
+    context_dict["user_profiles"] = User_Profiles
     
     try:
         eventObj = Event.objects.get(title=event_name)
@@ -122,8 +127,7 @@ def makecomment(request, event_name):
             newComment.event = eventObj
             newComment.user = userobj
             newComment.save()
-            
-            
+
             return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))
             
         else:
@@ -135,6 +139,8 @@ def makecomment(request, event_name):
 
 
 def checkLocation(request):
+
+
     if request.method == 'POST':
         form = Address(request.POST)
 
@@ -170,11 +176,13 @@ def checkLocation(request):
             context_dict["near"] = Nearby_Events
             context_dict["more"] = More_Events
             context_dict["form"] = form
+            User_Profiles = UserProfile.objects.all()
+            context_dict["user_profiles"] = User_Profiles
 
             response = render(request, 'eventmaker/index.html', context=context_dict)
             return response
 
-    redirect(index(request))
+    return redirect(index(request))
 
 def register(request):
     registered = False
@@ -201,8 +209,10 @@ def register(request):
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
-    
-    return render(request, 'eventmaker/register.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+
+    User_Profiles = UserProfile.objects.all()
+
+    return render(request, 'eventmaker/register.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered, 'user_profiles': UserProfile.objects.all()})
 
 def user_login(request):
     if request.method == 'POST':
@@ -231,6 +241,9 @@ def user_logout(request):
 
 def userProfile(request, user_name):
     context_dict = {}
+
+    User_Profiles = UserProfile.objects.all()
+    context_dict["user_profiles"] = User_Profiles
 
     try:
         userobj = User.objects.get(username=user_name)
@@ -270,15 +283,22 @@ def join_event(request, event_name):
     return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))  
 @login_required
 def addEvent(request):
+    try:
+        userobj = request.user
+    except not request.user.is_authenticated:
+        return redirect('/eventmaker/')
+
     form = EventForm()
 
     if request.method == 'POST':
         form = EventForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=True)
+            form.save(commit=False)
+            form.host = userobj
+            form.save()
 
-            return redirect('/eventmaker/')
+            return redirect('/rango/')
 
         else:
             print(form.errors)
