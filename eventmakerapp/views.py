@@ -199,6 +199,7 @@ def register(request):
             profile = profile_form.save(commit=False)
             profile.user = user
 
+
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
             
@@ -210,9 +211,7 @@ def register(request):
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    User_Profiles = UserProfile.objects.all()
-
-    return render(request, 'eventmaker/register.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered, 'user_profiles': UserProfile.objects.all()})
+    return render(request, 'eventmaker/register.html', context={'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
 
 def user_login(request):
     if request.method == 'POST':
@@ -283,10 +282,6 @@ def join_event(request, event_name):
     return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))  
 @login_required
 def addEvent(request):
-    try:
-        userobj = request.user
-    except not request.user.is_authenticated:
-        return redirect('/eventmaker/')
 
     form = EventForm()
 
@@ -294,11 +289,11 @@ def addEvent(request):
         form = EventForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=False)
-            form.host = userobj
-            form.save()
+            event_instance = form.save(commit=False)
+            event_instance.host = request.user
+            event_instance.save()
 
-            return redirect('/rango/')
+            return redirect('/eventmaker/')
 
         else:
             print(form.errors)
