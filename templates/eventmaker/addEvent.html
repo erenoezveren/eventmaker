@@ -4,14 +4,20 @@
 {% load staticfiles %}
 
 {% block head_block %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="{% static 'jquery/jquery.js' %}"></script>
+
     <link href="{% static 'eventmakerapp/bootstrap.min.css' %}" rel="stylesheet">
     <link href="{% static 'eventmakerapp/addEvent.css' %}" rel="stylesheet">
+
 
     {{ form.media }}
 {% endblock %}
 
 {% block body_block %}
+
+    <link rel="stylesheet" type="text/css" href="{% static 'jquery/datetimepicker/jquery.datetimepicker.css' %}"/>
+    <script src="/static/jquery/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+
     <h1>Add Event</h1>
     <div class="d-flex justify-content-center">
         <form id="event_form" method="post" action="/eventmaker/addEvent/">
@@ -20,9 +26,26 @@
                 {{ hidden }}
             {% endfor %}
             {% for field in form.visible_fields %}
+
                 {{ field.errors }}
-                {{ field.help_text }}
-                {{ field }}
+                <div class="help-text">
+                    {{ field.help_text }}
+                </div>
+                <div clas="field">
+                {% ifequal field.name "time" %}
+                        {{ field }}
+                        <script>
+                            $(function () {
+                                $("#{{ field.auto_id }}").datetimepicker({
+                                    format: 'd/m/Y H:i',
+                                });
+                            });
+                        </script>
+
+                {% else %}
+                    {{ field }}
+                {% endifequal %}
+                </div>
             {% endfor %}
             <input type="submit" name="submit" value="Add Event" />
         </form>
