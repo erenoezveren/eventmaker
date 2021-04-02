@@ -35,6 +35,7 @@ class EventForm(forms.ModelForm):
     location = PlainLocationField(based_fields=['entry'],
                                   initial='0,0')
     entry = forms.CharField(help_text='Enter Location', required=False)
+    host = forms.HiddenInput()
 
 
     class Meta:
