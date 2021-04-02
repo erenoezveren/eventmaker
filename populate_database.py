@@ -20,12 +20,17 @@ def populate():
     Users = {"first_name":["John","Cara","Bill","Matthew","Kira","Charlie","Euan","Emma","Ben","Jamie"],
              "last_name" :["Smith","johnson","Williams","Brown","Jones","Miller","Davis","Hunter","Rodriguez","Martinez"],
              "is_business":[True,True,True,False,False,False,False,False,False,False],
-             "description":["","","","","","","","","","",],
+             "description":["Hi everyone! I'm John, an exchange student from Wisconsin, USA. I love taking long hikes in the mountains. Looking forward to having lots of fun in Glasgow!",
+                            "Cara here. You can call me C. Did you know that the first oranges weren't actually orange? Studying BioChem second year. Insta: caraJ",
+                            "How ye daein?",
+                            "'You miss 100% of the shots you don't take. - Wayne Gretzky' - Michael Scott",
+                            "Anybody wanna join me for MCFLY on the 29th???? DON'T WANNA GO ALONE",
+                            "Hello, my name is Charlie. I am currently studying English Literature. I look forward to joining your event",
+                            "",
+                            "Favourite colour: Pink. Favourite animal: Fox. Favourite food: Avocado Sushi. Favourite band: Twenty One Pilots",
+                            "",
+                            "J.Martinez, reporting on deck!",],
              "picture":["images/default.png",None,None,None,None,None,None,None,None,None],}
-            
-    for i in range(10):
-        Users["description"][i] = "Hi my name is " + Users["first_name"][i] + " and this is my discription"
-        
         
     for i in range(10):
         

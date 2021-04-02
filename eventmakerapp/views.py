@@ -13,7 +13,7 @@ from eventmakerapp.models import UserProfile
 
 from django.contrib.auth.models import User
 
-from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm, EventForm
+from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm, EventForm, AddressEvent
 
 from django.http import HttpResponseRedirect
 # Create your views here.
@@ -41,8 +41,7 @@ def index(request):
     context_dict["more"] = More_Events
     context_dict["form"] = form
 
-
-    response = render(request, 'eventmaker/index.html',context=context_dict)
+    response = render(request, 'eventmaker/index.html', context=context_dict)
     return response
 
 def about(request):
@@ -54,12 +53,14 @@ def about(request):
     User_Profiles = UserProfile.objects.all()
     context_dict["user_profiles"] = User_Profiles
     
-    response = render(request, 'eventmaker/about.html',context=context_dict) 
+    response = render(request, 'eventmaker/about.html', context=context_dict)
     return response
     
     
 def show_event(request, event_name):    
     context_dict = {}
+
+
 
     User_Profiles = UserProfile.objects.all()
     context_dict["user_profiles"] = User_Profiles
@@ -70,6 +71,9 @@ def show_event(request, event_name):
         
         context_dict["event"] = eventObj 
         context_dict["comments"] = commentsObj
+
+        form = Address(initial={"location": eventObj.location})
+        context_dict["form"] = form
         
     except Event.DoesNotExist:
         context_dict["title"] = None 
@@ -247,12 +251,12 @@ def userProfile(request, user_name):
     try:
         userobj = User.objects.get(username=user_name)
         userProfileobj = UserProfile.objects.get(user__username__exact=user_name)
-        events = list(userobj.event_set.all())
+        liked = userobj.liked.all()[:6]
 
 
         context_dict["userProfile"] = userProfileobj
         context_dict["user"] = userobj
-        context_dict["events"] = events
+        context_dict["events"] = liked
 
 
     except User.DoesNotExist:
@@ -270,16 +274,16 @@ def userProfile(request, user_name):
 @login_required
 def like_event(request, event_name):
     post = get_object_or_404(Event, id = request.POST.get('like_button'))
-    post.likes.add(request.user)
+    post.liked.add(request.user)
     
     return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))  
 
 @login_required
 def join_event(request, event_name):
     post = get_object_or_404(Event, id = request.POST.get('join_button'))
-    
-    
-    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))  
+
+    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))
+
 @login_required
 def addEvent(request):
 

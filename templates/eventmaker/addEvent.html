@@ -5,21 +5,24 @@
 
 {% block head_block %}
     <script src="{% static 'jquery/jquery.js' %}"></script>
+    <script src="/static/jquery/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
 
     <link href="{% static 'eventmakerapp/bootstrap.min.css' %}" rel="stylesheet">
-    <link href="{% static 'eventmakerapp/addEvent.css' %}" rel="stylesheet">
 
+    <link rel="stylesheet" href="{% static 'jquery/datetimepicker/jquery.datetimepicker.css' %}"/>
+    <link type="text/css" href="{% static 'eventmakerapp/addEvent.css' %}" rel="stylesheet">
 
     {{ form.media }}
 {% endblock %}
 
 {% block body_block %}
 
-    <link rel="stylesheet" type="text/css" href="{% static 'jquery/datetimepicker/jquery.datetimepicker.css' %}"/>
-    <script src="/static/jquery/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
+
+
 
     <h1>Add Event</h1>
-    <div class="d-flex justify-content-center">
+    <hr>
+    <div class="d-flex justify-content-center" id="form">
         <form id="event_form" method="post" action="/eventmaker/addEvent/">
             {% csrf_token %}
             {% for hidden in form.hidden_fields %}
@@ -31,7 +34,7 @@
                 <div class="help-text">
                     {{ field.help_text }}
                 </div>
-                <div clas="field">
+                <div class="field">
                 {% ifequal field.name "time" %}
                         {{ field }}
                         <script>
@@ -47,7 +50,7 @@
                 {% endifequal %}
                 </div>
             {% endfor %}
-            <input type="submit" name="submit" value="Add Event" />
+            <input id="submit" type="submit" name="submit" value="Add Event" />
         </form>
     </div>
 {% endblock %}

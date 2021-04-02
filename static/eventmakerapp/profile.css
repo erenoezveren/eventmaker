@@ -1,0 +1,47 @@
+.picture {
+    border-radius:8px;
+    max-width:200px;
+    max-height:120px;
+    min-width:200px;
+    min-height:120px;
+    object-fit:cover;
+}
+
+.Block{
+    background: rgb(225,225,225);
+    margin-top: 3vh;
+}
+
+h1 {
+	text-align: center;
+	font-size: 4vw;
+	padding-top: 2vh;
+	padding-bottom: 1vh;
+    color: purple;
+}
+
+.Attribute{
+    text-align: left;
+    font-size: 1.5vw;
+    padding-left: 3vw;
+    padding-bottom: 1vw;
+}
+
+h2{
+    text-align: left;
+    font-size: 2vw;
+    padding-left: 3vw;
+    padding-bottom: 1vh;
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+    color: #06357a;
+}
+
+img {
+    width: 100%;
+    height: auto;
+}
+.image-container {
+    width:420px;
+    height: 240px;
+    overflow:hidden;
+}
