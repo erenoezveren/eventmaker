@@ -251,12 +251,12 @@ def userProfile(request, user_name):
     try:
         userobj = User.objects.get(username=user_name)
         userProfileobj = UserProfile.objects.get(user__username__exact=user_name)
-        events = list(userobj.event_set.all())
+        liked = userobj.liked.all()[:6]
 
 
         context_dict["userProfile"] = userProfileobj
         context_dict["user"] = userobj
-        context_dict["events"] = events
+        context_dict["events"] = liked
 
 
     except User.DoesNotExist:
