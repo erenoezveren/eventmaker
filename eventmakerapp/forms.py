@@ -15,7 +15,7 @@ class Address(forms.Form):
 
     location = PlainLocationField(based_fields=['entry'],
                                   initial='55.8719,-4.2883')
-    entry = forms.CharField(help_text='Enter Location', required=False)
+    entry = forms.CharField(required=False)
 
 class UserForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
@@ -34,7 +34,7 @@ class EventForm(forms.ModelForm):
     description = forms.CharField()
     location = PlainLocationField(based_fields=['entry'],
                                   initial='0,0')
-    entry = forms.CharField(required=False)
+    entry = forms.CharField(help_text="enter Location", required=False)
     host = forms.HiddenInput()
 
 
