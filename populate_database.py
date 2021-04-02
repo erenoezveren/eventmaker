@@ -149,7 +149,8 @@ def add_User(user,first_name,last_name,is_business,description,picture=None):
     user=user,
     first_name=first_name,
     last_name=last_name,
-    is_business=is_business)
+    is_business=is_business,
+    description=description)
     
     
 def add_event(title,description,entry,location,picture,time,price,amount_likes,host): 
