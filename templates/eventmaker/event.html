@@ -32,7 +32,11 @@
 				<p><h2 class="w3-text-purple">{{ event.title }}</h2></p>
 				<p class="details">Details<p>
 				<p class="info">Time - {{ event.time }}</p>
-				<p class="info">Price - £{{ event.price }}</p>
+				{% if event.price == 0 %}
+					<p class="info">Price - Free Entry</p>
+				{% else %}
+					<p class="info">Price - £{{ event.price }}</p>
+				{% endif %}
 				<p class="info">Location - {{ event.locationName }}</p>
 				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
 				<p class="info">Likes - {{ event.amount_likes }}</p>

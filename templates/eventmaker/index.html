@@ -38,7 +38,13 @@
 							<div class="btn-group">
 							  <a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
 							</div>
-							<small class="text-muted"><strong>Price:</strong> £{{ event.price }}</small>
+							<small class="text-muted"><strong>Price:</strong> 
+								{% if event.price == 0 %}
+									Free Entry
+								{% else %}
+									£{{ event.price }}
+								{% endif %}	
+							</small>
 						  </div>
 						</div>
 					  </div>
@@ -95,7 +101,13 @@
 					  <div class="btn-group">
 						<a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
 					  </div>
-					  <small class="text-muted"><strong>Price:</strong> £{{ event.price }}</small>
+					  <small class="text-muted"><strong>Price:</strong> 
+						{% if event.price == 0 %}
+							Free Entry
+						{% else %}
+							£{{ event.price }}
+						{% endif %}	
+					  </small>
 					</div>
 				  </div>
 				</div>
@@ -132,7 +144,13 @@
 					  <div class="btn-group">
 						<a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
 					  </div>
-					  <small class="text-muted"><strong>Price:</strong> £{{ event.price }}</small>
+					  <small class="text-muted"><strong>Price:</strong> 
+						{% if event.price == 0 %}
+							Free Entry
+						{% else %}
+							£{{ event.price }}
+						{% endif %}				  
+					  </small>
 					</div>
 				  </div>
 				</div>
