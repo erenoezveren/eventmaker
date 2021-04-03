@@ -33,8 +33,13 @@
 				<p class="details">Details<p>
 				<p class="info">Time - {{ event.time }}</p>
 				<p class="info">Price - £{{ event.price }}</p>
-				<p class="info">Location -
-                {% csrf_token %}
+				<p class="info">Location - {{ event.locationName }}</p>
+				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
+				<p class="info">Likes - {{ event.amount_likes }}</p>
+			</div>
+			
+			<div class="w3-container w3-cell info w3-text-black">
+				{% csrf_token %}
                 {% for field in form.visible_fields %}
                     {% ifequal field.name "location" %}
                         {{ field.errors }}
@@ -42,8 +47,7 @@
                         {{ field }}
                     {% endifequal %}
                 {% endfor %}
-                </p>
-				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
+
 			</div>
 			
 			<!-- Event description -->

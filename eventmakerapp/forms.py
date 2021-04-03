@@ -36,6 +36,7 @@ class UserProfileForm(forms.ModelForm):
 class EventForm(forms.ModelForm):
     title = forms.CharField(help_text="Enter an event title")
     description = forms.CharField(help_text="Enter a description")
+    locationName = forms.CharField(help_text="Enter the location name")##
     location = PlainLocationField(based_fields=['entry'],
                                   initial='0,0')
     entry = forms.CharField(help_text="Enter or pick a location", required=False)

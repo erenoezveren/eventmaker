@@ -99,6 +99,7 @@ def populate():
     
     Events = {  "title":["Hive Thursday", "MCFLY", "NICK CAVE AND THE BAD SEEDS", "Music Show", "Open Mic Night", "Happy Hour", "Chess Tournement", "Highland Ceilidh", "Fun Run" , "Litter Picking in Kelvingrove Park"],
                 "description": description,
+                "locationName":["Glasgow University Union","Glasgow Hydro","Glasgow Hydro","Bar Name","karaoke Bar","Bar Name","Glasgow University","Glasgow University","Glasgow Argyle Street","Kelvingrove Park"],##
                 "entry":["", "", "", "", "", "", "", "", "", "", ],
                 "location":["55.872530, -4.284912", "55.860044, -4.285217", "55.860044, -4.285217", "55.860044, -4.285217", "55.874865, -4.292925", "55.874865, -4.292925", "55.871796, -4.288292", "55.871483, -4.288543", "55.858129, -4.254747", "55.867991, -4.283774",],                
                 "picture": Pictures,
@@ -111,6 +112,7 @@ def populate():
     for i in range(10):
         add_event(  Events["title"][i],
                     Events["description"][i],
+                    Events["locationName"][i],##
                     Events["entry"][i],
                     Events["location"][i],
                     Events["picture"][i],        
@@ -158,11 +160,12 @@ def add_User(user,first_name,last_name,is_business,description,picture=None):
     description=description)
     
     
-def add_event(title,description,entry,location,picture,time,price,amount_likes,host): 
+def add_event(title,description,locationName,entry,location,picture,time,price,amount_likes,host): ##
     
     E = Event.objects.get_or_create(   
     title=title,
     description=description,
+    locationName=locationName,##
     entry=entry,
     location=location,
     picture=picture,
