@@ -12,4 +12,6 @@ OpenStreetMap - https://www.openstreetmap.org/#map=6/50.329/13.471
 
 Nominatim by OpenStreetMap - https://nominatim.openstreetmap.org/ui/about.html
 
+Photographs from Pexels.com - https://www.pexels.com/
+
 (Bootstrap)
