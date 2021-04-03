@@ -36,10 +36,10 @@ class UserProfileForm(forms.ModelForm):
 class EventForm(forms.ModelForm):
     title = forms.CharField(help_text="Enter an event title")
     description = forms.CharField(help_text="Enter a description")
-    locationName = forms.CharField(help_text="Enter the location name")##
+    locationName = forms.CharField(help_text="Enter the name of the venue")
     location = PlainLocationField(based_fields=['entry'],
                                   initial='0,0')
-    entry = forms.CharField(help_text="Enter or pick a location", required=False)
+    entry = forms.CharField(help_text="Enter an address here or pick a location from the map", required=False)
     host = forms.HiddenInput()
     picture = forms.ImageField(help_text="Upload a picture", required=False)
     time = forms.DateTimeField(help_text="Pick a time", input_formats=['%d/%m/%Y %H:%M'])
@@ -47,4 +47,4 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ('title', 'description', 'location', 'entry', 'picture', 'time', 'price')
+        fields = ('title', 'description', 'location', 'entry', 'locationName', 'picture', 'time', 'price')
