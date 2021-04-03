@@ -7,6 +7,7 @@ from django.shortcuts import redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 
+from eventmakerapp.functions import index_helper
 from eventmakerapp.models import Event
 from eventmakerapp.models import Comment
 from eventmakerapp.models import UserProfile
@@ -18,31 +19,8 @@ from eventmakerapp.forms import CommentForm, Address, UserForm, UserProfileForm,
 from django.http import HttpResponseRedirect
 # Create your views here.
 def index(request):
-    #Home page
-    context_dict = {}
 
-    form = Address()
-
-    Popular_Events = Event.objects.order_by("-amount_likes")[:6]  
-    More_Events = Event.objects.all()
-    
-    #remove already displayed events 
-    DeleteList = []
-    for E in More_Events:
-        for popE in Popular_Events:
-            if E.title == popE.title:
-                DeleteList.append(E.id)
-
-    More_Events = More_Events.filter().exclude(id__in=DeleteList)
-    User_Profiles = UserProfile.objects.all()
-    context_dict["user_profiles"] = User_Profiles
-   
-    context_dict["popular"] = Popular_Events
-    context_dict["more"] = More_Events
-    context_dict["form"] = form
-
-    response = render(request, 'eventmaker/index.html', context=context_dict)
-    return response
+    return index_helper(request, None, None)
 
 def about(request):
     #about page view
@@ -149,7 +127,6 @@ def checkLocation(request):
         form = Address(request.POST)
 
         if form.is_valid():
-            context_dict = {}
 
             coordinates = form.cleaned_data.get('location')
             x,y = coordinates.split(",")
@@ -164,27 +141,8 @@ def checkLocation(request):
             distances.sort(key=lambda elem: elem[1])
 
             Nearby_Events = [elem[0] for elem in distances][:6]
-            Popular_Events = Event.objects.order_by("-amount_likes")[:6]
-            More_Events = Event.objects.all()
 
-            # remove already displayed events
-            DeleteList = []
-            for E in More_Events:
-                for popE in Popular_Events:
-                    if E.title == popE.title:
-                        DeleteList.append(E.id)
-
-            More_Events = More_Events.filter().exclude(id__in=DeleteList)
-
-            context_dict["popular"] = Popular_Events
-            context_dict["near"] = Nearby_Events
-            context_dict["more"] = More_Events
-            context_dict["form"] = form
-            User_Profiles = UserProfile.objects.all()
-            context_dict["user_profiles"] = User_Profiles
-
-            response = render(request, 'eventmaker/index.html', context=context_dict)
-            return response
+            return index_helper(request, Nearby_Events, form)
 
     return redirect(index(request))
 
