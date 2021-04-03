@@ -46,7 +46,9 @@
 		{% if popular %}
 			{% for event in popular %}		
 				{% if event.picture %}
-					<img src="{{ event.picture }}" width="800" height="550" alt="Picture of one of the events listed." /> 
+					<a href="{% url 'eventmakerapp:show_event' event.title %}">
+					<img src="{{ event.picture.url }}" width="800" height="550" alt="Picture of one of the events listed." /> 
+					</a>
 				{% endif %}
 			{% endfor %}
 		{% endif %}
