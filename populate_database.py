@@ -27,7 +27,7 @@ def populate():
                             "Favourite colour: Pink. Favourite animal: Fox. Favourite food: Avocado Sushi. Favourite band: Twenty One Pilots",
                             "",
                             "J.Martinez, reporting on deck!",],
-             "picture":[None,"pp_cara","pp_bill.jpg",None,"pp_kira.jpg",None,None,None,"pp_ben.jpg","pp_jamie.jpg"],}
+             "picture":[None,"pp_cara.jpg","pp_bill.jpg",None,"pp_kira.jpg",None,None,None,"pp_ben.jpg","pp_jamie.jpg"],}
         
     for i in range(10):
         

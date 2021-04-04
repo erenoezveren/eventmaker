@@ -1,9 +1,12 @@
-picture {
+.picture {
+
     border-radius:8px;
-    max-width:5vw;
-    max-height:3vh;
-    width: 100%;
-    height: auto;
+    max-width:300px;
+    max-height:500px;
+    min-width:300px;
+    min-height:500px;
+    object-fit:cover;
+    padding-right: 5vw;
 }
 
 .Block{
@@ -35,12 +38,3 @@ h2{
     color: #06357a;
 }
 
-img {
-    width: 100%;
-    height: auto;
-}
-.image-container {
-    width:420px;
-    height: 240px;
-    overflow:hidden;
-}

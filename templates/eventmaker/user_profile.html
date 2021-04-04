@@ -4,23 +4,21 @@
 {% load staticfiles %}
 
 {% block head_block %}
-	<link href="{% static 'eventmakerapp/profile.css' %}" rel="stylesheet">
+	<link type="text/css" href="{% static 'eventmakerapp/profile.css' %}" rel="stylesheet">
 {% endblock %}
 
 <!-- Page Content-->
 {% block body_block %}
+    <div class="d-flex">
     {% if user %}
         {% if userProfile.picture %}
             {% ifnotequal userProfile.picture.name  "defaultProfilePic.jpg" %}
-                <div>
-                    <picture>
-                        <img src="{{ userProfile.picture.url }}" alt="ProfilePicture">
-                    </picture>
-                </div>
+                    <img src="{{ userProfile.picture.url }}" class="picture">
             {% endifnotequal %}
         {% endif %}
 
         <h1>{{ user.username }}</h1>
+        </div>
         <hr>
         <div class="Block">
             {% if userProfile.description %}
