@@ -21,3 +21,5 @@ Login page - https://getbootstrap.com/docs/4.0/examples/sign-in/
 Registration page - https://www.tutorialrepublic.com/snippets/preview.php?topic=bootstrap&file=simple-registration-form
 
 Navigation bar - https://www.codingnepalweb.com/2020/04/responsive-menu-bar-in-html-css.html
+
+W3CSS - https://www.w3schools.com/w3css/defaulT.asp
