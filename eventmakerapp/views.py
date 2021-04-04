@@ -221,7 +221,7 @@ def userProfile(request, user_name):
     try:
         userobj = User.objects.get(username=user_name)
         userProfileobj = UserProfile.objects.get(user__username__exact=user_name)
-        liked = userobj.liked.all()[:6]
+        liked = userobj.liked.all()
 
 
         context_dict["userProfile"] = userProfileobj

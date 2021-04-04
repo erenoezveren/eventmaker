@@ -9,7 +9,7 @@
 
 <!-- Page Content-->
 {% block body_block %}
-    <div class="d-flex">
+    <div class="d-flex justify-content-xl-evenly">
     {% if user %}
         {% if userProfile.picture %}
             {% ifnotequal userProfile.picture.name  "defaultProfilePic.jpg" %}
@@ -28,8 +28,8 @@
         </div>
 
         <hr>
-        <div class="Block">
             {% if events %}
+                <h1>Liked Events</h1>
 		<div class="album py-5 bg-light">
 			<div class="container">
 			  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
@@ -62,7 +62,7 @@
 			</div>
 		</div>
 		{% endif %}
-        </div>
+
     {% else %}
         User does not exist.
     {% endif %}

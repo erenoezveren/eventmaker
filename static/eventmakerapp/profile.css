@@ -9,11 +9,6 @@
     padding-right: 5vw;
 }
 
-.Block{
-    background: rgb(225,225,225);
-    margin-top: 3vh;
-}
-
 h1 {
 	text-align: center;
 	font-size: 4vw;
@@ -37,4 +32,3 @@ h2{
     font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
     color: #06357a;
 }
-
