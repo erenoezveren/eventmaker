@@ -39,8 +39,8 @@
 		</div>
 		
 		{% else %}
-			<p>There are no results for your search - {{ SearchValue }}</p>
-			<a href="{% url 'eventmakerapp:index' %}">Home</a>
+			<h1>There are no results for your search - {{ SearchValue }}</h1>
+			<a class="link-primary" href="{% url 'eventmakerapp:index' %}">Return Home</a>
 		{% endif %}
 
 	<!-- JavaScript to limit length of description -->

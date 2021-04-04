@@ -17,10 +17,9 @@
 
 <!-- can only register if not loged in -->
 {% if registered %}
-<strong>Thank you for registering!</strong>
-<p></p>
-<p><a href="{% url 'eventmakerapp:index' %}">Return to the homepage.</a></p>
-<p><a href="{% url 'eventmakerapp:login' %}">Log in here.</a></p>
+    <h2>Thank you for registering!</h2>
+    <h3><a href="{% url 'eventmakerapp:index' %}">Return to the homepage.</a></h3>
+    <h3><a href="{% url 'eventmakerapp:login' %}">Log in here.</a></h3>
 
 {% else %}
 
