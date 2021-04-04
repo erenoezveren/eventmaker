@@ -14,11 +14,13 @@ def index_helper(request, nearby, form):
         form = Address()
         context_dict["form"] = form
 
-
-    Popular_Events = Event.objects.order_by("-amount_likes")[:6]
-    More_Events = Event.objects.all()
-
+    # Find popular Events
+    Popular_Events = Event.objects.all()      
+    Popular_Events = sorted(Popular_Events, key = lambda t : t.total_likes(), reverse=True)[:6]
+    
     # remove already displayed events
+    More_Events = Event.objects.all()
+   
     DeleteList = []
     for E in More_Events:
         for popE in Popular_Events:

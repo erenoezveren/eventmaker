@@ -1,5 +1,5 @@
 from django import forms
-from eventmakerapp.models import Comment, UserProfile, Event, Like
+from eventmakerapp.models import Comment, UserProfile, Event
 from location_field.forms.plain import PlainLocationField
 from django.contrib.auth.models import User
 
@@ -11,9 +11,7 @@ class CommentForm(forms.ModelForm):
         model = Comment
         exclude = ('user', 'event')
         
-
         
-
 class Address(forms.Form):
 
     location = PlainLocationField(based_fields=['entry'],

@@ -24,7 +24,7 @@ class Event(models.Model):
     picture = models.ImageField(default='NoEventImage.png')
     time = models.DateTimeField(null=True)
     price = models.FloatField(null=True)
-    #likes = models.ManyToManyField(User, related_name="liked", blank=True, through="Like")
+    likes = models.ManyToManyField(User, related_name="liked", blank=True, through="Like")
     amount_likes = models.IntegerField(default=0, null=False)
     #joins = models.ManyToManyField(User, related_name="joined", blank=True, through="Join")
     comments = models.ManyToManyField(User, related_name="commented", through='Comment', blank=True)
@@ -32,6 +32,9 @@ class Event(models.Model):
         User,
         on_delete=models.CASCADE,
     )
+    
+    def total_likes(self):
+        return self.likes.count()
 
     def __str__(self):
         return self.title
@@ -49,6 +52,5 @@ class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.event.title + self.user.username
-
+        return self.event.title + " " + self.user.username
 

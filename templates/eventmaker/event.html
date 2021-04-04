@@ -19,6 +19,7 @@
 			<br>
             {% if event.picture %}
 			<div class="w3-container  w3-cell" >
+			<p><h1 class="w3-text-purple">{{ event.title }}</h1></p>
 			<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Picture of Event"></p>
 			</div>
 			{% else %}
@@ -29,8 +30,9 @@
             {% endif %}
 			  
 			<div class="w3-container w3-cell info w3-text-black">
-				<p><h2 class="w3-text-purple">{{ event.title }}</h2></p>
-				<p class="details">Details<p>
+				<br><br><br>
+				
+				<p class="details">Details</p>
 				<p class="info">Time - {{ event.time }}</p>
 				{% if event.price == 0 %}
 					<p class="info">Price - Free Entry</p>
@@ -38,11 +40,32 @@
 					<p class="info">Price - £{{ event.price }}</p>
 				{% endif %}
 				<p class="info">Location - {{ event.locationName }}</p>
-				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>
-				<p class="info">Likes - {{ event.amount_likes }}</p>
+				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>		
+				<p class="info">
+					{% if user.is_authenticated %}
+						<form action="{% url 'eventmakerapp:LikeView' event.pk %}" method="POST">	
+							{% csrf_token %}
+							<button type="submit", name="event_id", value="{{ event.id }}", class="info btn btn-primary btn-sm">
+							{{ event.total_likes }} Likes
+							</button>							
+						</form>	
+					{% else %}				
+						<form action="{% url 'eventmakerapp:login' %}" >	
+							{% csrf_token %}
+							<button class="info btn btn-primary btn-sm">
+							{{ event.total_likes }} Likes
+							</button>	
+							- Login to Leave a Like
+						</form>	
+						
+					{% endif %}
+				</p>
+				
+					
 			</div>
 			
 			<div class="w3-container w3-cell info w3-text-black">
+				<br><br>
 				{% csrf_token %}
                 {% for field in form.visible_fields %}
                     {% ifequal field.name "location" %}
@@ -53,6 +76,11 @@
                 {% endfor %}
 
 			</div>
+			
+			
+			
+					
+			
 			
 			<!-- Event description -->
 			<hr>
@@ -102,16 +130,7 @@
 			<strong>Event Does not exist - <a href="{% url 'eventmakerapp:index' %}">back</a></strong>
 		{% endif %}
 
-		<!-- Event Likes-->
-		<form action = "{% url 'eventmakerapp:show_event' event.title %}" method = "POST">
-			{% csrf_token %}
-			<button type = "submit", name = "like_button", value = "{{event.id}}", class = "btn btn-primary btn-sm">Like</button>
-		</form>
+		
 
-		<!-- Event Join-->
-		<form action = "{% url 'eventmakerapp:show_event' event.title %}" method = "POST">
-			{% csrf_token %}
-			<button type = "submit", name = "join_button", value = "{{event.id}}", class = "btn btn-primary btn-sm">Join</button>
-		</form>
 		
 	{% endblock %}

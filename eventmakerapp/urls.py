@@ -13,8 +13,8 @@ urlpatterns = [
     path('checkLocation', views.checkLocation, name='checkLocation'),
     path('register/', views.register, name='register'),
     path('login/', views.user_login, name='login'),
+    
     path('logout/', views.user_logout, name='logout'),
-    path('like/', views.like_event, name='like_event'),
-    path('join/', views.join_event, name = 'join_event'),
     path('addEvent/', views.addEvent, name='addEvent'),
+    path('like/<int:pk>', views.LikeView, name='LikeView'),
     ]

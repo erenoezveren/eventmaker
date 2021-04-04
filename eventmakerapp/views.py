@@ -11,6 +11,7 @@ from eventmakerapp.functions import index_helper
 from eventmakerapp.models import Event
 from eventmakerapp.models import Comment
 from eventmakerapp.models import UserProfile
+from eventmakerapp.models import Like
 
 from django.contrib.auth.models import User
 
@@ -54,10 +55,21 @@ def show_event(request, event_name):
         context_dict["form"] = form
         
     except Event.DoesNotExist:
-        context_dict["title"] = None 
+        context_dict["event"] = None 
         context_dict["comments"] = None
-
+        context_dict["form"] = None
+        
     return render(request, 'eventmaker/event.html', context=context_dict)
+    
+    
+@login_required  
+def LikeView(request, pk):
+    post = get_object_or_404(Event, id=request.POST.get('event_id'))
+    post.likes.add(request.user)
+    
+    return HttpResponseRedirect(reverse('eventmakerapp:show_event', kwargs={'event_name':post.title}))
+    
+    
     
 def eventsearch(request):
 
@@ -228,19 +240,7 @@ def userProfile(request, user_name):
         context_dict["events"] = None
     return render(request, 'eventmaker/user_profile.html', context_dict)
 
-#like view
-@login_required
-def like_event(request, event_name):
-    post = get_object_or_404(Event, id = request.POST.get('like_button'))
-    post.liked.add(request.user)
-    
-    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))  
 
-@login_required
-def join_event(request, event_name):
-    post = get_object_or_404(Event, id = request.POST.get('join_button'))
-
-    return redirect(reverse('eventmakerapp:show_event', kwargs={'event_name':event_name}))
 
 @login_required
 def addEvent(request):
