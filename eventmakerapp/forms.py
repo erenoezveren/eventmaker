@@ -1,5 +1,5 @@
 from django import forms
-from eventmakerapp.models import Comment, UserProfile, Event
+from eventmakerapp.models import Comment, UserProfile, Event, Like
 from location_field.forms.plain import PlainLocationField
 from django.contrib.auth.models import User
 
@@ -10,6 +10,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         exclude = ('user', 'event')
+        
+
+        
 
 class Address(forms.Form):
 
@@ -48,3 +51,5 @@ class EventForm(forms.ModelForm):
     class Meta:
         model = Event
         fields = ('title', 'description', 'location', 'entry', 'locationName', 'picture', 'time', 'price')
+
+
