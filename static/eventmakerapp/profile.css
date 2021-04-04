@@ -1,10 +1,9 @@
 .picture {
 
     border-radius:8px;
-    max-width:300px;
-    max-height:500px;
-    min-width:300px;
-    min-height:500px;
+    max-width:5vw;
+    max-height:5vh;
+    width: auto;
     object-fit:cover;
     padding-right: 5vw;
 }

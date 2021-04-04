@@ -10,26 +10,28 @@
 <!-- Page Content-->
 {% block body_block %}
     <div class="d-flex justify-content-xl-evenly">
-    {% if user %}
+    {% if userOther %}
         {% if userProfile.picture %}
             {% ifnotequal userProfile.picture.name  "defaultProfilePic.jpg" %}
                     <img src="{{ userProfile.picture.url }}" class="picture">
             {% endifnotequal %}
         {% endif %}
 
-        <h1>{{ user.username }}</h1>
+        <h1>{{ userOther.username }}</h1>
         </div>
+         {% if userProfile.description %}
         <hr>
         <div class="Block">
-            {% if userProfile.description %}
+
                 <h2>About</h2>
                 <div class="Attribute">{{ userProfile.description }}</div>
             {% endif %}
         </div>
 
+        {% if events %}
         <hr>
-            {% if events %}
-                <h1>Liked Events</h1>
+
+                <h1>Liked Events</h1><hr>
 		<div class="album py-5 bg-light">
 			<div class="container">
 			  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">

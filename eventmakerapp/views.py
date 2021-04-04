@@ -225,17 +225,17 @@ def userProfile(request, user_name):
 
 
         context_dict["userProfile"] = userProfileobj
-        context_dict["user"] = userobj
+        context_dict["userOther"] = userobj
         context_dict["events"] = liked
 
 
     except User.DoesNotExist:
-        context_dict["user"] = None
+        context_dict["userOther"] = None
         context_dict["userProfile"] = None
         context_dict["events"] = None
 
     except UserProfile.DoesNotExist:
-        context_dict["user"] = None
+        context_dict["userOther"] = None
         context_dict["userProfile"] = None
         context_dict["events"] = None
     return render(request, 'eventmaker/user_profile.html', context_dict)
