@@ -12,8 +12,10 @@
     {% if user %}
         {% if userProfile.picture %}
             {% ifnotequal userProfile.picture.name  "defaultProfilePic.jpg" %}
-                <div class="picture" >
-                    <img src="{{ userProfile.picture.url }}" alt="Profile Picture" style="width:100%;max-width:200px">
+                <div>
+                    <picture>
+                        <img src="{{ userProfile.picture.url }}" alt="ProfilePicture">
+                    </picture>
                 </div>
             {% endifnotequal %}
         {% endif %}

@@ -3,10 +3,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
                       'eventmaker.settings')
 import django
 import datetime
-from django.utils import timezone
 import pytz
-
-from django import forms
 
 django.setup()
 
@@ -30,7 +27,7 @@ def populate():
                             "Favourite colour: Pink. Favourite animal: Fox. Favourite food: Avocado Sushi. Favourite band: Twenty One Pilots",
                             "",
                             "J.Martinez, reporting on deck!",],
-             "picture":["images/default.png",None,None,None,None,None,None,None,None,None],}
+             "picture":[None,"pp_cara","pp_bill.jpg",None,"pp_kira.jpg",None,None,None,"pp_ben.jpg","pp_jamie.jpg"],}
         
     for i in range(10):
         
@@ -45,7 +42,8 @@ def populate():
         Users["first_name"][i],
         Users["last_name"][i],
         Users["is_business"][i],
-        Users["description"][i])
+        Users["description"][i],
+        Users["picture"][i])
         
         
     #Populate Events 
@@ -157,7 +155,8 @@ def add_User(user,first_name,last_name,is_business,description,picture=None):
     first_name=first_name,
     last_name=last_name,
     is_business=is_business,
-    description=description)
+    description=description,
+    picture=picture)
     
     
 def add_event(title,description,locationName,entry,location,picture,time,price,amount_likes,host): ##
