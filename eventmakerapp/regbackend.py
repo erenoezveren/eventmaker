@@ -2,6 +2,7 @@ from registration.backends.default.views import RegistrationView
 from eventmakerapp.forms import UserProfileRegistrationForm
 from eventmakerapp.models import UserProfile
 
+#crate new user 
 class MyRegistrationView(RegistrationView):
 
     form_class = UserProfileRegistrationForm

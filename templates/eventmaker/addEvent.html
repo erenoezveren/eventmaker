@@ -4,6 +4,7 @@
 {% load staticfiles %}
 
 {% block head_block %}
+	<!-- imports , header -->
     <script src="{% static 'jquery/jquery.js' %}"></script>
     <script src="/static/jquery/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
 
@@ -22,9 +23,12 @@
 
     <h1>Add Event</h1>
     <hr>
+	<!-- form to send post request with details on new event -->
     <div class="d-flex justify-content-center" id="form">
         <form id="event_form" method="post" action="/eventmaker/addEvent/">
             {% csrf_token %}
+			
+			<!-- loops through required fields and creats inputs for them -->
             {% for hidden in form.hidden_fields %}
                 {{ hidden }}
             {% endfor %}
@@ -35,6 +39,7 @@
                     {{ field.help_text }}
                 </div>
                 <div class="field">
+				<!-- handles time input of the event -->
                 {% ifequal field.name "time" %}
                         {{ field }}
                         <script>

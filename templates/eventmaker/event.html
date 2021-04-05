@@ -4,6 +4,7 @@
 {% load staticfiles %} 
 	<!-- Page header with imports-->
 	{% block head_block %}
+		<!-- imports from other files, header -->
         <script src="{% static 'jquery/jquery.js' %}"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -11,6 +12,7 @@
         {{ form.media }}
 	{% endblock %}
 			
+	
 	<!-- Page Content -->
 	{% block body_block %}
 	
@@ -18,17 +20,18 @@
 			<!-- Event Picture and details -->
 			<br>
             {% if event.picture %}
-			<div class="w3-container  w3-cell" >
-			<p><h1 class="w3-text-purple">{{ event.title }}</h1></p>
-			<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Picture of Event"></p>
-			</div>
+				<div class="w3-container  w3-cell" >
+				<p><h1 class="w3-text-purple">{{ event.title }}</h1></p>
+				<p><img src="{{ event.picture.url }}" class="w3-round imageSize" alt="Picture of Event"></p>
+				</div>
 			{% else %}
-			<div class="w3-container  w3-cell" >
-			<p><img src={% static 'images/default.png' %} class="w3-round imageSize" alt="Picture of Event"/></p>
-			</div>
+				<div class="w3-container  w3-cell" >
+				<p><img src={% static 'images/default.png' %} class="w3-round imageSize" alt="Picture of Event"/></p>
+				</div>
 			
             {% endif %}
 			  
+			<!-- Event Details -->
 			<div class="w3-container w3-cell info w3-text-black">
 				<br><br><br>
 				
@@ -40,7 +43,10 @@
 					<p class="info">Price - £{{ event.price }}</p>
 				{% endif %}
 				<p class="info">Location - {{ event.locationName }}</p>
-				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">{{ event.host }}</a> </p>		
+				<p class="info">Posted By - <a href="{% url 'eventmakerapp:userProfile' event.host %}">
+				{{ event.host }}</a> </p>	
+				
+				<!-- Like button -->
 				<p class="info">
 					{% if user.is_authenticated %}
 						<form action="{% url 'eventmakerapp:LikeView' event.pk %}" method="POST">	
@@ -57,13 +63,11 @@
 							</button>	
 							- Login to Leave a Like
 						</form>	
-						
 					{% endif %}
-				</p>
-				
-					
+				</p>	
 			</div>
 			
+			<!-- Map -->
 			<div class="w3-container w3-cell info w3-text-black">
 				<br><br>
 				{% csrf_token %}
@@ -76,10 +80,6 @@
                 {% endfor %}
 
 			</div>
-			
-			
-			
-					
 			
 			
 			<!-- Event description -->
@@ -128,7 +128,4 @@
 			<strong>Event Does not exist - <a href="{% url 'eventmakerapp:index' %}">back</a></strong>
 		{% endif %}
 
-		
-
-		
 	{% endblock %}

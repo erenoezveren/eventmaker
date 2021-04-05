@@ -16,6 +16,7 @@
 
 <!-- Page content -->
 {% block body_block %}
+	<!-- Heading and brief description -->
 	<h1 class="w3-text-purple w3-container">About Eventmaker</h1>
 	<div class="w3-container">
 		<p>Eventmaker is a web application that detects events near you and allows you to join, like and comment on them.</p>
@@ -34,6 +35,8 @@
 		</div>
 	
 	<hr>
+	
+	<!-- FAQ section -->
 	<h2 class="w3-text-purple w3-container" >FAQ</h2>
 	<div class="w3-container">
 		<p><b>How do I register for an account?</b></br>
@@ -42,6 +45,8 @@
 		- Sign up for an account and navigate to the event page. Then press the join button.</p>
 	</div>
 	
+	
+	<!-- get one event to show as example, just displayed picture and link to the event -->
 	<div class="w3-container">
 		{% if popular %}
 			{% for event in popular %}		

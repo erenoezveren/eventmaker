@@ -12,21 +12,24 @@
 	<!--Page Conetent-->
 	{% block body_block %}
 		
+		<!-- If there are any results -->
 		{% if searches %}
 		<div class="w3-container">
+		
 			<ul class="w3-ul w3-card-4">
-			
+				<!-- loop through results -->
 				{% for search in searches %}
 					
 					<li class="w3-bar">
 						<a href="{% url 'eventmakerapp:show_event' search.title %}">
+						<!-- check if event has image -->
 						{% if search.picture %}
 						<img src="{{ search.picture.url }}" class="w3-bar-item imageSizeSmall" >
 						{% else %}
 						<img src={% static 'images/default.png' %} class="w3-bar-item imageSizeSmall" >					
 						{% endif %}
 						</a>	
-						
+						<!-- Event details -->
 						<div class="w3-bar-item">
 							<a class="w3-text-purple" href="{% url 'eventmakerapp:show_event' search.title %}">
 							<b>{{ search.title }}</b><br></a>							
@@ -37,6 +40,7 @@
 			</ul>			
 		</div>
 		
+		<!-- If there are no results -->
 		{% else %}
 			<h1>There are no results for your search - {{ SearchValue }}</h1>
 			<a class="link-primary" href="{% url 'eventmakerapp:index' %}">Return Home</a>

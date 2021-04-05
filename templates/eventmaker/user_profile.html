@@ -4,6 +4,7 @@
 {% load staticfiles %}
 
 {% block head_block %}
+	<!-- header with imports -->
 	<link type="text/css" href="{% static 'eventmakerapp/profile.css' %}" rel="stylesheet">
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
 	<link href="{% static 'eventmakerapp/index.css' %}" rel="stylesheet">
@@ -11,10 +12,8 @@
 
 <!-- Page Content-->
 {% block body_block %}
-	<img src="{{ userProfile.picture.url }}" class="picture" alt="Picture">
 	
-
-
+	<!-- display profile picture if it is a custom one -->
     <div class="d-flex justify-content-xl-evenly">
     {% if userOther %}
         {% if userProfile.picture %}
@@ -23,6 +22,7 @@
             {% endifnotequal %}
         {% endif %}
 
+		<!-- Users other details username/description + about heading-->
         <h1>{{ userOther.username }}</h1>
         </div>
          {% if userProfile.description %}
@@ -37,10 +37,12 @@
         {% if events %}
         <hr>
 
+		<!-- List of Liked events -->
                 <h1>Liked Events</h1><hr>
 		<div class="album py-5 bg-light">
 			<div class="container">
 			  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			  <!-- Loops through events the same as the index page -->
 			{% for event in events %}
 					<div class="col">
 					  <div class="card shadow-sm">
@@ -60,7 +62,13 @@
 							<div class="btn-group">
 							  <a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
 							</div>
-							<small class="text-muted"><strong>Price:</strong> £{{ event.price }}</small>
+							<small class="text-muted"><strong>Price:</strong> 
+								{% if event.price == 0 %}
+									Free Entry
+								{% else %}
+									£{{ event.price }}
+								{% endif %}				  
+							</small>
 						  </div>
 						</div>
 					  </div>

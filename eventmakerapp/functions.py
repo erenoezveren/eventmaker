@@ -3,6 +3,7 @@ from django.shortcuts import render
 from eventmakerapp.forms import Address
 from eventmakerapp.models import Event, UserProfile
 
+#helper function for the view
 def index_helper(request, nearby, form):
     # Home page
     context_dict = {}

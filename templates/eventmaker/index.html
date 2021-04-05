@@ -19,9 +19,11 @@
 		<div class="album py-5 bg-light">
 			<div class="container">
 			  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			<!-- loops through each event -->
 			{% for event in popular %}
 					<div class="col">
 					  <div class="card shadow-sm">
+						<!-- If event has a picture -->
 						{% if event.picture %}
 						<div class="image-container">
 						<img src={{ event.picture.url }} alt="Picture of Event"/>
@@ -31,6 +33,8 @@
 						<img src={% static 'images/default.png' %} alt="Picture of Event"/>
 						</div>
 						{% endif %}
+						
+						<!-- Event details -->
 						<div class="card-body">
 						  <strong><p class="event-title">{{ event.title }}</p></strong>
 						  <p class ="event-time"><strong>Date: </strong>{{ event.time }}</p>
@@ -38,6 +42,7 @@
 							<div class="btn-group">
 							  <a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
 							</div>
+							<!-- function to display free instead of 0 -->
 							<small class="text-muted"><strong>Price:</strong> 
 								{% if event.price == 0 %}
 									Free Entry
@@ -53,14 +58,17 @@
 				</div>
 			</div>
 		</div>
+		<!-- No events -->
 		{% else %}
 			<strong>There are no popular events</strong>
 		{% endif %}
 		
 		<!--Nearby Events-->
 		<h3 id="location">Nearby Events</h3>
+		<!-- Form to send request for nearcy events from picked loaction -->
         <form id="pickLocation" method="post" action="/eventmaker/checkLocation#location">
-
+		
+				<!-- map and coords -->
                 {% csrf_token %}
                 {% for field in form.visible_fields %}
                     <div class="d-flex justify-content-center">
@@ -71,6 +79,8 @@
                     </div>
                     </div>
                 {% endfor %}
+				
+				<!-- input for location on map -->
                 <div class="d-flex justify-content-center">
                     <input type="submit" name="submit" value="Pick Location"  />
                 </div>
@@ -78,15 +88,18 @@
                     <strong>Select a location on the map or enter a place to search for nearby events</strong>
                 </div>
         </form>
+		<!-- if there are events -->
 		{% if near %}
 
 		<div class="album py-5 bg-light">
 			<div class="container">
 			  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-
+			  
+			<!-- loops through each event -->
 			{% for event in near %}
 			<div class="col">
 				<div class="card shadow-sm">
+				<!-- If event has a picture display -->
 				  {% if event.picture %}
 				  <div class="image-container">
 				  <img src={{  event.picture.url }} alt="Picture of Event"/>
@@ -96,6 +109,8 @@
 				  <img src={% static 'images/default.png' %} alt="Picture of Event"/>
 				</div>
 				  {% endif %}
+				  
+				  <!-- Event details -->
 				  <div class="card-body">
 					<strong><p class="event-title">{{ event.title }}</p></strong>
 					<p class ="event-time"><strong>Date: </strong>{{ event.time }}</p>
@@ -103,6 +118,8 @@
 					  <div class="btn-group">
 						<a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
 					  </div>
+					  
+					  <!-- function to display free instead of 0 -->
 					  <small class="text-muted"><strong>Price:</strong> 
 						{% if event.price == 0 %}
 							Free Entry
@@ -127,9 +144,12 @@
 		<div class="album py-5 bg-light">
 			<div class="container">
 			  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+			<!-- loops through each event -->
 			{% for event in more %}
 			<div class="col">
 				<div class="card shadow-sm">
+				
+				<!-- If event has a picture -->
 				  {% if event.picture %}
 				  <div class="image-container">
 				  <img src={{  event.picture.url }} alt="Picture of Event"/>
@@ -139,6 +159,8 @@
 				  <img src={% static 'images/default.png' %} alt="Picture of Event"/>
 				</div>
 				  {% endif %}
+				  
+				  <!-- Event details -->
 				  <div class="card-body">
 					<strong><p class="event-title">{{ event.title }}</p></strong>
 					<p class ="event-time"><strong>Date: </strong>{{ event.time }}</p>
@@ -146,6 +168,8 @@
 					  <div class="btn-group">
 						<a href="{% url 'eventmakerapp:show_event' event.title %}" class="btn btn-sm btn-outline-secondary">View Event</a>
 					  </div>
+					  
+					  <!-- function to display free instead of 0 -->
 					  <small class="text-muted"><strong>Price:</strong> 
 						{% if event.price == 0 %}
 							Free Entry
@@ -161,6 +185,7 @@
 		</div>
 	</div>
 </div>
+		<!-- No events to display - display message instead -->
 		{% else %}
 			<strong>There are no more events</strong>
 		{% endif %}

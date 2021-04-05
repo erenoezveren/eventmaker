@@ -24,9 +24,12 @@
 {% else %}
 
 <div class="signup-form">
+	<!-- form to send post request with information -->
     <form id="user_form" method="post" action="{% url 'eventmakerapp:register' %}" enctype="multipart/form-data">
 		<h2>Register</h2>
         {% csrf_token %}
+		
+		<!-- Lost of input boxes for all the required fields to create new account -->
         <div class="form-group">
 			<div class="row">
 				<div class="col-xs-6"><input type="text" class="form-control" name="first_name" placeholder="First Name" required="required"></div>
