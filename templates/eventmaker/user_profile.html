@@ -11,6 +11,10 @@
 
 <!-- Page Content-->
 {% block body_block %}
+	<img src="{{ userProfile.picture.url }}" class="picture" alt="Picture">
+	
+
+
     <div class="d-flex justify-content-xl-evenly">
     {% if userOther %}
         {% if userProfile.picture %}

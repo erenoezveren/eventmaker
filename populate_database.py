@@ -102,8 +102,7 @@ def populate():
                 "location":["55.872530, -4.284912", "55.860044, -4.285217", "55.860044, -4.285217", "55.860044, -4.285217", "55.874865, -4.292925", "55.874865, -4.292925", "55.871796, -4.288292", "55.871483, -4.288543", "55.858129, -4.254747", "55.867991, -4.283774",],                
                 "picture": Pictures,
                 "time": Date,
-                "price":[4, 25, 40, 3, 0, 0, 6, 5, 5, 0],                
-                             
+                "price":[4, 25, 40, 3, 0, 0, 6, 5, 5, 0],                                           
                 "host":Eventhosts}
     
     #call add event
@@ -115,8 +114,7 @@ def populate():
                     Events["location"][i],
                     Events["picture"][i],        
                     Events["time"][i],
-                    Events["price"][i],               
-                              
+                    Events["price"][i],                                           
                     Events["host"][i],
                     )
 
@@ -204,7 +202,6 @@ def add_event(title,description,locationName,entry,location,picture,time,price,h
     picture=picture,
     time=time,
     price=price,   
-   
     host=host)
     
    
