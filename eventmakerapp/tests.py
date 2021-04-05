@@ -6,10 +6,11 @@ from django.conf import settings
 # Create your tests here.
 failure_heading = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}Eventmaker Test Failure =({os.linesep}================{os.linesep}"
 
-class EventmakerUnitTests(TestCase):
+class EventmakerViewsUnitTests(TestCase):
 
 	def setUp(self):
 		self.views_module = importlib.import_module('eventmakerapp.views')
+		self.functions_module = importlib.import_module('eventmakerapp.functions')
 		self.views_module_listing = dir(self.views_module)
 
 	def test_viewsExist(self):
@@ -40,4 +41,7 @@ class EventmakerUnitTests(TestCase):
 		self.assertTrue(userprofile_exists, f"{failure_heading}Eventmaker userProfile view does not exist.")
 		self.assertTrue(addevent_exists, f"{failure_heading}Eventmaker addEvent view does not exist.")
 
+	def test_Index(self):
+		#test to check if the index_helper function is callable
+		self.assertTrue(callable(self.functions_module.index_helper), f"{failure_heading}index helper function is not defined correctly")
 
