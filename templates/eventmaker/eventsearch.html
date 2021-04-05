@@ -48,17 +48,17 @@
 
 	<!-- JavaScript to limit length of description -->
 	<script>
-		function truncateText(selector, maxLength) {
-			var element = document.getElementById(selector),
-				truncated = element.innerText;
+		function LimitLength(des, maxLength) {
+			var element = document.getElementById(des),
+				text = element.innerText;
 
-			if (truncated.length > maxLength) {
-				truncated = truncated.substr(0,maxLength) + '...';
+			if (text.length > maxLength) {
+				text = text.substr(0,maxLength) + '...';
 			}
-			return truncated;
+			return text;
 		}
 		//You can then call the function with something like what i have below.
-		document.getElementById('des').innerText = truncateText('des', 200);
+		document.getElementById('des').innerText = LimitLength('des', 200);
 		</script>
 	{% endblock %}
 
