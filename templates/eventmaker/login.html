@@ -17,12 +17,16 @@
   <body class="text-center">
     
 <main class="form-signin">
+	<!-- form to send details -->
   <form id="login_form" method="post" action="{% url 'eventmakerapp:login' %}">
     {% csrf_token %}
     <h3><a href="{% url 'eventmakerapp:index' %}">eventmaker</a></h3>
     <h1 class="h3 mb-3 fw-normal">Log in</h1>
+	
+	<!-- textboxes to input username and password -->
     <input type="text" class="form-control" placeholder="Username" name="username" value="" size="50" />
     <input type="password" name="password" class="form-control" placeholder="Password" value="" size="50" />
+	<!-- button to login -->
     <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
   </form>
 </main>

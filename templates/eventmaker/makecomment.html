@@ -15,9 +15,11 @@
 		<br>
 		
 		<div class="w3-container">
+			<!-- return link -->
 			<p style="font-size:15px;" > Leave Comment or <a href="{% url 'eventmakerapp:show_event' event.title %}">Return to - {{ event.title }}</a></p>
 		</div>
 		
+		<!-- form and input to send comments data  -->
 		<div class="w3-container">
 			<form method="post">	
 				{% csrf_token %}

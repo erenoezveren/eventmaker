@@ -2,6 +2,8 @@ from django.db import models
 from location_field.models.plain import PlainLocationField
 from django.contrib.auth.models import User
 
+#UserProfile, where information on the user is stored it is connected to the user
+#model built into django with a one to one relation, contains more information on the user 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=32, blank=False, default="")
@@ -13,6 +15,9 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
+#Event Table, Where all the information on the events is stored, linked to Users with a ForeignKey as host of the event
+#Linked to the Comment Table with manytomany relationship to stroe the comments
+#Linked to the Like Table with manytomany relationship to stror the Lieks on each event
 class Event(models.Model):
     title = models.CharField(max_length=32)
     description = models.TextField()   
@@ -35,6 +40,7 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+#Comment, Conatins all the comments, with the user who made it and on which events as well as the comments left 
 class Comment(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,6 +49,7 @@ class Comment(models.Model):
     def __str__(self):
       return self.data
       
+#Like, Contains events and the users which liked the event, each recored represents a like by 1 user one 1 event 
 class Like(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
