@@ -27,6 +27,10 @@ def index_helper(request, nearby, form):
         for popE in Popular_Events:
             if E.title == popE.title:
                 DeleteList.append(E.id)
+        if nearby:
+            for nearE in nearby:
+                if E.title == nearE.title:
+                    DeleteList.append(E.id)
 
     More_Events = More_Events.filter().exclude(id__in=DeleteList)
     User_Profiles = UserProfile.objects.all()
