@@ -113,7 +113,8 @@
 				{% for comment in comments %}
 					
 						<li class="w3-bar">
-								<img src="{{ comment.user.picture }}" class="w3-bar-item w3-circle w3-hide-small" style="width:45px">
+							
+								<img src="{{ comment.user.picture.url }}" class="w3-bar-item w3-circle w3-hide-small" style="width:45px" alt="Pic">
 							<div class="w3-bar-item">
 								<p> <a href="{% url 'eventmakerapp:userProfile' comment.user %}">{{ comment.user.username }}</a><br>
 								{{ comment.data }}</p>	

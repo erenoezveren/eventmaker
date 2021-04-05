@@ -7,7 +7,7 @@ import pytz
 
 django.setup()
 
-from eventmakerapp.models import UserProfile, Event, Comment    
+from eventmakerapp.models import UserProfile, Event, Comment, Like  
 from django.contrib.auth.models import User         
 
 
@@ -103,7 +103,7 @@ def populate():
                 "picture": Pictures,
                 "time": Date,
                 "price":[4, 25, 40, 3, 0, 0, 6, 5, 5, 0],                
-                "amount_likes":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ],              
+                             
                 "host":Eventhosts}
     
     #call add event
@@ -116,7 +116,7 @@ def populate():
                     Events["picture"][i],        
                     Events["time"][i],
                     Events["price"][i],               
-                    Events["amount_likes"][i],           
+                              
                     Events["host"][i],
                     )
 
@@ -145,6 +145,40 @@ def populate():
                 add_comment(E, U, UserComments[name][i])    
                 
     
+    UserLikes = {"John" : []
+                    ,"Cara" : []
+                    ,"Bill" : []
+                    ,"Matthew" : []
+                    ,"Kira" : []
+                    ,"Charlie" : []
+                    ,"Euan" : []
+                    ,"Emma" : []
+                    ,"Ben" : []
+                    ,"Jamie": []
+                   }
+    
+    
+    #Bulid 2d array for likes 
+    Count = 9     
+    for name in UserLikes:
+        for i in range(10):
+            if i >= Count:
+                UserLikes[name].append(False)
+            else:
+                UserLikes[name].append(True)
+                
+        Count = Count - 1
+    
+   
+            
+    #Populate Like
+    for name in UserLikes:
+        for i in range(10):
+            if UserLikes[name][i] != False:
+                E = Event.objects.get(title=Events["title"][i])
+                U = User.objects.get(username=name)
+                add_likes(E, U)
+    
 
     
 #create user in database
@@ -159,7 +193,7 @@ def add_User(user,first_name,last_name,is_business,description,picture=None):
     picture=picture)
     
     
-def add_event(title,description,locationName,entry,location,picture,time,price,amount_likes,host): ##
+def add_event(title,description,locationName,entry,location,picture,time,price,host): ##
     
     E = Event.objects.get_or_create(   
     title=title,
@@ -170,7 +204,7 @@ def add_event(title,description,locationName,entry,location,picture,time,price,a
     picture=picture,
     time=time,
     price=price,   
-    amount_likes=amount_likes,
+   
     host=host)
     
    
@@ -181,6 +215,12 @@ def add_comment(event, user, data):
     event=event,
     user=user,
     data=data)
+    
+    
+def add_likes(event,user):
+    L = Like.objects.get_or_create(
+    event=event,
+    user=user)
 
 
 if __name__ == '__main__':  
