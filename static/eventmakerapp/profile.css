@@ -1,24 +1,38 @@
+.top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 .picture {
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10vw;
+}
 
-    border-radius:8px;
-    max-width:5vw;
-    max-height:5vh;
-    width: auto;
-
-    padding-right: 5vw;
+.username {
+    font-weight: bold;
+    font-size: 25px;
+    padding-left: 25vw;
+    color: black;
 }
 
 h1 {
 	text-align: center;
-	font-size: 4vw;
+	font-size: 2vw;
 	padding-top: 2vh;
 	padding-bottom: 1vh;
     color: purple;
+    font-weight: 850;
 }
+
+
 
 .Attribute{
     text-align: left;
-    font-size: 1.5vw;
+    font-size: 1.3vw;
     padding-left: 3vw;
     padding-bottom: 1vw;
 }
@@ -30,4 +44,5 @@ h2{
     padding-bottom: 1vh;
     font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
     color: #06357a;
+    font-weight: bold;
 }

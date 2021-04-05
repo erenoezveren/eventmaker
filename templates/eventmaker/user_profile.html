@@ -16,7 +16,7 @@
 {% block body_block %}
 	
 	<!-- display profile picture if it is a custom one -->
-    <div class="d-flex justify-content-xl-evenly">
+    <div class="top">
     {% if userOther %}
         {% if userProfile.picture %}
             {% ifnotequal userProfile.picture.name  "defaultProfilePic.jpg" %}
@@ -25,7 +25,7 @@
         {% endif %}
 
 		<!-- Users other details username/description + about heading-->
-        <h1>{{ userOther.username }}</h1>
+        <h1 class="username">{{ userOther.username }}</h1>
         </div>
          {% if userProfile.description %}
         <hr>
