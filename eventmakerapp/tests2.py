@@ -31,8 +31,13 @@ class index_tests(TestCase):
         #tests the most liked events are presented in popular events
         request = self.client.get(reverse('eventmakerapp:index'))
         context = request.context
-        print(context['popular'])
-
+        self.assertQuerysetEqual(list(context['popular']), ['<Event: Hive Thursday>',
+                                                        '<Event: MCFLY>',
+                                                        '<Event: NICK CAVE AND THE BAD SEEDS>',
+                                                        '<Event: Music Show>',
+                                                        '<Event: Open Mic Night>',
+                                                        '<Event: Happy Hour>',
+                                                        ])
 
     def test_nearest(self):
         #test the pick location form is correct
@@ -42,8 +47,10 @@ class index_tests(TestCase):
 
         #check that the correct events get picked as nearest
         response = self.client.post(
-            reverse('eventmakerapp:checkLocation'), data={'location': '0.0,0.0', 'entry': ''}, content_type=django.test.client.MULTIPART_CONTENT
+            reverse('eventmakerapp:checkLocation'), data={'location': '0.0,0.0', 'entry': ''}
         )
+        context = response.context
+        print(context['near'])
 
 
     def test_more_events(self):
@@ -52,7 +59,10 @@ class index_tests(TestCase):
         context = request.context
 
 
-        self.assertQuerysetEqual(context['more'], [])
+        self.assertQuerysetEqual(list(context['more']), ['<Event: Chess Tournement>',
+                                                    '<Event: Highland Ceilidh>',
+                                                    '<Event: Fun Run>',
+                                                    '<Event: Litter Picking in Kelvingrove Park>'])
 
     def test_like(self):
         pass
