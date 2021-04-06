@@ -25,3 +25,5 @@ Navigation bar - https://www.codingnepalweb.com/2020/04/responsive-menu-bar-in-h
 W3CSS - https://www.w3schools.com/w3css/defaulT.asp
 
 Bootstrap - https://getbootstrap.com/
+
+Date Time Picker Tutorial - https://simpleisbetterthancomplex.com/tutorial/2019/01/03/how-to-use-date-picker-with-django.html
