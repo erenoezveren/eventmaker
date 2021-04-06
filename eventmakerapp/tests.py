@@ -1,290 +1,172 @@
 import os
 import importlib
+from django.contrib.auth.models import User
+from django.test import TestCase, Client
 from django.urls import reverse
-from django.test import TestCase
-from django.conf import settings
-# Create your tests here.
-failure_heading = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}Eventmaker Test Failure =({os.linesep}================{os.linesep}"
+
+from eventmakerapp.forms import Address
+from eventmakerapp.models import Event
+
+failure_heading = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}Eventmaker TEST FAILURE =({os.linesep}================{os.linesep}"
 failure_footing = f"{os.linesep}"
-class EventmakerUnitTests(TestCase):
 
-	def setUp(self):
-		self.views_module = importlib.import_module('eventmakerapp.views')
-		self.views_module_listing = dir(self.views_module)
-<<<<<<< HEAD
-		self.functions_module = importlib.import_module('eventmakerapp.functions')
-		self.functions_module_listing = dir(self.functions_module)
-		self.forms_module = importlib.import_module('eventmakerapp.forms')
-		self.forms_module_listing = dir(self.forms_module)
-		self.urls_module = importlib.import_module('eventmakerapp.urls')
-		self.urls_module_listing = dir(self.urls_module)
-=======
->>>>>>> cb92859d07e06ed529bd7a91e682fc5746c2ce74
-
-	def test_viewsExist(self):
-		#tests to determine whether all the necessary views are present in views.py
-		index_exists = 'index' in self.views_module_listing 
-		about_exists = 'about' in self.views_module_listing
-		show_event_exists = 'show_event' in self.views_module_listing
-		like_exists = 'LikeView' in self.views_module_listing
-		search_exists = 'eventsearch' in self.views_module_listing
-		comment_exists = 'makecomment' in self.views_module_listing
-		checkLocation_exists = 'checkLocation' in self.views_module_listing
-		register_exists = 'register' in self.views_module_listing
-		login_exists = 'user_login' in self.views_module_listing
-		logout_exists = 'user_logout' in self.views_module_listing
-		userprofile_exists = 'userProfile' in self.views_module_listing
-		addevent_exists = 'addEvent' in self.views_module_listing
+f"{failure_heading} {failure_footing}"
 
 
-		self.assertTrue(index_exists, f"{failure_heading}Eventmaker index view does not exist.")
-		self.assertTrue(show_event_exists, f"{failure_heading}Eventmaker show_event view does not exist.")
-		self.assertTrue(like_exists, f"{failure_heading}Eventmaker LikeView view does not exist.")
-		self.assertTrue(search_exists, f"{failure_heading}Eventmaker eventsearch view does not exist.")
-		self.assertTrue(comment_exists, f"{failure_heading}Eventmaker makecomment view does not exist.")
-		self.assertTrue(checkLocation_exists, f"{failure_heading}Eventmaker checkLocation view does not exist.")
-		self.assertTrue(register_exists, f"{failure_heading}Eventmaker register view does not exist.")
-		self.assertTrue(login_exists, f"{failure_heading}Eventmaker user_login view does not exist.")
-		self.assertTrue(logout_exists, f"{failure_heading}Eventmaker user_logout view does not exist.")
-		self.assertTrue(userprofile_exists, f"{failure_heading}Eventmaker userProfile view does not exist.")
-		self.assertTrue(addevent_exists, f"{failure_heading}Eventmaker addEvent view does not exist.")
-	"""	
-	def test_mapping(self):
-		about_mapping = False
+class FunctionalityTests(TestCase):
+    fixtures = ['eventmakerapp/fixtures/eventmakerapp_views_testdata.json', ]
 
-		for i in self.urls_module_listing:
-			if hasattr(i, 'name'):
-				if i.name == 'about/':
-					about_mapping = True
+    def setUp(self):
+        assert Event.objects.exists()
+        self.client = Client()
+        self.user = User.objects.create_user('john', 'h@h.com', 'johnpassword')
 
-
-<<<<<<< HEAD
-		self.assertTrue(about_mapping, f"{failure_heading}URL mapping for about does not exist")
-"""
-
-		"""
-	def test_user_profile_class(self):
-		
-        #Does the UserProfile class exist in eventmakerapp.models? If so, are all the required attributes present?
-=======
     def test_popular(self):
->>>>>>> cb92859d07e06ed529bd7a91e682fc5746c2ce74
+        # tests the most liked events are presented in popular events
+        request = self.client.get(reverse('eventmakerapp:index'))
+        context = request.context
+        self.assertQuerysetEqual(list(context['popular']), ['<Event: Hive Thursday>',
+                                                            '<Event: MCFLY>',
+                                                            '<Event: NICK CAVE AND THE BAD SEEDS>',
+                                                            '<Event: Music Show>',
+                                                            '<Event: Open Mic Night>',
+                                                            '<Event: Happy Hour>',
+                                                            ],
+                                 msg=f"{failure_heading}Popular Event function does not work properly!{failure_footing}")
 
-    def test_userprofile_class(self):
-        """
-      #  Does the UserProfile class exist in eventmakerapp.models? If so, are all the required attributes present?
-        """
-        self.assertTrue('UserProfile' in dir(eventmakerapp.models))
+    def test_nearest(self):
+        # test the pick location form is correct
+        form_data = {'location': '0.0,0.0', 'entry': ''}
+        form = Address(data=form_data)
+        self.assertTrue(form.is_valid(), msg=f"{failure_heading}Address form does not work properly!{failure_footing}")
 
-        user_profile = eventmakerapp.models.UserProfile()
+        # check that the correct events get picked as nearest
+        response = self.client.post(
+            reverse('eventmakerapp:checkLocation'), data={'location': '0.0,0.0', 'entry': ''}
+        )
+        context = response.context
+        self.assertQuerysetEqual(list(context['near']), ['<Event: Fun Run>',
+                                                         '<Event: MCFLY>',
+                                                         '<Event: NICK CAVE AND THE BAD SEEDS>',
+                                                         '<Event: Music Show>',
+                                                         '<Event: Litter Picking in Kelvingrove Park>',
+                                                         '<Event: Highland Ceilidh>',
+                                                         ],
+                                 msg=f"{failure_heading}Nearest Event function does not work properly!{failure_footing}")
 
-        # Now check that all the required attributes are present.
-        # We do this by building up a UserProfile instance, and saving it.
-<<<<<<< HEAD
-		expected_attributes = {
-			'first_name': 'Test',
-			'last_name': 'User',
-			'is_business': True,
-			'description': 'this is me',
-			'picture': 'party.jpg',
-			'user': create_user_object(),
-		}
+    def test_more_events(self):
+        # test that more events contains the correct events
+        request = self.client.get(reverse('eventmakerapp:index'))
+        context = request.context
 
-		expected_types = {
-			'first_name': models.fields.CharField,
-			'last_name': models.fields.CharField,
-			'is_business': models.fields.BooleanField,
-			'description': models.fields.TextField,
-			'picture': models.fields.files.ImageField,
-			'user': models.fields.related.OneToOneField,
-		}
-		
-		found_count = 0
+        self.assertQuerysetEqual(list(context['more']), ['<Event: Chess Tournement>',
+                                                         '<Event: Highland Ceilidh>',
+                                                         '<Event: Fun Run>',
+                                                         '<Event: Litter Picking in Kelvingrove Park>'],
+                                 msg=f"{failure_heading}More Event function does not work properly!{failure_footing}")
 
-		for attr in user_profile._meta.fields:
-			attr_name = attr.name
+    def test_like(self):
+        self.client.login(username='Bill', password='passBill')
 
-			for expected_attr_name in expected_attributes.keys():
-				if expected_attr_name == attr_name:
-					found_count += 1
+        # check Likes on Fun Run
+        likes_before = Event.objects.get(title='Highland Ceilidh').total_likes()
 
-					self.assertEqual(type(attr), expected_types[attr_name],
-									f"{failure_heading}The type of attribute for '{attr_name}' was '{type(attr)}'; we expected '{expected_types[attr_name]}'. Please check your database. {failure_footing}")
-					setattr(user_profile, attr_name, expected_attributes[attr_name])
+        # give like via LikeView
+        response = self.client.post(reverse('eventmakerapp:LikeView',
+                                            kwargs={'pk': Event.objects.get(title='Highland Ceilidh').id}),
+                                    {'event_id': Event.objects.get(title='Highland Ceilidh').id})
 
-		self.assertEqual(found_count, len(expected_attributes.keys()),
-				f"{failure_heading}In the UserProfile model, we found {found_count} attributes, but were expecting {len(expected_attributes.keys())}. Please check your database.{failure_footing}")
-		user_profile.save()
-	"""
-	"""
-	def test_user_form(self):
-           
-           #Tests whether UserForm is in the correct place, and whether the correct fields have been specified for it.
-            self.assertTrue('UserForm' in self.forms_module_listing,
-=======
-        expected_attributes = {
-            'first_name': 'Test',
-            'last_name': 'User',
-            'is_business': True,
-            'description': 'this is me',
-            'picture': 'party.jpg',
-            'user': create_user_object(),
-        }
+        # check Likes again
+        likes_after = Event.objects.get(title='Highland Ceilidh').total_likes()
 
-        expected_types = {
-            'first_name': models.fields.CharField,
-            'last_name': models.fields.CharField,
-            'is_business': models.fields.BooleanField,
-            'description': models.fields.TextField,
-            'picture': models.fields.files.ImageField,
-            'user': models.fields.related.OneToOneField,
-        }
+        # If test worked, likes will have increased by 1.
+        self.assertEqual(1, likes_after - likes_before,
+                         msg=f"{failure_heading}Like function does not increase likes!{failure_footing}")
 
-        found_count = 0
+    def test_addEvent(self):
+        self.client.login(username='Bill', password='passBill')
 
-        for attr in user_profile._meta.fields:
-            attr_name = attr.name
+        # Check events before adding
+        self.assertQuerysetEqual(list(Event.objects.all()),
+                                 ['<Event: Hive Thursday>', '<Event: MCFLY>', '<Event: NICK CAVE AND THE BAD SEEDS>',
+                                  '<Event: Music Show>', '<Event: Open Mic Night>', '<Event: Happy Hour>',
+                                  '<Event: Chess Tournement>',
+                                  '<Event: Highland Ceilidh>', '<Event: Fun Run>',
+                                  '<Event: Litter Picking in Kelvingrove Park>'],
+                                 msg=f"{failure_heading}Events are not saved correctly!{failure_footing}")
 
-            for expected_attr_name in expected_attributes.keys():
-                if expected_attr_name == attr_name:
-                    found_count += 1
+        # add using addEvent
+        response = self.client.post(
+            reverse('eventmakerapp:addEvent'), data={'title': 'HipHop Rap',
+                                                     'description': 'Hippity Hoppity Rappity',
+                                                     'locationName': 'ground',
+                                                     'location': '0.0,0.0',
+                                                     'entry': '',
+                                                     'time': '28/04/2021 23:00',
+                                                     'price': '1.0'}
+        )
 
-                    self.assertEqual(type(attr), expected_types[attr_name],
-                                     f"{failure_heading}The type of attribute for '{attr_name}' was '{type(attr)}'; we expected '{expected_types[attr_name]}'. Please check your database. {failure_footing}")
-                    setattr(user_profile, attr_name, expected_attributes[attr_name])
+        # Check that events includes HipHop Rap now
+        self.assertQuerysetEqual(list(Event.objects.all()),
+                                 ['<Event: Hive Thursday>', '<Event: MCFLY>', '<Event: NICK CAVE AND THE BAD SEEDS>',
+                                  '<Event: Music Show>', '<Event: Open Mic Night>', '<Event: Happy Hour>',
+                                  '<Event: Chess Tournement>', '<Event: Highland Ceilidh>', '<Event: Fun Run>',
+                                  '<Event: Litter Picking in Kelvingrove Park>',
+                                  '<Event: HipHop Rap>'],
+                                 msg=f"{failure_heading}AddEvent function does not work properly!{failure_footing}")
 
-        self.assertEqual(found_count, len(expected_attributes.keys()),
-                         f"{failure_heading}In the UserProfile model, we found {found_count} attributes, but were expecting {len(expected_attributes.keys())}. Please check your database.{failure_footing}")
-        user_profile.save()
+    def test_search(self):
+        # Search for 'MC'
+        request = self.client.get(reverse('eventmakerapp:eventsearch'), {'searchEvent': 'MC'})
 
-    def test_user_form(self):
-            """
-           # Tests whether UserForm is in the correct place, and whether the correct fields have been specified for it.
-            """
-            self.assertTrue('UserForm' in dir(forms),
->>>>>>> cb92859d07e06ed529bd7a91e682fc5746c2ce74
-                            f"{failure_heading}We couldn't find the UserForm class in Eventmaker's forms.py module.{failure_footing}")
+        resultEvent = request.context['searches']
 
-            user_form = self.forms_module_listing.UserForm()
-            self.assertEqual(type(user_form.__dict__['instance']), User,
-                             f"{failure_heading}The UserForm does not match up to the User model. {failure_footing}")
+        # Check that the result of the search is the 'MCFLY' event
+        self.assertQuerysetEqual(resultEvent, ['<Event: MCFLY>'],
+                                 msg=f"{failure_heading}Search Event function does not work properly!{failure_footing}")
 
-            fields = user_form.fields
 
-            expected_fields = {
-                'username': django_fields.CharField,
-                'email': django_fields.EmailField,
-                'password': django_fields.CharField,
-            }
+class StructuralTests(TestCase):
 
-            for expected_field_name in expected_fields:
-                expected_field = expected_fields[expected_field_name]
+    def setUp(self):
+        self.views_module = importlib.import_module('eventmakerapp.views')
+        self.views_module_listing = dir(self.views_module)
 
-                self.assertTrue(expected_field_name in fields.keys(),
-                                f"{failure_heading}The field {expected_field_name} was not found in the UserForm form. Check you have complied with the specification, and try again.{failure_footing}")
-                self.assertEqual(expected_field, type(fields[expected_field_name]),
-                                 f"{failure_heading}The field {expected_field_name} in UserForm was not of the correct type. Expected {expected_field}; got {type(fields[expected_field_name])}.{failure_footing}")
-<<<<<<< HEAD
-"""
-	"""
-	def test_user_profile_form(self):
+        self.functions_module = importlib.import_module('eventmakerapp.functions')
+        self.functions_module_listing = dir(self.functions_module)
+        self.forms_module = importlib.import_module('eventmakerapp.forms')
+        self.forms_module_listing = dir(self.forms_module)
+        self.urls_module = importlib.import_module('eventmakerapp.urls')
+        self.urls_module_listing = dir(self.urls_module)
 
-            #Tests whether UserProfileForm is in the correct place, and whether the correct fields have been specified for it.
-            self.assertTrue('UserProfileForm' in self.forms_module_listing,
-                            f"{failure_heading}Could not find UserProfileForm{failure_footing}")	
-=======
+    def test_viewsExist(self):
+        # tests to determine whether all the necessary views are present in views.py
+        index_exists = 'index' in self.views_module_listing
+        about_exists = 'about' in self.views_module_listing
+        show_event_exists = 'show_event' in self.views_module_listing
+        like_exists = 'LikeView' in self.views_module_listing
+        search_exists = 'eventsearch' in self.views_module_listing
+        comment_exists = 'makecomment' in self.views_module_listing
+        checkLocation_exists = 'checkLocation' in self.views_module_listing
+        register_exists = 'register' in self.views_module_listing
+        login_exists = 'user_login' in self.views_module_listing
+        logout_exists = 'user_logout' in self.views_module_listing
+        userprofile_exists = 'userProfile' in self.views_module_listing
+        addevent_exists = 'addEvent' in self.views_module_listing
 
-    def test_user_profile_form(self):
-            """
-            
-            #Tests whether UserProfileForm is in the correct place, and whether the correct fields have been specified for it.
-            """
-            self.assertTrue('UserProfileForm' in dir(forms),
-                            f"{failure_heading}Could not find UserProfileForm{failure_footing}")
->>>>>>> cb92859d07e06ed529bd7a91e682fc5746c2ce74
-
-            user_profile_form = forms.UserProfileForm()
-            self.assertEqual(type(user_profile_form.__dict__['instance']), eventmakerapp.models.UserProfile,
-                             f"{failure_heading}UserProfileForm does not line up with UserProfile model{failure_footing}")
-
-            fields = user_profile_form.fields
-
-            expected_fields = {
-                'first_name': django_fields.CharField,
-                'last_name': django_fields.CharField,
-                'is_business': django_fields.BooleanField,
-                'description': django_fields.CharField,
-                'picture': django_fields.ImageField,
-            }
-
-            for expected_field_name in expected_fields:
-                expected_field = expected_fields[expected_field_name]
-
-                self.assertTrue(expected_field_name in fields.keys(),
-                                f"{failure_heading}The field {expected_field_name} was not found in the UserProfile form. Check you have complied with the specification, and try again.{failure_footing}")
-                self.assertEqual(expected_field, type(fields[expected_field_name]),
-                                 f"{failure_heading}The field {expected_field_name} in UserProfileForm was not of the correct type. Expected {expected_field}; got {type(fields[expected_field_name])}.{failure_footing}")
-	"""
-
-<<<<<<< HEAD
-	"""
-	def test_login_function(self):
-=======
-    def test_login_function(self):
->>>>>>> cb92859d07e06ed529bd7a91e682fc5746c2ce74
-
-        user_object = create_user_object()
-        response = self.client.post(reverse('eventmakerapp:login'), {'username': 'testuser', 'password': 'testabc123'})
-
-        try:
-            self.assertEqual(user_object.id, int(self.client.session['_auth_user_id']),
-                f"{failure_heading}Attempted to log a user in with an ID of {user_object.id}, but instead logged in with a user of ID {self.client.session['_auth_user_id']}.{failure_footing}")
-        except KeyError:
-            self.assertTrue(False,
-                f"{failure_heading}When attempting to log in with your login() view, it didn't seem to log the user in. Please check your login() view implementation, and try again.{failure_footing}")
-
-<<<<<<< HEAD
-		self.assertEqual(response.status_code, 302,
-						f"{failure_heading}When attempting to log in with your login() view, it didn't seem to log the user in. Please check your login() view implementation, and try again.{failure_footing}")
-		self.assertEqual(response.url, reverse('eventmakerapp:index'),
-				f"{failure_heading}We were not redirected to the Eventmaker homepage after logging in. Please check your login() view implementation, and try again.{failure_footing}")
-"""
-=======
-        self.assertEqual(response.status_code, 302,
-                         f"{failure_heading}When attempting to log in with your login() view, it didn't seem to log the user in. Please check your login() view implementation, and try again.{failure_footing}")
-        self.assertEqual(response.url, reverse('eventmakerapp:index'),
-                         f"{failure_heading}We were not redirected to the Eventmaker homepage after logging in. Please check your login() view implementation, and try again.{failure_footing}")
-
->>>>>>> cb92859d07e06ed529bd7a91e682fc5746c2ce74
+        self.assertTrue(index_exists, f"{failure_heading}Eventmaker index view does not exist.{failure_footing}")
+        self.assertTrue(show_event_exists, f"{failure_heading}Eventmaker show_event view does not exist.{failure_footing}")
+        self.assertTrue(like_exists, f"{failure_heading}Eventmaker LikeView view does not exist.{failure_footing}")
+        self.assertTrue(search_exists, f"{failure_heading}Eventmaker eventsearch view does not exist.{failure_footing}")
+        self.assertTrue(comment_exists, f"{failure_heading}Eventmaker makecomment view does not exist.{failure_footing}")
+        self.assertTrue(checkLocation_exists, f"{failure_heading}Eventmaker checkLocation view does not exist.{failure_footing}")
+        self.assertTrue(register_exists, f"{failure_heading}Eventmaker register view does not exist.{failure_footing}")
+        self.assertTrue(login_exists, f"{failure_heading}Eventmaker user_login view does not exist.{failure_footing}")
+        self.assertTrue(logout_exists, f"{failure_heading}Eventmaker user_logout view does not exist.{failure_footing}")
+        self.assertTrue(userprofile_exists, f"{failure_heading}Eventmaker userProfile view does not exist.{failure_footing}")
+        self.assertTrue(addevent_exists, f"{failure_heading}Eventmaker addEvent view does not exist.{failure_footing}")
 
     def test_Index(self):
         # test to check if the index_helper function is callable
         self.assertTrue(callable(self.functions_module.index_helper),
-                        f"{failure_heading}index helper function is not defined correctly")
-
-
-
-
-def create_user_object():
-    """
-	Helper function to create a User object.
-    """
-    user = User.objects.get_or_create(username='testuser',
-                                      first_name='Test',
-                                      last_name='User',
-                                      email='test@test.com')[0]
-    user.set_password('testabc123')
-    user.save()
-
-    return user
-
-def create_events():
-    """
-	Helper function to create Events.
-    """
-    event1 = Event.objects.get_or_create(title = 'event1',
-                                        description = 'empty',
-
-    ##still working here
-    )
-    )
+                        f"{failure_heading}index helper function is not defined correctly{failure_footing}")
