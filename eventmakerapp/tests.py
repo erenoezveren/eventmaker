@@ -158,7 +158,7 @@ class EventmakerUnitTests(TestCase):
         self.assertEqual(response.status_code, 302,
                          f"{failure_heading}When attempting to log in with your login() view, it didn't seem to log the user in. Please check your login() view implementation, and try again.{failure_footing}")
         self.assertEqual(response.url, reverse('eventmakerapp:index'),
-                         f"{failure_heading}We were not redirected to the Rango homepage after logging in. Please check your login() view implementation, and try again.{failure_footing}")
+                         f"{failure_heading}We were not redirected to the Eventmaker homepage after logging in. Please check your login() view implementation, and try again.{failure_footing}")
 
 
     def test_Index(self):

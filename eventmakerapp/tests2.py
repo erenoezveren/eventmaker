@@ -6,7 +6,7 @@ from django.urls import reverse
 
 from eventmakerapp.models import Event, Like
 
-FAILURE_HEADER = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}TwD TEST FAILURE =({os.linesep}================{os.linesep}"
+FAILURE_HEADER = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}Eventmaker TEST FAILURE =({os.linesep}================{os.linesep}"
 FAILURE_FOOTER = f"{os.linesep}"
 
 f"{FAILURE_HEADER} {FAILURE_FOOTER}"
