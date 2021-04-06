@@ -2,6 +2,9 @@
 
 Check out popular events in your area.
 
+A Web App by Alexandru Tonca, Areeb Khan, Callum Ormond and Eren Oezveren.
+
+
 External Sources:
 
 DateTimePicker by XDSoft.net - https://xdsoft.net/jqplugins/datetimepicker/
