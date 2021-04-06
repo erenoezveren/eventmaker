@@ -277,6 +277,7 @@ def addEvent(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
 
+
         if form.is_valid():
             #if form is valid from info from past then add the current user as the host and save 
             event_instance = form.save(commit=False)
