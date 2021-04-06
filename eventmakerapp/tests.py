@@ -5,7 +5,7 @@ from django.test import TestCase
 from django.conf import settings
 # Create your tests here.
 failure_heading = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}Eventmaker Test Failure =({os.linesep}================{os.linesep}"
-
+failure_footing = f"{os.linesep}"
 class EventmakerUnitTests(TestCase):
 
 	def setUp(self):
@@ -13,6 +13,10 @@ class EventmakerUnitTests(TestCase):
 		self.views_module_listing = dir(self.views_module)
 		self.functions_module = importlib.import_module('eventmakerapp.functions')
 		self.functions_module_listing = dir(self.functions_module)
+		self.forms_module = importlib.import_module('eventmakerapp.forms')
+		self.forms_module_listing = dir(self.forms_module)
+		self.urls_module = importlib.import_module('eventmakerapp.urls')
+		self.urls_module_listing = dir(self.urls_module)
 
 	def test_viewsExist(self):
 		#tests to determine whether all the necessary views are present in views.py
@@ -41,10 +45,20 @@ class EventmakerUnitTests(TestCase):
 		self.assertTrue(logout_exists, f"{failure_heading}Eventmaker user_logout view does not exist.")
 		self.assertTrue(userprofile_exists, f"{failure_heading}Eventmaker userProfile view does not exist.")
 		self.assertTrue(addevent_exists, f"{failure_heading}Eventmaker addEvent view does not exist.")
+	"""	
+	def test_mapping(self):
+		about_mapping = False
 
-	def test_aboutview(self):
-    	#test to check if the about page renders the correct html document
-  		pass
+		for i in self.urls_module_listing:
+			if hasattr(i, 'name'):
+				if i.name == 'about/':
+					about_mapping = True
+
+
+		self.assertTrue(about_mapping, f"{failure_heading}URL mapping for about does not exist")
+"""
+
+		"""
 	def test_user_profile_class(self):
 		
         #Does the UserProfile class exist in eventmakerapp.models? If so, are all the required attributes present?
@@ -89,15 +103,15 @@ class EventmakerUnitTests(TestCase):
 		self.assertEqual(found_count, len(expected_attributes.keys()),
 				f"{failure_heading}In the UserProfile model, we found {found_count} attributes, but were expecting {len(expected_attributes.keys())}. Please check your database.{failure_footing}")
 		user_profile.save()
-
+	"""
+	"""
 	def test_user_form(self):
-            """
-            Tests whether UserForm is in the correct place, and whether the correct fields have been specified for it.
-            """
-            self.assertTrue('UserForm' in dir(forms),
+           
+           #Tests whether UserForm is in the correct place, and whether the correct fields have been specified for it.
+            self.assertTrue('UserForm' in self.forms_module_listing,
                             f"{failure_heading}We couldn't find the UserForm class in Eventmaker's forms.py module.{failure_footing}")
 
-            user_form = forms.UserForm()
+            user_form = self.forms_module_listing.UserForm()
             self.assertEqual(type(user_form.__dict__['instance']), User,
                              f"{failure_heading}The UserForm does not match up to the User model. {failure_footing}")
 
@@ -116,12 +130,12 @@ class EventmakerUnitTests(TestCase):
                                 f"{failure_heading}The field {expected_field_name} was not found in the UserForm form. Check you have complied with the specification, and try again.{failure_footing}")
                 self.assertEqual(expected_field, type(fields[expected_field_name]),
                                  f"{failure_heading}The field {expected_field_name} in UserForm was not of the correct type. Expected {expected_field}; got {type(fields[expected_field_name])}.{failure_footing}")
-
+"""
+	"""
 	def test_user_profile_form(self):
-            """
-            Tests whether UserProfileForm is in the correct place, and whether the correct fields have been specified for it.
-            """
-            self.assertTrue('UserProfileForm' in dir(forms),
+
+            #Tests whether UserProfileForm is in the correct place, and whether the correct fields have been specified for it.
+            self.assertTrue('UserProfileForm' in self.forms_module_listing,
                             f"{failure_heading}Could not find UserProfileForm{failure_footing}")	
 
             user_profile_form = forms.UserProfileForm()
@@ -145,7 +159,9 @@ class EventmakerUnitTests(TestCase):
                                 f"{failure_heading}The field {expected_field_name} was not found in the UserProfile form. Check you have complied with the specification, and try again.{failure_footing}")
                 self.assertEqual(expected_field, type(fields[expected_field_name]),
                                  f"{failure_heading}The field {expected_field_name} in UserProfileForm was not of the correct type. Expected {expected_field}; got {type(fields[expected_field_name])}.{failure_footing}")
+	"""
 
+	"""
 	def test_login_function(self):
 
 		user_object = create_user_object()
@@ -162,12 +178,14 @@ class EventmakerUnitTests(TestCase):
 						f"{failure_heading}When attempting to log in with your login() view, it didn't seem to log the user in. Please check your login() view implementation, and try again.{failure_footing}")
 		self.assertEqual(response.url, reverse('eventmakerapp:index'),
 				f"{failure_heading}We were not redirected to the Eventmaker homepage after logging in. Please check your login() view implementation, and try again.{failure_footing}")
-
+"""
 
 	def test_Index(self):
         # test to check if the index_helper function is callable
 		self.assertTrue(callable(self.functions_module.index_helper),
 				f"{failure_heading}index helper function is not defined correctly")
+
+
 
 
 def create_user_object():
