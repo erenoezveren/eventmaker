@@ -20,8 +20,10 @@ class index_tests(TestCase):
 
 
     def test_popular(self):
+        #tests the most liked events are presented in popular events
         request = self.client.get(reverse('eventmakerapp:index'))
         context = request.context
         print(context)
+
 
 
