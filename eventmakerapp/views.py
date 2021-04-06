@@ -144,6 +144,7 @@ def checkLocation(request):
 
     #to get nearby events 
     if request.method == 'POST':
+
         #form for the location
         form = Address(request.POST)
 

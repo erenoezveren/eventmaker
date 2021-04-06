@@ -142,3 +142,4 @@ LOCATION_FIELD = {
     'search.provider': 'nominatim',
     'provider.openstreetmap.max_zoom': 18,
 }
+
