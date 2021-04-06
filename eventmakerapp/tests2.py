@@ -25,7 +25,7 @@ class index_tests(TestCase):
         self.user = User.objects.create_user('john', 'h@h.com', 'johnpassword')
 
 
-
+#aa
 
     def test_popular(self):
         #tests the most liked events are presented in popular events
