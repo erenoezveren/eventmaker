@@ -25,4 +25,3 @@ urlpatterns = [
     path('eventmaker/',include('eventmakerapp.urls')), #tells django that any url that contains eventmaker will be handled by the app
     path('admin/', admin.site.urls),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
